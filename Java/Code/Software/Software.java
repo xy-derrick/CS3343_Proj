@@ -24,10 +24,4 @@ public class Software {
         }
         return instance;
     }
-
-    public void execute(Invoker invoker)
-    {
-        invoker.setCommand(new SampleCommand(instance));
-        invoker.execute();
-    }
 }
