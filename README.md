@@ -16,7 +16,7 @@
 #### Exception
 自定义错误
 #### Software
-imgPorcessor类为单个图片处理器，每次从接口读入一个图片便加入到software类的arraylist中
-Software多图片存储，为单例模式
+imgPorcessor类为单个图片处理器，每次生成从接口读入一个图片便被加入到software类的arraylist中
+Software是软件实例,能够存储多个 图片处理器，为单例模式
 
 
