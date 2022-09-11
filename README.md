@@ -16,6 +16,7 @@
 #### Exception
 自定义错误
 #### Software
-软件类，采取单例设计，存储图片 图片大小等信息，命令行应通过reciver(软件实例)访问数据
+imgPorcessor类为单个图片处理器，每次从接口读入一个图片便加入到software类的arraylist中
+Software多图片存储，为单例模式
 
 
