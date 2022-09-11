@@ -3,18 +3,18 @@ package Code.Command.Commands;
 import Code.Command.Base.Command;
 import Code.Software.imgProcessor;
 
-public class StringReadSampleCommand extends Command{
-    String text = null;
+public class NoArgSampleCommand extends Command{
 
-    public StringReadSampleCommand(imgProcessor receiver,String text) {
+    public NoArgSampleCommand(imgProcessor receiver) {
         super(receiver);
-        this.text = text;
     }
     
     @Override
     public void execute() {
-        // ignore receiver
-        System.out.println(text);
+        // example for reading info from img
+        Object img = iProcessor.getImg();
+        // iProcessor.getSize 图片基本信息
+        //receiver.lightDegree 自定义信息
     }
 
     @Override

@@ -1,20 +1,26 @@
 package Code.Command.Commands;
 
 import Code.Command.Base.Command;
+import Code.Enum.Degree;
 import Code.Software.imgProcessor;
 
-public class StringReadSampleCommand extends Command{
-    String text = null;
+public class EnumReadSampleCommand extends Command{
+    Degree d = null;
 
-    public StringReadSampleCommand(imgProcessor receiver,String text) {
+    public EnumReadSampleCommand(imgProcessor receiver,Degree d) {
         super(receiver);
-        this.text = text;
+        this.d = d;
     }
     
     @Override
     public void execute() {
         // ignore receiver
-        System.out.println(text);
+        switch(d)
+        {
+            case high:
+            case mid:
+            case low:
+        }
     }
 
     @Override

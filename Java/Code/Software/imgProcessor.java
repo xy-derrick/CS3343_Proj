@@ -4,7 +4,7 @@ public class imgProcessor {
     Object img = null;
     // ArrayList<> undoList = null;
     // ArrayList<> redoList = null;
-    private static imgProcessor instance
+    static imgProcessor p = null;
 
     private imgProcessor()
     {
@@ -13,15 +13,15 @@ public class imgProcessor {
 
     public static imgProcessor getInstance()
     {
-        return instance;
+        return p;
     }
 
     static public void run()
     {
-        instance = new imgProcessor();
+        p = new imgProcessor();
     }
 
-    Object getImg()
+    public Object getImg()
     {
         return img;
     }
