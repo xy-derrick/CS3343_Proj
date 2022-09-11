@@ -2,12 +2,12 @@ package Code.Command.Commands;
 
 import Code.Command.Base.Command;
 import Code.Enum.Degree;
-import Code.Software.Software;
+import Code.Software.imgProcessor;
 
 public class EnumReadSampleCommand extends Command{
     Degree d = null;
 
-    public EnumReadSampleCommand(Software receiver,Degree d) {
+    public EnumReadSampleCommand(imgProcessor receiver,Degree d) {
         super(receiver);
         this.d = d;
     }

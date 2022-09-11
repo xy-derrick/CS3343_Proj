@@ -2,8 +2,6 @@ package Code.Software;
 
 import java.util.ArrayList;
 
-import Code.Command.Base.Invoker;
-import Code.Command.Commands.SampleCommand;
 
 public class Software {
     private static Software instance = new Software();

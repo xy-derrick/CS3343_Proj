@@ -1,10 +1,10 @@
 package Code.Command.Commands;
 
 import Code.Command.Base.Command;
-import Code.Software.Software;
+import Code.Software.imgProcessor;
 
 public class SampleCommand extends Command{
-    public SampleCommand(Software receiver) {
+    public SampleCommand(imgProcessor receiver) {
         super(receiver);
     }
     

@@ -6,14 +6,14 @@ import Code.Software.imgProcessor;
 
 public class NoArgSampleCommand extends Command{
 
-    public NoArgSampleCommand(Software receiver) {
+    public NoArgSampleCommand(imgProcessor receiver) {
         super(receiver);
     }
     
     @Override
     public void execute() {
         // example for reading info from img
-        for(imgProcessor i: receiver.getImgList())
+        for(imgProcessor i: Software.getInstance().getImgList())
         {
             i.getImg();
         }

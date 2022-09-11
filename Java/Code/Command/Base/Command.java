@@ -1,11 +1,11 @@
 package Code.Command.Base;
 
-import Code.Software.Software;
+import Code.Software.imgProcessor;
 
 abstract public class Command implements CommandInterface{
-    protected Software receiver;
+    protected imgProcessor receiver;
 
-    public Command(Software receiver)
+    public Command(imgProcessor receiver)
     {
         this.receiver = receiver;
     }
