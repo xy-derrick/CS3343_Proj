@@ -6,10 +6,10 @@ import Code.Command.Base.Invoker;
 import Code.Command.Commands.SampleCommand;
 
 public class Software {
-    private static Software instance;
-    private ArrayList<imgProcessor> imagList;
+    private static Software instance = new Software();
+    private ArrayList<imgProcessor> imagList = new ArrayList<imgProcessor>();
+    
     private Software(){
-        imagList= new ArrayList<imgProcessor>();
     }
 
     public ArrayList<imgProcessor> getImgList()
