@@ -2,13 +2,13 @@ package Code.Command.Commands;
 
 import Code.Command.Base.Command;
 import Code.Enum.Action;
-import Code.Software.imgProcessor;
+import Code.Software.Software;
 
 public class FloatReadSampleCommand extends Command{
     Float value = null;
     Action a = null;
 
-    public FloatReadSampleCommand(imgProcessor receiver,Float value,Action a) {
+    public FloatReadSampleCommand(Software receiver,Float value,Action a) {
         super(receiver);
         this.value = value;
         this.a = a;

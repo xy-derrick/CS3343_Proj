@@ -1,12 +1,12 @@
 package Code.Command.Commands;
 
 import Code.Command.Base.Command;
-import Code.Software.imgProcessor;
+import Code.Software.Software;
 
 public class StringReadSampleCommand extends Command{
     String text = null;
 
-    public StringReadSampleCommand(imgProcessor receiver,String text) {
+    public StringReadSampleCommand(Software receiver,String text) {
         super(receiver);
         this.text = text;
     }

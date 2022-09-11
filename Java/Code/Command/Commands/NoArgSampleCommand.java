@@ -1,18 +1,22 @@
 package Code.Command.Commands;
 
 import Code.Command.Base.Command;
+import Code.Software.Software;
 import Code.Software.imgProcessor;
 
 public class NoArgSampleCommand extends Command{
 
-    public NoArgSampleCommand(imgProcessor receiver) {
+    public NoArgSampleCommand(Software receiver) {
         super(receiver);
     }
     
     @Override
     public void execute() {
         // example for reading info from img
-        Object img = iProcessor.getImg();
+        for(imgProcessor i: receiver.getImgList())
+        {
+            i.getImg();
+        }
         // iProcessor.getSize 图片基本信息
         //receiver.lightDegree 自定义信息
     }

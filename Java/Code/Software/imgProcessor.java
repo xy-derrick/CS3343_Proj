@@ -1,24 +1,14 @@
 package Code.Software;
 
 public class imgProcessor {
-    Object img = null;
+    private Object img = null;
     // ArrayList<> undoList = null;
     // ArrayList<> redoList = null;
-    private static imgProcessor instance;
 
-    private imgProcessor()
+    private imgProcessor(Object img)
     {
-
-    }
-
-    public static imgProcessor getInstance()
-    {
-        return instance;
-    }
-
-    static public void run()
-    {
-        instance = new imgProcessor();
+        this.img=img;
+        Code.Software.Software.getInstance().getImgList().add(this);
     }
 
     public Object getImg()
