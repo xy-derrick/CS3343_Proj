@@ -21,4 +21,5 @@
 imgPorcessor类为单个图片处理器，每次生成从接口读入一个图片便被加入到software类的arraylist中
 Software是软件实例,能够存储多个 图片处理器，为单例模式
 
-
+![image](https://user-images.githubusercontent.com/113168400/191910413-0e566285-c818-4af7-8aa6-8b2b4be13cd7.png)
+software实例即是打开的软件,拥有undo redo,并拥有多个imgprocessor,其中imgprocessor可以被初始化和批量处理对应图片,交付给command的执行,并有software管理所有imgprocessor,类似浏览器和多个窗口的关系,每个窗口拥有一张页面和对应操作,整体的重新打开关闭由浏览器决定
