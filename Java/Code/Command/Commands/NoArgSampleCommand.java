@@ -1,7 +1,6 @@
 package Code.Command.Commands;
 
 import Code.Command.Base.Command;
-import Code.Software.Software;
 import Code.Software.imgProcessor;
 
 public class NoArgSampleCommand extends Command{
@@ -13,10 +12,7 @@ public class NoArgSampleCommand extends Command{
     @Override
     public void execute() {
         // example for reading info from img
-        for(imgProcessor i: Software.getInstance().getImgList())
-        {
-            i.getImg();
-        }
+        Object img = iProcessor.getImg();
         // iProcessor.getSize 图片基本信息
         //receiver.lightDegree 自定义信息
     }

@@ -3,11 +3,11 @@ package Code.Command.Base;
 import Code.Software.imgProcessor;
 
 abstract public class Command implements CommandInterface{
-    protected imgProcessor receiver;
+    protected imgProcessor iProcessor;
 
     public Command(imgProcessor receiver)
     {
-        this.receiver = receiver;
+        this.iProcessor = receiver;
     }
 
     public abstract void execute();
