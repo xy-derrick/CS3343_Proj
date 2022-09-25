@@ -17,17 +17,17 @@ software实例即是打开的软件,拥有undo redo,并拥有多个imgprocessor,
 注:文件夹含Base以及other,Base含所有other的父类和其他平级不能被继承的类,other含Base继承的子类
 命令行设计模式，通过命令行执行对于功能，可传入浮点 字符串等参数，对应选择文件 滑标调节强度功能(任何图片数据应先在imgProcessor定义,然后通过receiver变量访问)
 负责图片处理的功能实现，模块功能可以提供factory设计集成调用，注：滑标调节图片亮度，多次数据输入不应做多次command，否则无法undo取消全部修改，应command内function实现通过浮点设置图片亮度功能，command集成为亮度上升 下降俩个函数，并提供undo一次性取消所有上升或所有下降（记一连串调节为一个command）
-#####Base
+##### Base
 含所有other的父类和其他平级不能被继承的类,其他文件夹含Base继承的子类
-#####Sample
+##### Sample
 提供 收集不同参数的命令行 模板，接口为 execute undo，execute内可放自定义函数 自定义类，自定义类 函数均放在重载函数后（undo），iProcessor变量为处理器，数据只能通过iProcesoor获取。 （若没有undo则先留空）
-#####filter 
+##### filter 
 包含filter处理语句
-#####Common
+##### Common
 包含软件关闭 选择文件等基础操作
-#####Operation
+##### Operation
 直接处理图片大小等操作
-####other
+#### other
 可以自己添加对于功能文件夹，如导出特定格式等操作文件夹，注：为提供模板，![image](https://user-images.githubusercontent.com/113168400/192139311-83fd2fbe-e3b2-4402-bcb4-ecf400213c4d.png)
 暂不收录文件夹，分别调用情况为：弹窗打开图片 从地址读取图片 缩放图片 打印图片信息
 
@@ -44,7 +44,7 @@ Software是软件实例,能够存储多个 图片处理器，为单例模式
 操作为读取 缩放 展示，具体流程如图所示
 
 
-###Ref
+### Ref
 类型转换https://blog.csdn.net/fantaxy025025/article/details/84883849
 基本操作https://blog.csdn.net/xietansheng/article/details/78453570
 绘制https://blog.csdn.net/xietansheng/article/details/55669157
