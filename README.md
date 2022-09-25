@@ -43,3 +43,10 @@ Software是软件实例,能够存储多个 图片处理器，为单例模式
 ![image](https://user-images.githubusercontent.com/113168400/192139421-a2430328-af36-4080-b544-5b13238c000b.png)
 操作为读取 缩放 展示，具体流程如图所示
 
+
+###Ref
+类型转换https://blog.csdn.net/fantaxy025025/article/details/84883849
+基本操作https://blog.csdn.net/xietansheng/article/details/78453570
+绘制https://blog.csdn.net/xietansheng/article/details/55669157
+滤镜[https://blog.csdn.net/sinat_34067387/article/details/109223306?spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-109223306-blog-97910303.pc_relevant_aa_2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-109223306-blog-97910303.pc_relevant_aa_2&utm_relevant_index=7](https://blog.csdn.net/wokuailewozihao/article/details/79742651)
+操作https://blog.csdn.net/lianghecai52171314/article/details/123499201
