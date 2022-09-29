@@ -3,7 +3,7 @@ package xy_workplace.packages.Software;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import Code.Command.Base.Command;
+import xy_workplace.packages.Command.*;
 
 public class Software {
     static private Software software = null;

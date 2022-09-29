@@ -1,4 +1,4 @@
-package xy_workplace.packages.command;
+package xy_workplace.packages.Command;
 
 public interface CommandInterface {
     public abstract void execute();
