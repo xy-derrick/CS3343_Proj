@@ -1,6 +1,6 @@
 package xy_workplace.packages.command;
 
-import xy_workplace.packages.Software.imgProcessor;
+import Code.Software.imgProcessor;
 
 abstract public class Command implements CommandInterface {
     protected imgProcessor iProcessor;

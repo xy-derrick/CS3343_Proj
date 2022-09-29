@@ -11,20 +11,20 @@ import javax.swing.WindowConstants;
 import Code.Command.Base.Command;
 import Code.Software.imgProcessor;
 
-public class displayImg extends Command{
+public class displayImg extends Command {
 
     public displayImg(imgProcessor receiver) {
         super(receiver);
     }
-    
+
     @Override
     public void execute() {
         // example for reading info from img
-        System.out.println("Img display .........................."); 
+        System.out.println("Img display ..........................");
         MyFrame frame = new MyFrame();
-        frame.setVisible(true);    
+        frame.setVisible(true);
     }
-        
+
     @Override
     public void undo() {
         // TODO Auto-generated method stub
@@ -78,7 +78,7 @@ public class displayImg extends Command{
         }
 
         private void drawImage(Graphics g) {
-            BufferedImage img = iProcessor.getImg(); 
+            BufferedImage img = iProcessor.getImg();
             frame.setTitle("display");
             Graphics2D g2d = (Graphics2D) g.create();
             // 绘制图片（如果宽高传的不是图片原本的宽高, 则图片将会适当缩放绘制）
@@ -87,7 +87,5 @@ public class displayImg extends Command{
             g2d.dispose();
         }
 
-
     }
 }
-
