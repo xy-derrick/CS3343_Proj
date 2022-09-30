@@ -1,8 +1,10 @@
-package xy_workplace.packages.Decorator;
+package Code.Command.FilterDecorator;
 
-public class GreyFilter extends FilterDecorator {
+import Code.Command.Base.CommandInterface;
 
-    public GreyFilter(FilterInterface wrappee) {
+public class GrayFilter extends FilterDecorator {
+
+    public GrayFilter(CommandInterface wrappee) {
         super(wrappee);
         // TODO Auto-generated constructor stub
     }

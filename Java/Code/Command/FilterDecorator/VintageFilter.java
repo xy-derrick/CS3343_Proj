@@ -1,7 +1,9 @@
-package xy_workplace.packages.Decorator;
+package Code.Command.FilterDecorator;
+
+import Code.Command.Base.CommandInterface;
 
 public class VintageFilter extends FilterDecorator {
-    public VintageFilter(FilterInterface wrappee) {
+    public VintageFilter(CommandInterface wrappee) {
         super(wrappee);
         // TODO Auto-generated constructor stub
     }

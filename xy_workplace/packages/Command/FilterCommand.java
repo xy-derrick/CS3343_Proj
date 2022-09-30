@@ -1,4 +1,4 @@
-package xy_workplace.packages.Command;
+package Command;
 
 import xy_workplace.packages.Command.Command;
 import xy_workplace.packages.Software.imgProcessor;
