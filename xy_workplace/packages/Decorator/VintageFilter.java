@@ -1,8 +1,7 @@
-package xy_workplace.packages.Dec­orator;
+package xy_workplace.packages.Decorator;
 
-public class GreyFilter extends FilterDecorator {
-
-    public GreyFilter(FilterInterface wrappee) {
+public class VintageFilter extends FilterDecorator {
+    public VintageFilter(FilterInterface wrappee) {
         super(wrappee);
         // TODO Auto-generated constructor stub
     }

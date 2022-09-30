@@ -1,4 +1,4 @@
-package xy_workplace.packages.Dec­orator;
+package xy_workplace.packages.Decorator;
 
 public class FilterDecorator implements FilterInterface {
     protected FilterInterface wrappee;
