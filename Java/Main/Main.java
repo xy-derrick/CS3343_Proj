@@ -5,6 +5,7 @@ import Code.Command.Commands.showImgInfo;
 import Code.Command.Commands.Sample.EnumReadSampleCommand;
 import Code.Command.Commands.Sample.SampleCommand;
 import Code.Command.FilterDecorator.GrayFilter;
+import Code.Command.FilterDecorator.HighContrastFilter;
 import Code.Command.FilterDecorator.VintageFilter;
 import Code.Enum.Degree;
 import Code.Software.Software;
@@ -17,7 +18,6 @@ public class Main {
 
         //单图片单处理
         imgProcessor ip_01 = new imgProcessor();
-        
         main_software.setCommand(new showImgInfo(ip_01));
         main_software.execute();
         String urlToReadImgFile = "C:\\Users\\Administrator\\Desktop\\desktop_small.jpg";
@@ -27,13 +27,12 @@ public class Main {
 //        main_software.execute();
         main_software.setCommand(new VintageFilter(new FilterCommand(ip_01)));
         main_software.execute();
-        main_software.setCommand(new displayImg(ip_01));
-        main_software.execute();
+//        main_software.setCommand(new displayImg(ip_01));
+//        main_software.execute();
+//        main_software.undo();
         main_software.undo();
-        main_software.undo();
-//      Thread.sleep(1000);
-//	    main_software.setCommand(new displayImg(ip_01));
-//	    main_software.execute();
+	    main_software.setCommand(new displayImg(ip_01));
+	    main_software.execute();
 	       
 //	    //单图片单处理
 //        imgProcessor ip_01 = new imgProcessor();

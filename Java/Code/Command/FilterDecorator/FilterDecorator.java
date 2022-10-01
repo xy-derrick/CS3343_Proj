@@ -1,24 +1,39 @@
 package Code.Command.FilterDecorator;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
 import Code.Command.Base.Command;
+import Code.Software.imgProcessor;
 
 public class FilterDecorator extends Command {
-    protected Command wrappee;
-
+	protected Command wrappee;
+	private BufferedImage imgcopy;
     public FilterDecorator(Command wrappee) {
     	super(wrappee.getIP());
         this.wrappee = wrappee;
+        this.imgcopy=copyImage(this.wrappee.getIP().getImg());
     }
 
     @Override
     public void execute() {
         // TODO Auto-generated method stub
-
+    	System.out.println("filter decorator execute!");
     }
 
     @Override
     public void undo() {
         // TODO Auto-generated method stub
-
+    	imgProcessor ip=this.wrappee.getIP();
+    	ip.setImg(this.imgcopy);
+    	System.out.println("Filter has been removed!");
     }
+    
+    public static BufferedImage copyImage(BufferedImage source){
+	    BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+	    Graphics g = b.getGraphics();
+	    g.drawImage(source, 0, 0, null);
+	    g.dispose();
+	    return b;
+	}
 }
