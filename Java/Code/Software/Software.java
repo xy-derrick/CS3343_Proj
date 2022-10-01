@@ -32,6 +32,7 @@ public class Software {
     }
 
     public void execute() {
+    	System.out.println(command.getClass());
         command.execute();
         undoCommand.add(command);
 

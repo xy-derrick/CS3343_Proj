@@ -1,18 +1,17 @@
 package Code.Command.Commands;
 
 import Code.Command.Base.Command;
-import Code.Command.Base.CommandInterface;
 import Code.Software.imgProcessor;
 
-public class FilterCommand extends Command implements CommandInterface {
+public class FilterCommand extends Command{
     protected imgProcessor iProcessor;
 
     public FilterCommand(imgProcessor receiver) {
         super(receiver);
     }
-
+    @Override
     public void execute() {
-
+    	System.out.print("Base filter, do nothing!");
     }
 
     public void undo() {

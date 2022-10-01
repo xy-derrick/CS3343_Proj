@@ -25,6 +25,7 @@ public class imgProcessor {
 
     public BufferedImage getImg()
     {
+    	//System.out.print(this.img.getType());
         return img;
     }
 }
