@@ -21,6 +21,11 @@ public class imagCompress extends Command{
   
  
     public void compress() throws IOException {
+	  /*
+         * 将图片文件读入到文件流中，
+         * 创建zip文件以及文件中的图片目标文件
+         * 将文件流写入zip
+         */
         FileInputStream file = new FileInputStream("C:\\Users\\chenkuangyu\\Desktop\\屏幕截图 2022-10-01 132127 - 副本.jpg");
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(path));//创建ZipoutputStream类对象
         
