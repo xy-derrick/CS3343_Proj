@@ -44,10 +44,10 @@ public class VintageFilter extends FilterDecorator {
     
     @Override
     public void execute() {
+    	super.wrappee.execute();
     	imgProcessor ip=super.wrappee.getIP();
     	BufferedImage img=ip.getImg();
         ip.setImg(filter(img));
-        super.execute();
     }
 
     @Override

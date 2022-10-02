@@ -11,7 +11,7 @@ public class FilterCommand extends Command{
     }
     @Override
     public void execute() {
-    	System.out.print("Base filter, do nothing!");
+    	System.out.print("Adding filter!");
     }
 
     public void undo() {

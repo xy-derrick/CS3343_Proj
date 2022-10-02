@@ -17,8 +17,7 @@ public class FilterDecorator extends Command {
 
     @Override
     public void execute() {
-        // TODO Auto-generated method stub
-    	System.out.println("filter decorator execute!");
+    	System.out.println("filter adding!");
     }
 
     @Override
