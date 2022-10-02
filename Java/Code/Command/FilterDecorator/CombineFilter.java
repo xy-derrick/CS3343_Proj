@@ -1,6 +1,5 @@
 package Code.Command.FilterDecorator;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,15 +16,15 @@ public class CombineFilter extends FilterDecorator {
     }
     // need add para here: contrast 
     private BufferedImage filter (BufferedImage img){
-    	File file = new File("C:\\Users\\Administrator\\Desktop\\desktop2.jpg");
+    	File file = new File("C:\\Users\\Administrator\\Desktop\\R.jpg");
         try {
 			BufferedImage img2=(BufferedImage)ImageIO.read(file);
-			int height=img.getHeight()<img2.getHeight()?img.getHeight():img2.getHeight();
-			int width=img.getWidth()<img2.getWidth()?img.getWidth():img2.getWidth();
-	        for (int i = 0; i < height; i=i+2) { 
-				for (int j = 0; j < width; j=j+2) {  
+			float iratio =(float)img.getHeight()/(float)img2.getHeight();
+			float jratio=(float)img.getWidth()/(float)img2.getWidth();
+	        for (int i = 0; i < img2.getHeight(); i++) { 
+				for (int j = 0; j < img2.getWidth(); j++) {  
 	                int pixel = img2.getRGB(j, i);
-	                img.setRGB(j, i, pixel); 
+	                img.setRGB((int)Math.round(j*jratio), (int)Math.round(i*iratio), pixel); 
 				}
 	        }
 		} catch (IOException e) {

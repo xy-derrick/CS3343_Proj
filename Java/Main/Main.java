@@ -31,11 +31,11 @@ public class Main {
 //        main_software.setCommand(new displayImg(ip_01));
 //        main_software.execute();
 //        main_software.undo();
-        main_software.setCommand(new GrayFilter(new FilterCommand(ip_01)));
-        main_software.execute();
+//        main_software.setCommand(new GrayFilter(new FilterCommand(ip_01)));
+//        main_software.execute();
         main_software.setCommand(new CombineFilter(new FilterCommand(ip_01)));
         main_software.execute();
-        main_software.undo();
+        //main_software.undo();
 	    main_software.setCommand(new displayImg(ip_01));
 	    main_software.execute();
 	       
