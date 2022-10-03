@@ -27,3 +27,5 @@
 ![image](https://user-images.githubusercontent.com/113168400/193543103-0bac6ceb-b268-41b9-9e09-603d1504e9fa.png)
 
 对应image的undo，对于需要保留额外信息的内容，请在imgState添加并实现类似ipState的undo redo
+## 4.错误并未完全实现抛出识别
+设计到是否重新输入，以及不同操作受否依赖之前操作，多层级输入操作，目前无法完成，先适配测试后，完成各自需要的错误
