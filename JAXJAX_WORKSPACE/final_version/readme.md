@@ -1,1 +1,15 @@
+# 最终版本
 
+## 1.请更新所有文件至最新版本
+修复了单例设计模式的错误，由之前一直返回新数组更正返回原数组，接口未变
+为Software文件夹下类修改了部分接口实现，返回值不变
+新增ipState和imgState用于统一实现undo redo
+## 2.用户输入
+样例见Main.java，完全实现了command下common所有指令的映射，步骤参考main
+映射操作请在Commnad文件夹下创建自己文件夹并在main里面创建函数switch映射，详情见main
+提供quickCommand函数作为快速映射，用法见common下switch，分为有无提示和有无imgProcessor传入
+对应提示请在command文件夹下修改showOpeartionHint的提示信息，以与提示文本映射
+## 3.undo实现
+不能undo的语句请实现接口CommandNoncancelabe，请在Common下寻找到 showImgInfo existSoftware案例
+对于imgprocessor的undo，请用ipState保存当时状态，严格样板见 readImgFromLocal，分别在操作前后保留俩种状态，通过切换状态实现undo redo
+对应image的undo，对于需要保留额外信息的内容，请在imgState添加并实现类似ipState的undo redo
