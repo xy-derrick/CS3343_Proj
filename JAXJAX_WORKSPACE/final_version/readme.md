@@ -6,6 +6,9 @@
 新增ipState和imgState用于统一实现undo redo
 ## 2.用户输入
 样例见Main.java，完全实现了command下common所有指令的映射，步骤参考main
+![image](https://user-images.githubusercontent.com/113168400/193544134-1791ca7a-19d9-4e92-ab6f-ad5472f84506.png)
+![image](https://user-images.githubusercontent.com/113168400/193544316-a99640f9-2bf7-4257-8715-2afe2c624b21.png)
+首先按照上图重载构造函数，imgprocessor除外的参数放入ArrayList，索引访问强制转化对应位置就行
 映射操作请在Commnad文件夹下创建自己文件夹并在main里面创建函数switch映射，详情见main
 ![image](https://user-images.githubusercontent.com/113168400/193542627-5d149cbf-e508-4d39-9263-d38b925bfed5.png)
 ![image](https://user-images.githubusercontent.com/113168400/193542690-83ebe76e-a622-4f49-a545-2881d6a5929a.png)
