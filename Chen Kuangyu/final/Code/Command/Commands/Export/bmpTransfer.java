@@ -27,11 +27,13 @@ public class bmpTransfer extends typeTransfer {
     public void transfer(){
         try {
 
-            //read image file
+            //读入图片以及路径
             BufferedImage  imag= iProcessor.getImg();
+            String localPath=iProcessor.getPath();
+            String name=getName(localPath);
 
       
-            // create a blank, RGB, same width and height, and a white background
+            // 创建一个空的RGB，与图片拥有相同的高宽，白色底
             BufferedImage newBufferedImage = new BufferedImage(imag.getWidth(),
                   imag.getHeight(), BufferedImage.TYPE_INT_RGB);
       
@@ -39,8 +41,8 @@ public class bmpTransfer extends typeTransfer {
       
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
-            // write to bmp file
-            ImageIO.write(newBufferedImage, "bmp", new File(path+"\\newImag.bmp"));
+            // 写入bmp文件
+            ImageIO.write(newBufferedImage, "bmp", new File(path+"\\"+name+".bmp"));
             
       
             System.out.println("Transfer to bmp successfully");

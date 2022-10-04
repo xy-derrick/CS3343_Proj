@@ -24,7 +24,11 @@ public class imagCompress extends Command{
         this.path=(String)args.get(0);
     }
   
-
+    public String getName(String localPath)
+    {
+        String fName = localPath.trim();  
+        return fName.substring(fName.lastIndexOf("\\")+1); 
+    }
   
  
     public void compress() throws IOException {
@@ -33,11 +37,14 @@ public class imagCompress extends Command{
          * 创建zip文件以及文件中的图片目标文件
          * 将文件流写入zip
          */
+        String localPath=iProcessor.getPath();
         
-        FileInputStream file = new FileInputStream("C:\\Users\\chenkuangyu\\Desktop\\屏幕截图.png");
+        FileInputStream file = new FileInputStream(localPath);
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(path));//创建ZipoutputStream类对象
-        
-        out.putNextEntry(new ZipEntry("test.png"));
+
+        //得到原始文件名
+        String name=getName(localPath);
+        out.putNextEntry(new ZipEntry(name));
 
         int len;
         byte[] buffer = new byte[1024]; //字节数组大小可调节

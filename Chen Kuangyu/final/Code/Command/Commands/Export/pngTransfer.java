@@ -27,10 +27,12 @@ public class pngTransfer extends typeTransfer {
     public void transfer(){
         try {
 
-            //read image file
+            //读入图片以及路径
             BufferedImage  imag= iProcessor.getImg();
+            String localPath=iProcessor.getPath();
+            String name=getName(localPath);
       
-            // create a blank, RGB, same width and height, and a white background
+            // 创建一个空的RGB，与图片拥有相同的高宽，白色底
             BufferedImage newBufferedImage = new BufferedImage(imag.getWidth(),
                   imag.getHeight(), BufferedImage.TYPE_INT_RGB);
       
@@ -38,8 +40,8 @@ public class pngTransfer extends typeTransfer {
       
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
-            // write to png file
-            ImageIO.write(newBufferedImage, "png", new File(path+"\\newImag.png"));
+            // 写入png文件
+            ImageIO.write(newBufferedImage, "png", new File(path+"\\"+name+".png"));
             
       
             System.out.println("Transfer to png successfully");

@@ -16,6 +16,13 @@ public abstract class typeTransfer extends Command{
      */
     public abstract void transfer();
 
+    public String getName(String localPath)
+    {
+        String fName = localPath.trim();  
+        String name=fName.substring(fName.lastIndexOf("\\")+1);  
+        return name.substring(0,name.lastIndexOf("."));
+    }
+
 
     
     @Override

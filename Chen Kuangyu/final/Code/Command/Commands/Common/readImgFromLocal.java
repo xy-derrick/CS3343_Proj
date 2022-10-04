@@ -39,6 +39,7 @@ public class readImgFromLocal extends Command{
                 File imgFile = new File(text);
                 BufferedImage bufImage = ImageIO.read(imgFile);
                 iProcessor.setImg(bufImage); 
+                iProcessor.setPath(text);
                 Software.getInstance().setMain_ip(iProcessor);
 
                 state_curr =Software.getInstance().getState();

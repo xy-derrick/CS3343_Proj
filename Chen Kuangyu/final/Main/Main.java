@@ -15,6 +15,7 @@ import Code.Command.Commands.Export.bmpTransfer;
 import Code.Command.Commands.Export.gifTransfer;
 import Code.Command.Commands.Export.imagCompress;
 import Code.Command.Commands.Export.jpgTransfer;
+import Code.Command.Commands.Export.localSave;
 import Code.Command.Commands.Export.pngTransfer;
 import Code.Command.Commands.Export.tiffTransfer;
 import Code.Software.ArgsReader;
@@ -159,10 +160,13 @@ public class Main {
                 quickCommand("pleaze input the save path: ", tiffTransfer.class,Software.getInstance().getMain_ip());
                 break;
             case 6:
-                quickCommand("pleaze input the zip path: ", imagCompress.class,Software.getInstance().getMain_ip());
+                quickCommand("pleaze input the zip path(together with the name.zip): ", imagCompress.class,Software.getInstance().getMain_ip());
+                break;
+            case 7:
+                quickCommand("pleaze input the local path: ", localSave.class,Software.getInstance().getMain_ip());
                 break;
             //cloud
-            // case 7:
+            // case 8:
             //     // pass 
             //     quickCommand(null, displayImg.class,Software.getInstance().getMain_ip());
             //     break;

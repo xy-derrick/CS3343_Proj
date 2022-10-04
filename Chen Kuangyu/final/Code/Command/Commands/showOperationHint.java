@@ -34,7 +34,7 @@ public class showOperationHint extends Command implements CommandNoncancelabe{
                             "undo commond list : ["+Software.getInstance().getUndoCommand().size()+"]  redo commond list : ["+Software.getInstance().getRedoCommand().size()+"]\n"+
                             "common: 1.open 2.change 3.undo 4.redo 5.close 6.closeAll 7.display 8.info 9.exist\n"+
                             "edit:\n"+
-                            "export: 1.jpg 2.png 3.gif 4.bmp 5.tiff 6.zip 7.save to cloud\n"+
+                            "export: 1.jpg 2.png 3.gif 4.bmp 5.tiff 6.zip 7.save to local 8.save to cloud\n"+
                             "filter\n"+
                             "Command format should be 'title +(space) + number', like 'common 1' \n\n"
                             );

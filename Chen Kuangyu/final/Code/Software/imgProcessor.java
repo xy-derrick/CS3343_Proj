@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class imgProcessor {
     BufferedImage img = null;
+    private String localPath;
 
     int imgHeight= -1;
     int imgWidth= -1;
@@ -26,5 +27,15 @@ public class imgProcessor {
     public BufferedImage getImg()
     {
         return img;
+    }
+
+    public void setPath(String text)
+    {
+        this.localPath=text;
+    }
+
+    public String getPath()
+    {
+        return localPath;
     }
 }
