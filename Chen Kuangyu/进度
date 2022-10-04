@@ -4,7 +4,7 @@
 3.云端存储。等待胡哥的实现以及进一步商讨。
 
 进度：(2022/10/4)
-1.根据蒋哥的框架，已经将类型转换zip等功能与用户接口连接。
+1.根据蒋哥的框架，已经将类型转换zip等功能与用户接口连接（export 1.jpg 2.png 3.gif 4.bmp 5.tiff 6.zip 7.save to local 8.save to cloud）。
 类型转换：用户输入保存路径，即可将新type的image文件以原名保存到指定的保存路径
 zip：用户输入zip文件路径，即可创建对应的zip文件，将对应的main_ip的图片以原名原类型存入zip文件中
 由于需要，我在imagprocessor里面新加入localPath的instance来存储imagprocessor的用户存入路径（在我的final里面已经标出，主要就在imagProcessor.java跟readFromLocal.java）
