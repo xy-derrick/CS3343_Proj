@@ -1,12 +1,12 @@
-package Code.Command.Commands;
+package Java.Code.Command.Commands;
 
 import Code.Command.Base.Command;
 import Code.Software.imgProcessor;
 
-public class FilterCommand extends Command{
+public class EditCommand extends Command{
     protected imgProcessor iProcessor;
 
-    public FilterCommand(imgProcessor receiver) {
+    public EditCommand(imgProcessor receiver) {
         super(receiver);
     }
     @Override

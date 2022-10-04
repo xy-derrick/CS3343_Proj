@@ -1,4 +1,4 @@
-package Command;
+package Java.Code.Command.Commands;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;

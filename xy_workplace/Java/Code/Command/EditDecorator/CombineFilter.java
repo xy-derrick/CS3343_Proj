@@ -1,4 +1,4 @@
-package Code.Command.FilterDecorator;
+package Java.Code.Command.EditDecorator;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,10 +6,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Code.Command.Base.Command;
-import Code.Software.imgProcessor;
+import Java.Code.Command.Base.Command;
+import Java.Code.Software.imgProcessor;
 
-public class CombineFilter extends FilterDecorator {
+public class CombineFilter extends EditDecorator {
 	
     public CombineFilter(Command wrappee) {
         super(wrappee);
