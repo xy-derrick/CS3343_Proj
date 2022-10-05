@@ -87,7 +87,7 @@ public class Main {
             {
                 case "common":
                     commonCommands(num);
-                     break;
+                    break;
                 case "export":
                     System.out.println("Export can deal with image type tansfer,zip and cloud saving.");
                     exportCommands(num);
