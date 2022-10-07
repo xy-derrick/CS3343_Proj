@@ -1,6 +1,7 @@
 package Java.Code.Command.Commands;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -14,6 +15,9 @@ import Code.Software.imgProcessor;
 public class displayImg extends Command {
 
     public displayImg(imgProcessor receiver) {
+        super(receiver);
+    }
+    public displayImg(imgProcessor receiver,ArrayList<Object> args) {
         super(receiver);
     }
 

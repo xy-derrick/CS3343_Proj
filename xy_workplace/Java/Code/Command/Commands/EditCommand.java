@@ -1,7 +1,7 @@
 package Java.Code.Command.Commands;
 
-import Code.Command.Base.Command;
-import Code.Software.imgProcessor;
+import Java.Code.Command.Base.Command;
+import Java.Code.Software.imgProcessor;
 
 public class EditCommand extends Command{
     protected imgProcessor iProcessor;

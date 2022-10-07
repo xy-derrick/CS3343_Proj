@@ -2,6 +2,8 @@ package Java.Code.Command.EditDecorator;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import Java.Code.Command.Base.Command;
 import Java.Code.Software.imgProcessor;
 
@@ -10,6 +12,10 @@ public class HighContrastFilter extends EditDecorator {
     public HighContrastFilter(Command wrappee,int contrast ) {
         super(wrappee);
         this.contrast=contrast;
+    }
+    public HighContrastFilter(Command wrappee,ArrayList<Object> args) {
+        super(wrappee);
+        this.contrast=(Integer)args.get(0);
     }
     // need add para here: contrast 
     private BufferedImage filter (BufferedImage img) {

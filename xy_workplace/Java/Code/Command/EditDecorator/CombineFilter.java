@@ -3,6 +3,7 @@ package Java.Code.Command.EditDecorator;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -13,6 +14,11 @@ public class CombineFilter extends EditDecorator {
 	
     public CombineFilter(Command wrappee) {
         super(wrappee);
+        
+    }
+    public CombineFilter(Command wrappee,ArrayList<Object> args) {
+        super(wrappee);
+        
     }
     // need add para here: contrast 
     private BufferedImage filter (BufferedImage img){

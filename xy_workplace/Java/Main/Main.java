@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Command.Commands.showOperationHint;
 import Java.Code.Command.Commands.Common.changeImgProcessor;
 import Java.Code.Command.Commands.Common.closeAllImgProcessors;
@@ -12,6 +13,10 @@ import Java.Code.Command.Commands.Common.displayImg;
 import Java.Code.Command.Commands.Common.existSoftware;
 import Java.Code.Command.Commands.Common.readImgFromLocal;
 import Java.Code.Command.Commands.Common.showImgInfo;
+import Java.Code.Command.EditDecorator.CombineFilter;
+import Java.Code.Command.EditDecorator.GrayFilter;
+import Java.Code.Command.EditDecorator.HighContrastFilter;
+import Java.Code.Command.EditDecorator.VintageFilter;
 import Java.Code.Software.ArgsReader;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
@@ -71,7 +76,25 @@ public class Main {
             System.out.println(e);
         }
     }
+    public static void decoratorCommand(String hint,Class decorator_name,imgProcessor ip)
+    {
+        try
+        {
+        	EditCommand wrappee = new EditCommand(ip);
+            ArgsReader.getInstance().hint(hint);
+            ArrayList<Object>args_object = ArgsReader.getInstance().read(decorator_name);
 
+            Constructor c= decorator_name.getConstructor(EditCommand.class,ArrayList.class);
+
+            main_software.setCommand((Command)c.newInstance(wrappee,args_object));
+            main_software.execute();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Command failed ! ");
+            System.out.println(e);
+        }
+    }
     public static void switchCommand(String type,Integer num)
     {
         //args reader usage sample
@@ -82,6 +105,9 @@ public class Main {
                  case "common":
                      commonCommands(num);
                      break;
+                 case "filter":
+                	 filterCommands(num);
+                	 break;
             }
         }
         catch(Exception e)
@@ -90,7 +116,25 @@ public class Main {
         }
     }
 
-    //输入参数错误应该重新输入还是直接退出？
+    private static void filterCommands(Integer num) {
+		// TODO Auto-generated method stub
+		switch (num) {
+			case 1:
+				decoratorCommand("no input now", GrayFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 2:
+				decoratorCommand("an integer to represent the degree", HighContrastFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 3:
+				decoratorCommand("no input now", VintageFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 4:
+				decoratorCommand("no input now", CombineFilter.class,Software.getInstance().getMain_ip());
+				break;
+		}
+	}
+
+	//输入参数错误应该重新输入还是直接退出？
     //所有操作有个前提是要有imgProcessor
     public static void commonCommands(Integer num)
     {
