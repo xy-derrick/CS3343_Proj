@@ -13,7 +13,6 @@ public class VintageFilter extends EditDecorator {
 	}
 	public VintageFilter(Command wrappee,ArrayList<Object> args) {
 		super(wrappee);
-		
 	}
 	
 	private  int clamp(int c)  {  
