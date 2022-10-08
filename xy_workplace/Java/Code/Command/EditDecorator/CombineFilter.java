@@ -14,15 +14,12 @@ public class CombineFilter extends EditDecorator {
 	private BufferedImage _img_; 
     public CombineFilter(Command wrappee, BufferedImage _img_) {
         super(wrappee);
-<<<<<<< HEAD
         this._img_=_img_;
-=======
         
     }
     public CombineFilter(Command wrappee,ArrayList<Object> args) {
         super(wrappee);
         
->>>>>>> branch 'main' of https://github.com/xy-derrick/CS3343_Proj.git
     }
     // need add para here: contrast 
     private BufferedImage filter (BufferedImage img){

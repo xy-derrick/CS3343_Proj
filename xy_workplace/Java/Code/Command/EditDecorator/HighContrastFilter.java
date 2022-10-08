@@ -13,6 +13,10 @@ public class HighContrastFilter extends EditDecorator {
         super(wrappee);
         this.contrast=contrast;
     }
+    public HighContrastFilter(Command wrappee) {
+        super(wrappee);
+        this.contrast=1000000;
+    }
     public HighContrastFilter(Command wrappee,ArrayList<Object> args) {
         super(wrappee);
         this.contrast=(Integer)args.get(0);
