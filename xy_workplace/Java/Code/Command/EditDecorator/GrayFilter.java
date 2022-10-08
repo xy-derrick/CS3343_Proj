@@ -4,14 +4,15 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
 
 public class GrayFilter extends EditDecorator {
 	private float[] radios = new float[]{0.4f,0.6f,0.4f,0.6f,0.2f,0.8f};
-    public GrayFilter(Command wrappee) {
+    public GrayFilter(EditCommand wrappee) {
         super(wrappee);
     }
-    public GrayFilter(Command wrappee,ArrayList<Object> args) {
+    public GrayFilter(EditCommand wrappee,ArrayList<Object> args) {
         super(wrappee);
     }
     @Override

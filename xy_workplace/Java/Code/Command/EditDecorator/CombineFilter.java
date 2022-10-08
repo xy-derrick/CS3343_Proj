@@ -8,16 +8,17 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
 
 public class CombineFilter extends EditDecorator {
 	private BufferedImage _img_; 
-    public CombineFilter(Command wrappee, BufferedImage _img_) {
+    public CombineFilter(EditCommand wrappee, BufferedImage _img_) {
         super(wrappee);
         this._img_=_img_;
         
     }
-    public CombineFilter(Command wrappee,ArrayList<Object> args) {
+    public CombineFilter(EditCommand wrappee,ArrayList<Object> args) {
         super(wrappee);
         
     }

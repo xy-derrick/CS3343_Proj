@@ -5,23 +5,25 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
 
 public class HighContrastFilter extends EditDecorator {
-	private int contrast;
-    public HighContrastFilter(Command wrappee,int contrast ) {
-        super(wrappee);
-        this.contrast=contrast;
-    }
-    public HighContrastFilter(Command wrappee) {
-        super(wrappee);
-        this.contrast=1000000;
-    }
-    public HighContrastFilter(Command wrappee,ArrayList<Object> args) {
+	private int contrast=1000000;
+	
+	
+    public HighContrastFilter(EditCommand wrappee,ArrayList<Object> args) {
         super(wrappee);
         this.contrast=(Integer)args.get(0);
     }
-    // need add para here: contrast 
+	
+    public HighContrastFilter(EditCommand wrappee,Integer contrast ) {
+        super(wrappee);
+        this.contrast=contrast; 
+    }
+    
+
+    
     private BufferedImage filter (BufferedImage img) {
     	int contrast_average = 128;
     	int pix;

@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import Code.Command.Base.Command;
-import Code.Software.imgProcessor;
+import Java.Code.Command.Base.Command;
+import Java.Code.Software.imgProcessor;
 
 public class displayImg extends Command {
 

@@ -4,14 +4,15 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
 
 public class VintageFilter extends EditDecorator {
 	 
-	public VintageFilter(Command wrappee) {
+	public VintageFilter(EditCommand wrappee) {
 		super(wrappee);
 	}
-	public VintageFilter(Command wrappee,ArrayList<Object> args) {
+	public VintageFilter(EditCommand wrappee,ArrayList<Object> args) {
 		super(wrappee);
 	}
 	

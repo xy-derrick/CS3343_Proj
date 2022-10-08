@@ -12,8 +12,8 @@ import Java.Code.Command.Commands.Common.displayImg;
 import Java.Code.Command.Commands.Common.existSoftware;
 import Java.Code.Command.Commands.Common.readImgFromLocal;
 import Java.Code.Command.Commands.Common.showImgInfo;
-import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Command.EditDecorator.CombineFilter;
+import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Command.EditDecorator.GrayFilter;
 import Java.Code.Command.EditDecorator.HighContrastFilter;
 import Java.Code.Command.EditDecorator.VintageFilter;
@@ -29,27 +29,28 @@ public class Main {
         try
         {
             main_software = Software.getInstance();
-            Scanner scanner = new Scanner(System.in);
-            String type = null;
-            Integer num = null;
-            System.out.println("\nWelcome to Img Process Software !\n"+ 
-            "please select operation from the following list :\n");
+            try (Scanner scanner = new Scanner(System.in)) {
+				String type = null;
+				Integer num = null;
+				System.out.println("\nWelcome to Img Process Software !\n"+ 
+				"please select operation from the following list :\n");
 
-            while(true)
-            {
-                main_software.setCommand(new showOperationHint(null));
-                main_software.execute();
-                try
-                {
-                    type = scanner.next();
-                    num = scanner.nextInt();
-                    switchCommand(type,num);
-                }
-                catch(Exception e)
-                {
-                    System.out.println("Your input command doesnot follow the 'Type Num' format!");
-                }
-            }
+				while(true)
+				{
+				    main_software.setCommand(new showOperationHint(null));
+				    main_software.execute();
+				    try
+				    {
+				        type = scanner.next();
+				        num = scanner.nextInt();
+				        switchCommand(type,num);
+				    }
+				    catch(Exception e)
+				    {
+				        System.out.println("Your input command doesnot follow the 'Type Num' format!");
+				    }
+				}
+			}
         }
         catch(Exception e)
         {
@@ -58,43 +59,9 @@ public class Main {
         }       
     }
 
-    public static void quickCommand(String hint,Class commond_name,imgProcessor ip)
-    {
-        try
-        {
-            ArgsReader.getInstance().hint(hint);
-            ArrayList<Object>args_object = ArgsReader.getInstance().read(commond_name);
-
-            Constructor c= commond_name.getConstructor(imgProcessor.class,ArrayList.class);
-
-            main_software.setCommand((Command)c.newInstance(ip,args_object));
-            main_software.execute();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Command failed ! ");
-            System.out.println(e);
-        }
-    }
+ 
     
-    public static void decoratorCommand(String hint,Class decorator_name,imgProcessor ip)
-    {
-        try
-        {
-        	EditCommand wrappee = new EditCommand(ip);
-            ArgsReader.getInstance().hint(hint);
-            ArrayList<Object>args_object = ArgsReader.getInstance().read(decorator_name);
-            Constructor c= decorator_name.getConstructor(imgProcessor.class,ArrayList.class);
 
-            main_software.setCommand((Command)c.newInstance(ip,args_object));
-            main_software.execute();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Command failed ! ");
-            System.out.println(e);
-        }
-    }
 
 
    
@@ -116,6 +83,7 @@ public class Main {
         catch(Exception e)
         {
             System.out.println("Unknown command!");
+            e.printStackTrace(System.out);
         }
     }
 
@@ -137,6 +105,25 @@ public class Main {
 		}
 	}
 
+    public static void decoratorCommand(String hint,Class decorator_name,imgProcessor ip)
+    {
+        try
+        {
+        	EditCommand wrappee = new EditCommand(ip);
+            ArgsReader.getInstance().hint(hint);
+            ArrayList<Object>args_object = ArgsReader.getInstance().read(decorator_name);
+            Constructor c= decorator_name.getConstructor(EditCommand.class,ArrayList.class);
+
+            main_software.setCommand((EditDecorator)c.newInstance(wrappee,args_object));
+            main_software.execute();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Command failed ! ");
+            System.out.println(e);
+            e.printStackTrace(System.out);
+        }
+    }
 	//输入参数错误应该重新输入还是直接退出？
     //所有操作有个前提是要有imgProcessor
     public static void commonCommands(Integer num)
@@ -175,6 +162,23 @@ public class Main {
                 break;
         };
     }
-    
+    public static void quickCommand(String hint,Class commond_name,imgProcessor ip)
+    {
+        try
+        {
+            ArgsReader.getInstance().hint(hint);
+            ArrayList<Object>args_object = ArgsReader.getInstance().read(commond_name);
+
+            Constructor c= commond_name.getConstructor(imgProcessor.class,ArrayList.class);
+
+            main_software.setCommand((Command)c.newInstance(ip,args_object));
+            main_software.execute();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Command failed ! ");
+            System.out.println(e);
+        }
+    }
    
 }
