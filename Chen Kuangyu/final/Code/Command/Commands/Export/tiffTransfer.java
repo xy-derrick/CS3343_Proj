@@ -40,7 +40,7 @@ public class tiffTransfer extends typeTransfer {
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
             //写入tiff文件
-            ImageIO.write(newBufferedImage, "tiff", new File(path+"\\"+name+".tiff"));
+            ImageIO.write(newBufferedImage, "tiff", new File(path+"\\"+String.valueOf(newName)+name+".tiff"));
             
       
             System.out.println("Transfer to tiff successfully");

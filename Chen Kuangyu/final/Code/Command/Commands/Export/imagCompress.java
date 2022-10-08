@@ -1,5 +1,4 @@
 package Code.Command.Commands.Export;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
@@ -14,24 +13,26 @@ import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
 
-public class imagCompress extends Command {
+
+public class imagCompress extends Command implements CommandNoncancelabe{
     private String path;
 
-    public imagCompress(imgProcessor receiver, String path) {
+    public imagCompress(imgProcessor receiver,String path) {
         super(receiver);
-        this.path = path;
+        this.path=path;
     }
 
     public imagCompress(imgProcessor receiver, ArrayList<Object> args) {
         super(receiver);
-        this.path = (String) args.get(0);
+        this.path=(String)args.get(0);
     }
-
-    public String getName(String localPath) {
-        String fName = localPath.trim();
-        return fName.substring(fName.lastIndexOf("\\") + 1);
+  
+    public String getName(String localPath)
+    {
+        String fName = localPath.trim();  
+        return fName.substring(fName.lastIndexOf("\\")+1); 
     }
-
+    
     public String getType(String name) {
         return name.substring(name.lastIndexOf(".") + 1);
     }
@@ -43,6 +44,7 @@ public class imagCompress extends Command {
          * 将文件流写入zip
          */
         String localPath = iProcessor.getPath();
+        int seq=zipSeq.getInstance().getSeq();
 
         // 得到原始文件名以及类型
         String name = getName(localPath);
@@ -52,6 +54,9 @@ public class imagCompress extends Command {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ImageIO.write(iProcessor.getImg(), type, os);
         ByteArrayInputStream file = new ByteArrayInputStream(os.toByteArray());
+
+        //对path进行处理以防止复写
+        path=path+"\\"+name.substring(0, name.lastIndexOf("."))+String.valueOf(seq)+".zip";
 
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(path));// 创建ZipoutputStream类对象
 
@@ -77,16 +82,17 @@ public class imagCompress extends Command {
         // ignore receiver
         try {
             compress();
+            zipSeq.getInstance().plus();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+    
+    
     }
 
     @Override
     public void undo() {
         // TODO Auto-generated method stub
-
+        
     }
 }

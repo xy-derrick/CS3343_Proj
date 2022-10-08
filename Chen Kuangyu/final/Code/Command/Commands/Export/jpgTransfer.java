@@ -40,7 +40,7 @@ public class jpgTransfer extends typeTransfer {
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
             // 写入jepg文件
-            ImageIO.write(newBufferedImage, "jpg", new File(path+"\\"+name+".jpg"));
+            ImageIO.write(newBufferedImage, "jpg", new File(path+"\\"+String.valueOf(newName)+name+".jpg"));
             
         
             System.out.println("Transfer to jpg successfully");

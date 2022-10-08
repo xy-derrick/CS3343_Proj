@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
-
 public class gifTransfer extends typeTransfer {
     private  String path;
 
@@ -41,7 +40,7 @@ public class gifTransfer extends typeTransfer {
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
             //写入gif文件
-            ImageIO.write(newBufferedImage, "gif", new File(path+"\\"+name+".gif"));
+            ImageIO.write(newBufferedImage, "gif", new File(path+"\\"+String.valueOf(newName)+name+".gif"));
             
       
             System.out.println("Transfer to gif successfully");

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 
-public class bmpTransfer extends typeTransfer {
+public class bmpTransfer extends typeTransfer{
     private  String path;
 
     public bmpTransfer(imgProcessor receiver, String path) {
@@ -42,7 +42,7 @@ public class bmpTransfer extends typeTransfer {
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
             // 写入bmp文件
-            ImageIO.write(newBufferedImage, "bmp", new File(path+"\\"+name+".bmp"));
+            ImageIO.write(newBufferedImage, "bmp", new File(path+"\\"+String.valueOf(newName)+name+".bmp"));
             
       
             System.out.println("Transfer to bmp successfully");

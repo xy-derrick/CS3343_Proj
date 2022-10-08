@@ -41,7 +41,7 @@ public class pngTransfer extends typeTransfer {
             newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
       
             // 写入png文件
-            ImageIO.write(newBufferedImage, "png", new File(path+"\\"+name+".png"));
+            ImageIO.write(newBufferedImage, "png", new File(path+"\\"+String.valueOf(newName)+name+".png"));
             
       
             System.out.println("Transfer to png successfully");

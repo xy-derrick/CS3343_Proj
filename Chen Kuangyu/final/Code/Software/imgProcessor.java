@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class imgProcessor {
     BufferedImage img = null;
-    private String localPath;//新增
+    private String localPath;
 
     int imgHeight= -1;
     int imgWidth= -1;
@@ -29,7 +29,6 @@ public class imgProcessor {
         return img;
     }
 
-    //新增
     public void setPath(String text)
     {
         this.localPath=text;
@@ -39,5 +38,4 @@ public class imgProcessor {
     {
         return localPath;
     }
-    //结束
 }

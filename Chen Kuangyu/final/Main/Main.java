@@ -87,7 +87,7 @@ public class Main {
             {
                 case "common":
                     commonCommands(num);
-                    break;
+                     break;
                 case "export":
                     System.out.println("Export can deal with image type tansfer,zip and cloud saving.");
                     exportCommands(num);
@@ -160,7 +160,7 @@ public class Main {
                 quickCommand("pleaze input the save path: ", tiffTransfer.class,Software.getInstance().getMain_ip());
                 break;
             case 6:
-                quickCommand("pleaze input the zip path(together with the name.zip): ", imagCompress.class,Software.getInstance().getMain_ip());
+                quickCommand("pleaze input the zip path: ", imagCompress.class,Software.getInstance().getMain_ip());
                 break;
             case 7:
                 quickCommand("pleaze input the local path: ", localSave.class,Software.getInstance().getMain_ip());

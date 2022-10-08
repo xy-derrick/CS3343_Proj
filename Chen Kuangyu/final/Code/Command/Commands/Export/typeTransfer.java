@@ -2,10 +2,12 @@ package Code.Command.Commands.Export;
 
 
 import Code.Command.Base.Command;
+import Code.Command.Base.CommandNoncancelabe;
 import Code.Software.imgProcessor;
 
-public abstract class typeTransfer extends Command{
+public abstract class typeTransfer extends Command implements CommandNoncancelabe{
 
+    protected static int newName= 1;
 
     public typeTransfer(imgProcessor receiver) {
         super(receiver);
@@ -30,6 +32,7 @@ public abstract class typeTransfer extends Command{
         // ignore receiver
  
         transfer();
+        newName++;
     
     }
 
