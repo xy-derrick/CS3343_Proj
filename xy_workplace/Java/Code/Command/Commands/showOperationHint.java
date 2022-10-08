@@ -35,7 +35,7 @@ public class showOperationHint extends Command implements CommandNoncancelabe{
                             "common: 1.open 2.change 3.undo 4.redo 5.close 6.closeAll 7.display 8.info 9.exist\n"+
                             "edit:\n"+
                             "export:\n"+
-                            "filter\n"+
+                            "filter: 1.Gary 2.Contrast 3.Vintage 4.Combine\n"+
                             "Command format should be 'title +(space) + number', like 'common 1' \n\n"
                             );
     }

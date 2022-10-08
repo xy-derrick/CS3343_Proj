@@ -23,7 +23,7 @@ public class ArgsReader {
 
     public void hint(String h)
     {
-        if(h!=null){        System.out.println(h);};
+        if(h!=null){System.out.println(h);};
     }
 
     public ArrayList<Object> read(Class commond_name)
