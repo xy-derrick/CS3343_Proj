@@ -1,5 +1,4 @@
-package Java.Code.Command.Commands;
-
+package Code.Command.Commands.Common;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.Graphics;
@@ -12,35 +11,55 @@ import javax.swing.WindowConstants;
 import Code.Command.Base.Command;
 import Code.Software.imgProcessor;
 
-public class displayImg extends Command {
+public class displayImg extends Command{
+    MyFrame frame = null;
 
     public displayImg(imgProcessor receiver) {
         super(receiver);
     }
+
     public displayImg(imgProcessor receiver,ArrayList<Object> args) {
         super(receiver);
     }
-
+    
+    
     @Override
     public void execute() {
         // example for reading info from img
-        System.out.println("Img display ..........................");
-        MyFrame frame = new MyFrame();
-        frame.setVisible(true);
+        try{
+            if(frame == null){frame = new MyFrame();}
+            frame.setVisible(true);   
+            System.out.println("Img display .........................."); 
+        }
+        catch(NullPointerException e)
+        {
+            System.out.println("No image finded in the processor !"); 
+        }
+        catch(Exception e)
+        {
+            System.out.println("Can't show the image !"); 
+        }
+ 
     }
-
+        
     @Override
     public void undo() {
-        // TODO Auto-generated method stub
-        System.out.println("nothing to undo");
+        try{
+            frame.setVisible(false);  
+            System.out.println("display commond undo successfully !"); 
+        }
+        catch(Exception e)
+        {
+            System.out.println("display commond undo failed !"); 
+        }
     }
 
     public class MyFrame extends JFrame {
 
         public static final String TITLE = "Image Processor";
 
-        public static final int WIDTH = 250;
-        public static final int HEIGHT = 300;
+        public static final int WIDTH = 900;
+        public static final int HEIGHT = 750;
 
         public MyFrame() {
             super();
@@ -82,7 +101,7 @@ public class displayImg extends Command {
         }
 
         private void drawImage(Graphics g) {
-            BufferedImage img = iProcessor.getImg();
+            BufferedImage img = iProcessor.getImg(); 
             frame.setTitle("display");
             Graphics2D g2d = (Graphics2D) g.create();
             // 绘制图片（如果宽高传的不是图片原本的宽高, 则图片将会适当缩放绘制）
@@ -91,5 +110,7 @@ public class displayImg extends Command {
             g2d.dispose();
         }
 
+
     }
 }
+

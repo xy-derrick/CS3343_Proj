@@ -1,6 +1,8 @@
 package Java.Code.Command.EditDecorator;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import Java.Code.Command.Base.Command;
 import Java.Code.Software.imgProcessor;
 
@@ -9,7 +11,10 @@ public class VintageFilter extends EditDecorator {
 	public VintageFilter(Command wrappee) {
 		super(wrappee);
 	}
-	
+	public VintageFilter(Command wrappee,ArrayList<Object> args) {
+		super(wrappee);
+		
+	}
 	
 	private  int clamp(int c)  {  
 		return c > 255 ? 255 :( (c < 0) ? 0: c);  

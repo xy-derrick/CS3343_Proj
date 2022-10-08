@@ -13,7 +13,14 @@ import Java.Code.Command.Commands.Common.displayImg;
 import Java.Code.Command.Commands.Common.existSoftware;
 import Java.Code.Command.Commands.Common.readImgFromLocal;
 import Java.Code.Command.Commands.Common.showImgInfo;
+<<<<<<< HEAD
 import Java.Code.Command.EditDecorator.EditDecorator;
+=======
+import Java.Code.Command.EditDecorator.CombineFilter;
+import Java.Code.Command.EditDecorator.GrayFilter;
+import Java.Code.Command.EditDecorator.HighContrastFilter;
+import Java.Code.Command.EditDecorator.VintageFilter;
+>>>>>>> branch 'main' of https://github.com/xy-derrick/CS3343_Proj.git
 import Java.Code.Software.ArgsReader;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
@@ -73,8 +80,30 @@ public class Main {
             System.out.println(e);
         }
     }
+    public static void decoratorCommand(String hint,Class decorator_name,imgProcessor ip)
+    {
+        try
+        {
+        	EditCommand wrappee = new EditCommand(ip);
+            ArgsReader.getInstance().hint(hint);
+            ArrayList<Object>args_object = ArgsReader.getInstance().read(decorator_name);
 
+<<<<<<< HEAD
     public static void switchCommand(String type,String num)
+=======
+            Constructor c= decorator_name.getConstructor(EditCommand.class,ArrayList.class);
+
+            main_software.setCommand((Command)c.newInstance(wrappee,args_object));
+            main_software.execute();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Command failed ! ");
+            System.out.println(e);
+        }
+    }
+    public static void switchCommand(String type,Integer num)
+>>>>>>> branch 'main' of https://github.com/xy-derrick/CS3343_Proj.git
     {
         //args reader usage sample
         try
@@ -85,6 +114,7 @@ public class Main {
                      commonCommands(num);
                      break;
                  case "filter":
+<<<<<<< HEAD
                 	 //scan a list here for operation and args
                 	 //filterCommands will receive a list later.
                      String stringArray[] = num.split(",");
@@ -100,6 +130,10 @@ public class Main {
                     	 System.out.println(x);
                      }  
                 	 filterCommands(filterKind);
+=======
+                	 filterCommands(num);
+                	 break;
+>>>>>>> branch 'main' of https://github.com/xy-derrick/CS3343_Proj.git
             }
         }
         catch(Exception e)
@@ -108,7 +142,25 @@ public class Main {
         }
     }
 
-    //输入参数错误应该重新输入还是直接退出？
+    private static void filterCommands(Integer num) {
+		// TODO Auto-generated method stub
+		switch (num) {
+			case 1:
+				decoratorCommand("no input now", GrayFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 2:
+				decoratorCommand("an integer to represent the degree", HighContrastFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 3:
+				decoratorCommand("no input now", VintageFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 4:
+				decoratorCommand("no input now", CombineFilter.class,Software.getInstance().getMain_ip());
+				break;
+		}
+	}
+
+	//输入参数错误应该重新输入还是直接退出？
     //所有操作有个前提是要有imgProcessor
     public static void commonCommands(String num)
     {
