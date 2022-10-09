@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 
 public class localSave extends Command implements CommandNoncancelabe{
     private String path;
-    private static int newName=1;
 
     public localSave(imgProcessor receiver,String path) {
         super(receiver);
@@ -45,10 +44,11 @@ public class localSave extends Command implements CommandNoncancelabe{
         //得到原始文件名
         String localPath=iProcessor.getPath();
         String name=getName(localPath);
+        int seq=zipSeq.getInstance().getSeq();
 
         //存入本地
         String type=getType(name);
-        File outputfile = new File(path+"\\"+String.valueOf(newName)+name);
+        File outputfile = new File(path+"\\"+String.valueOf(seq)+name);
         ImageIO.write(iProcessor.getImg(), type, outputfile);
 
         System.out.println("Save to local successfully!\n");
@@ -64,7 +64,7 @@ public class localSave extends Command implements CommandNoncancelabe{
         // ignore receiver
         try {
             save();
-            newName++;
+            zipSeq.getInstance().plus();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
