@@ -59,11 +59,6 @@ public class Main {
         }       
     }
 
- 
-    
-
-
-
    
     public static void switchCommand(String type,Integer num)
     {
@@ -97,10 +92,10 @@ public class Main {
 				decoratorCommand("an integer to represent the degree", HighContrastFilter.class,Software.getInstance().getMain_ip());
 				break;
 			case 3:
-				decoratorCommand("no input now", VintageFilter.class,Software.getInstance().getMain_ip());
+				decoratorCommand("from 0.5 to 1 represent noise", VintageFilter.class,Software.getInstance().getMain_ip());
 				break;
 			case 4:
-				decoratorCommand("no input now", CombineFilter.class,Software.getInstance().getMain_ip());
+				decoratorCommand("another ip nums", CombineFilter.class,Software.getInstance().getMain_ip());
 				break;
 		}
 	}

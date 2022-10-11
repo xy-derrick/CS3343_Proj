@@ -8,12 +8,15 @@ import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
 
 public class VintageFilter extends EditDecorator {
-	 
-	public VintageFilter(EditCommand wrappee) {
+	private Double noise=0.0;
+	public VintageFilter(EditCommand wrappee,Float noise) {
 		super(wrappee);
+		this.noise=noise.doubleValue();
 	}
 	public VintageFilter(EditCommand wrappee,ArrayList<Object> args) {
 		super(wrappee);
+		Float temp=(Float)args.get(0);
+		this.noise=temp.doubleValue();
 	}
 	
 	private  int clamp(int c)  {  
@@ -21,6 +24,7 @@ public class VintageFilter extends EditDecorator {
 	} 
 	 
 	private double noise() {  
+		// noise from 0.5 to 1
 		return Math.random()*0.5 + 0.5;  
 	}  
 	 
@@ -36,9 +40,9 @@ public class VintageFilter extends EditDecorator {
 	            int tr = (c >> 16) & 0xFF;
 	            int tg = (c >> 8) & 0xFF;
 	            int tb = (c >> 0) & 0xFF;
-	            int fr = (int)colorBlend(noise(), (tr * 0.393) + (tg * 0.769) + (tb * 0.189), tr);  
-	            int fg = (int)colorBlend(noise(), (tr * 0.349) + (tg * 0.686) + (tb * 0.168), tg);  
-	            int fb = (int)colorBlend(noise(), (tr * 0.272) + (tg * 0.534) + (tb * 0.131), tb);  
+	            int fr = (int)colorBlend(this.noise, (tr * 0.393) + (tg * 0.769) + (tb * 0.189), tr);  
+	            int fg = (int)colorBlend(this.noise, (tr * 0.349) + (tg * 0.686) + (tb * 0.168), tg);  
+	            int fb = (int)colorBlend(this.noise, (tr * 0.272) + (tg * 0.534) + (tb * 0.131), tb);  
 	            int rgb=(ta << 24) | (clamp(fr) << 16) | (clamp(fg) << 8) | clamp(fb);
 	            img.setRGB(x, y, rgb);              
 			}
