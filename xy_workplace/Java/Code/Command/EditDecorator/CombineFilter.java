@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
+import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 
@@ -14,11 +15,18 @@ public class CombineFilter extends EditDecorator {
     public CombineFilter(EditCommand wrappee, Integer ipnum, Float transparent) {
         super(wrappee);
     }
-    public CombineFilter(EditCommand wrappee,ArrayList<Object> args) {
+    public CombineFilter(EditCommand wrappee,ArrayList<Object> args) throws ArgsInvalidException {
         super(wrappee);
         Integer ipnum = (Integer)args.get(0);
-        this._img_=Software.getInstance().getImgProcessorList().get(ipnum).getImg();
         this.transparent=(Float)args.get(1);
+        ArrayList<imgProcessor> mainIpLst=Software.getInstance().getImgProcessorList();
+        if (ipnum> mainIpLst.size()-1) {
+        	throw new ArgsInvalidException("ImgProcess Index is out of range!");
+        }
+        if ((this.transparent>100)||(this.transparent<0)) {
+        	throw new ArgsInvalidException("Transparent must be [0,100]");
+        }
+        this._img_=mainIpLst.get(ipnum).getImg();
     }
    
     private BufferedImage filter (BufferedImage img) {
