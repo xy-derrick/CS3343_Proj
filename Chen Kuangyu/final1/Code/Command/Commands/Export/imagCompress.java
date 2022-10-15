@@ -1,6 +1,7 @@
 package Code.Command.Commands.Export;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 
 import Code.Command.Base.*;
 import Code.Software.imgProcessor;
@@ -9,7 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
+import Code.exportException.*;
 
 import javax.imageio.ImageIO;
 
@@ -37,18 +40,28 @@ public class imagCompress extends Command implements CommandNoncancelabe{
         return name.substring(name.lastIndexOf(".") + 1);
     }
 
-    public void compress() throws IOException {
+    public void compress() throws nameNotFoundException,typeNotFoundException{
         /*
          * 将图片文件读入到文件流中，
          * 创建zip文件以及文件中的图片目标文件
          * 将文件流写入zip
          */
+        try{
         String localPath = iProcessor.getPath();
         int seq=zipSeq.getInstance().getSeq();
 
         // 得到原始文件名以及类型
         String name = getName(localPath);
         String type = getType(name);
+
+        if(name.isEmpty() || name==""){
+            throw new nameNotFoundException();
+          }
+
+        if(type.isEmpty() || type=="")
+        {
+            throw new typeNotFoundException();
+        }
 
         // 从bufferedimag得到二进制输入流
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -74,6 +87,25 @@ public class imagCompress extends Command implements CommandNoncancelabe{
         file.close();
         out.close();
         System.out.println("Create zip file successfully!\n");
+    }
+    catch(FileNotFoundException e)
+    {
+        System.out.println("Invalid path! Please check and input again!");
+    }
+    catch(ZipException e)
+    {
+        System.out.println("There are some errors about the zip type. Please try again!");
+    }
+    catch(NullPointerException e)
+    {
+        System.out.println("The buffer is full!");
+    }
+    catch(IOException e)
+    {
+        System.out.println("Can't get imag from the imag Processor or some other error occurs!");
+    }
+
+    
 
     }
 
@@ -83,8 +115,10 @@ public class imagCompress extends Command implements CommandNoncancelabe{
         try {
             compress();
             zipSeq.getInstance().plus();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (nameNotFoundException e) {
+            System.out.println("Please check and input again!");
+        } catch (typeNotFoundException e) {
+            System.out.println("Please check and input again!");
         }
     
     

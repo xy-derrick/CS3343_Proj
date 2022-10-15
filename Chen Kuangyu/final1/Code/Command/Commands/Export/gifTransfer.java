@@ -1,12 +1,16 @@
 package Code.Command.Commands.Export;
 
 import Code.Software.imgProcessor;
+import Code.exportException.*;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
 import java.awt.Color;
 public class gifTransfer extends typeTransfer {
     private  String path;
@@ -23,13 +27,17 @@ public class gifTransfer extends typeTransfer {
 
 
     @Override
-    public void transfer(){
+    public void transfer() throws nameNotFoundException{
         try {
 
             ///读入图片以及路径
             BufferedImage  imag= iProcessor.getImg();
             String localPath=iProcessor.getPath();
             String name=getName(localPath);
+
+            if(name.isEmpty() || name==""){
+              throw new nameNotFoundException();
+            }
       
             // 创建一个空的RGB，与图片拥有相同的高宽，白色底
             BufferedImage newBufferedImage = new BufferedImage(imag.getWidth(),
@@ -44,9 +52,21 @@ public class gifTransfer extends typeTransfer {
             
       
             System.out.println("Transfer to gif successfully");
-      
-          } catch (IOException e) {
-            System.out.println("Invalid path");
+          } 
+          catch(FileNotFoundException e)
+          {
+            System.out.println("Invalid file path! Please check and input again!");
+          }
+          catch(NullPointerException e)
+          {
+            System.out.println("Input path is null! Please input again!");
+          }
+          catch (IOException e) {
+            System.out.println("Unknown errors happended when write to gif file");
+          }
+          catch(IllegalArgumentException e)
+          {
+              System.out.println("Can find imag from the imag processor. Please check!");
           }
       
          }

@@ -25,8 +25,8 @@ import Code.Exception.ImgProcessorSelectedIsNullException;
 import Code.Exception.NoCommandToRedoException;
 import Code.Exception.NoCommandToUndoException;
 import Code.Exception.ArgsTypeNotRightException;
-import Code.Exception.NoCommandToUndoException;
-import Code.Exception.NoCommandToUndoException;
+import Code.Exception.CommandIndexOverLimit;
+import Code.Exception.CommandTypeNotDefinedException;
 
 
 public class Main {
@@ -78,8 +78,8 @@ public class Main {
             main_software.setCommand((Command)c.newInstance(ip,args_object));
             main_software.execute();
         }
-        catch(ArgsTypeNotRightException e){
-        }
+        // catch(ArgsTypeNotRightException e){
+        // }
         catch(Exception e)
         {
             System.out.println("Command failed due to unknow situation ! ");
@@ -104,8 +104,8 @@ public class Main {
 
             }
         }
-        catch(CommandTypeNotDefinedException e){
-        }
+        // catch(CommandTypeNotDefinedException e){
+        // }
         catch(Exception e)
         {
             System.out.println("Unknown command!");
@@ -125,12 +125,12 @@ public class Main {
                 case 2:
                     quickCommand("pleaze input the id of image processor as a int", changeImgProcessor.class,Software.getInstance().getMain_ip());
                     break;
-                case 3:
-                    Software.getInstance().undo();
-                    break;
-                case 4:
-                    Software.getInstance().redo();
-                    break;
+                // case 3:
+                //     Software.getInstance().undo();
+                //     break;
+                // case 4:
+                //     Software.getInstance().redo();
+                //     break;
                 case 5:
                     quickCommand(null, closeImgProcessor.class,Software.getInstance().getMain_ip());
                     break;
@@ -156,12 +156,11 @@ public class Main {
         }catch(NullPointerException e){
             System.out.println("Please select main image processor first !");
         }
-        catch(NoCommandToRedoException e){
-        }
-        catch(NoCommandToUndoException e){
-        }
-        catch(Exception e){
-            System.out.println(e);
+        // catch(NoCommandToRedoException e){
+        // }
+        // catch(NoCommandToUndoException e){
+        // }
+
         }
 
     public static void exportCommands(Integer num)

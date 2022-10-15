@@ -1,5 +1,6 @@
 package Code.Command.Commands.Export;
 
+import Code.exportException.*;
 
 import Code.Command.Base.Command;
 import Code.Command.Base.CommandNoncancelabe;
@@ -16,11 +17,12 @@ public abstract class typeTransfer extends Command implements CommandNoncancelab
     /*
      * 总共为5种格式互相转化png，jpg，tiff，gif，bmp
      */
-    public abstract void transfer();
+    public abstract void transfer() throws nameNotFoundException;
 
     public String getName(String localPath)
     {
-        String fName = localPath.trim();  
+        String fName = localPath.trim();
+        //System.out.println(fName);
         String name=fName.substring(fName.lastIndexOf("\\")+1);  
         return name.substring(0,name.lastIndexOf("."));
     }
@@ -31,7 +33,11 @@ public abstract class typeTransfer extends Command implements CommandNoncancelab
     public void execute() {
         // ignore receiver
  
-        transfer();
+        try {
+            transfer();
+        } catch (nameNotFoundException e) {
+            System.out.println("Please rename your imag file!");
+        }
         newName++;
     
     }

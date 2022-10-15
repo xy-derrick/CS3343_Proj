@@ -21,23 +21,18 @@ public class closeAllImgProcessors extends Command{
     public void execute() {
         // ignore receiver
         
-        try {
             state_last = Software.getInstance().getState();
             if(state_curr  == null)
             {
-                Software.getInstance().setImgProcessorList(null);
+                Software.getInstance().setImgProcessorList(new ArrayList<imgProcessor>());
                 Software.getInstance().setMain_ip(null); 
-
+                System.out.println("All the processor are closed now");
                 state_curr =Software.getInstance().getState();
             }
             else
             {
                 Software.getInstance().setState(state_curr);
             }
- 
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
     @Override

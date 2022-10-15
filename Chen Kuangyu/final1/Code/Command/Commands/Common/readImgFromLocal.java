@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import Code.Command.Base.Command;
+import Code.Exception.AddressFileUnreadableException;
 import Code.Software.Software;
 import Code.Software.imgProcessor;
 import Code.Software.ipState;
@@ -35,9 +36,13 @@ public class readImgFromLocal extends Command{
             //first
             if (state_curr == null)
             {
-                iProcessor = new imgProcessor();
+                
                 File imgFile = new File(text);
+               
+                if(!imgFile.exists()){throw new AddressFileUnreadableException(text);};
+                
                 BufferedImage bufImage = ImageIO.read(imgFile);
+                iProcessor = new imgProcessor();
                 iProcessor.setImg(bufImage); 
                 iProcessor.setPath(text);
                 Software.getInstance().setMain_ip(iProcessor);
@@ -49,7 +54,8 @@ public class readImgFromLocal extends Command{
                 Software.getInstance().setState(state_curr);
             } 
             System.out.println("successfully read img file from "+text);  
-        } catch (IOException e) {
+        } catch(AddressFileUnreadableException e){
+        }catch (IOException e) {
             // TODO Auto-generated catch block
             System.out.println("Can't read such file, please check the address and file type !");  
         }

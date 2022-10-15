@@ -1,6 +1,7 @@
 package Code.Command.Commands.Common;
 import java.util.ArrayList;
 import Code.Command.Base.Command;
+import Code.Exception.ImgProcessorNotFindInListException;
 import Code.Software.Software;
 import Code.Software.imgProcessor;
 import Code.Software.ipState;
@@ -28,6 +29,7 @@ public class changeImgProcessor extends Command{
             state_last = Software.getInstance().getState();
             if(state_curr  == null)
             {
+                if(Software.getInstance().getImgProcessorList()==null || Software.getInstance().getImgProcessorList().indexOf(num)==-1){throw new ImgProcessorNotFindInListException((int)num);};
                 imgProcessor order = Software.getInstance().getImgProcessorList().get(num);
                 Software.getInstance().setMain_ip(order);
                 System.out.println("image processor now change to "+num+"-image processor");  
@@ -39,9 +41,8 @@ public class changeImgProcessor extends Command{
                 Software.getInstance().setState(state_curr);
             }
             
-        } catch (Exception e) {
+        } catch (ImgProcessorNotFindInListException e) {
             // TODO Auto-generated catch block
-            System.out.println(num+"-image processor not exist !"); 
         }
     }
 
