@@ -27,5 +27,4 @@ zip：用户输入zip文件路径，即可创建对应的zip文件，将对应�
 
 问题：
 1.云端未实现
-2.蒋哥哥空redo和undo的exception在我这边运行会有unreachable exception。说commoncommands的try主题里面没有抛出。但是我检查了common3和4都是抛出的。而且下午在蒋哥哥的电脑跑也没问题。
-为了测试我command了那几行
+
