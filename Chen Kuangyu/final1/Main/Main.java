@@ -125,12 +125,12 @@ public class Main {
                 case 2:
                     quickCommand("pleaze input the id of image processor as a int", changeImgProcessor.class,Software.getInstance().getMain_ip());
                     break;
-                // case 3:
-                //     Software.getInstance().undo();
-                //     break;
-                // case 4:
-                //     Software.getInstance().redo();
-                //     break;
+                case 3:
+                    Software.getInstance().undo();
+                    break;
+                case 4:
+                    Software.getInstance().redo();
+                    break;
                 case 5:
                     quickCommand(null, closeImgProcessor.class,Software.getInstance().getMain_ip());
                     break;
@@ -156,10 +156,10 @@ public class Main {
         }catch(NullPointerException e){
             System.out.println("Please select main image processor first !");
         }
-        // catch(NoCommandToRedoException e){
-        // }
-        // catch(NoCommandToUndoException e){
-        // }
+        catch(NoCommandToRedoException e){
+        }
+        catch(NoCommandToUndoException e){
+        }
 
         }
 
