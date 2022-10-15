@@ -16,7 +16,10 @@ import Java.Code.Command.EditDecorator.CombineFilter;
 import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Command.EditDecorator.GrayFilter;
 import Java.Code.Command.EditDecorator.HighContrastFilter;
+import Java.Code.Command.EditDecorator.MosaicFilter;
+import Java.Code.Command.EditDecorator.PaintFilter;
 import Java.Code.Command.EditDecorator.VintageFilter;
+import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.ArgsReader;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
@@ -92,12 +95,18 @@ public class Main {
 				decoratorCommand("an integer to represent the degree", HighContrastFilter.class,Software.getInstance().getMain_ip());
 				break;
 			case 3:
-				decoratorCommand("from 0.5 to 1 represent noise", VintageFilter.class,Software.getInstance().getMain_ip());
+				decoratorCommand("from [0,100] represent noise", VintageFilter.class,Software.getInstance().getMain_ip());
 				break;
 			case 4:
-				decoratorCommand("another ip nums", CombineFilter.class,Software.getInstance().getMain_ip());
+				decoratorCommand("Please provide another IP id and the transparent degree", CombineFilter.class,Software.getInstance().getMain_ip());
 				break;
-		}
+			case 5:
+				decoratorCommand("Please provide the mosaic size", MosaicFilter.class,Software.getInstance().getMain_ip());
+				break;
+			case 6:
+				decoratorCommand("Please provide the degree", PaintFilter.class,Software.getInstance().getMain_ip());
+				break;
+		} 
 	}
 
     public static void decoratorCommand(String hint,Class decorator_name,imgProcessor ip)
@@ -108,7 +117,6 @@ public class Main {
             ArgsReader.getInstance().hint(hint);
             ArrayList<Object>args_object = ArgsReader.getInstance().read(decorator_name);
             Constructor c= decorator_name.getConstructor(EditCommand.class,ArrayList.class);
-
             main_software.setCommand((EditDecorator)c.newInstance(wrappee,args_object));
             main_software.execute();
         }

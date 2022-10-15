@@ -2,9 +2,8 @@ package Java.Code.Command.EditDecorator;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import Java.Code.Command.Base.Command;
 import Java.Code.Command.Commands.EditCommand;
+import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
 
 public class VintageFilter extends EditDecorator {
@@ -13,19 +12,24 @@ public class VintageFilter extends EditDecorator {
 		super(wrappee);
 		this.noise=noise.doubleValue();
 	}
-	public VintageFilter(EditCommand wrappee,ArrayList<Object> args) {
+	public VintageFilter(EditCommand wrappee,ArrayList<Object> args) throws ArgsInvalidException {
 		super(wrappee);
 		Float temp=(Float)args.get(0);
-		this.noise=temp.doubleValue();
+		if (temp<1 || temp>100) {
+			throw new ArgsInvalidException("Degree must be [0,100]");
+		}
+		this.noise=noise(temp.doubleValue());
 	}
 	
 	private  int clamp(int c)  {  
 		return c > 255 ? 255 :( (c < 0) ? 0: c);  
 	} 
+	
 	 
-	private double noise() {  
+	private Double noise(Double degree) {  
 		// noise from 0.5 to 1
-		return Math.random()*0.5 + 0.5;  
+		return (degree-1)/99;
+		//return Math.random()*0.5 + 0.5;  
 	}  
 	 
 	private double colorBlend(double scale, double dest, double src) {  

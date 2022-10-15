@@ -2,8 +2,6 @@ package Java.Code.Command.EditDecorator;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import Java.Code.Command.Base.Command;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
 

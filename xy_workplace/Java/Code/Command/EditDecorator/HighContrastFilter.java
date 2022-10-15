@@ -3,9 +3,8 @@ package Java.Code.Command.EditDecorator;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import Java.Code.Command.Base.Command;
 import Java.Code.Command.Commands.EditCommand;
+import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
 
 public class HighContrastFilter extends EditDecorator {
@@ -17,8 +16,11 @@ public class HighContrastFilter extends EditDecorator {
         this.contrast=(Integer)args.get(0);
     }
 	
-    public HighContrastFilter(EditCommand wrappee,Integer contrast ) {
+    public HighContrastFilter(EditCommand wrappee,Integer contrast ) throws ArgsInvalidException {
         super(wrappee);
+        if (contrast <0) {
+        	throw new ArgsInvalidException("contrast can not be less than 0!");
+        }
         this.contrast=contrast; 
     }
     
