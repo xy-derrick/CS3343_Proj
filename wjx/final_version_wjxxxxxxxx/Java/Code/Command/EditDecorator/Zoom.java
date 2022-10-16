@@ -3,18 +3,22 @@ package Code.Command.EditDecorator;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Code.Command.Commands.EditCommand;
+import Code.Exception.ArgsInvalidException;
 import Code.Command.Base.Command;
 import Code.Software.imgProcessor;
 
 public class Zoom extends EditDecorator {
     private float targetWidth;
 
-    public Zoom(EditCommand wrappee,ArrayList<Object> args) {
+    public Zoom(EditCommand wrappee,ArrayList<Object> args)throws ArgsInvalidException  {
         super(wrappee);
         // TODO Auto-generated constructor stub
         this.targetWidth=(Float)args.get(0);
+        if ((targetWidth>10)||(targetWidth<=0)) {
+        	throw new ArgsInvalidException("TargetWidth must be (0,10].");
+        }
     }
-    public Zoom(EditCommand wrappee,Float targetWidth) {
+    public Zoom(EditCommand wrappee,Float targetWidth){
         super(wrappee);
         // TODO Auto-generated constructor stub
         this.targetWidth=targetWidth;
