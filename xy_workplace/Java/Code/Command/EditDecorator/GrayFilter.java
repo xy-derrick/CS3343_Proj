@@ -30,8 +30,7 @@ public class GrayFilter extends EditDecorator {
         int gray = 0;
         float radioMax = 0;
         float radioMaxMid = 0;
-//      BufferedImage result = new BufferedImage(width, height, image.getType());
-        for (int i = 0; i < width; i++) {//一列列扫描
+        for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
               gray = image.getRGB(i, j);
                 alpha = gray >>> 24;

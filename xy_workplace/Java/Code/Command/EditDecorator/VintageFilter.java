@@ -28,7 +28,7 @@ public class VintageFilter extends EditDecorator {
 	 
 	private Double noise(Double degree) {  
 		// noise from 0.5 to 1
-		return (degree-1)/99;
+		return ((degree-1)/99)*0.5+0.5;
 		//return Math.random()*0.5 + 0.5;  
 	}  
 	 
