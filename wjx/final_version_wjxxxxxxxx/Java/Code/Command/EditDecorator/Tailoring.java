@@ -3,6 +3,7 @@ package Code.Command.EditDecorator;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Code.Command.Commands.EditCommand;
+import Code.Exception.ArgsInvalidException;
 import Code.Command.Base.Command;
 import Code.Software.imgProcessor;
 
@@ -15,12 +16,24 @@ public class Tailoring extends EditDecorator {
 
 
 
-    public Tailoring(EditCommand wrappee,ArrayList<Object> args) {
+    public Tailoring(EditCommand wrappee,ArrayList<Object> args)throws ArgsInvalidException {
         super(wrappee);
+        
         this.x=(int)args.get(0);
         this.y=(int)args.get(1);
         this.w=(int)args.get(2);
         this.h=(int)args.get(3);
+
+        if ((this.x>=100)||(this.x<0)||(this.y>=100)||(this.y<0)) {
+        	throw new ArgsInvalidException("a,b must be [0,100)");
+        }
+        if ((this.w>=100)||(this.w<0)||(this.w+this.x>100)) {
+        	throw new ArgsInvalidException("c must be (0,100], and a+c<=100.Now a = "+this.x+" ,so that the range of c is (0,"+(100-this.x)+"].\n");
+        }
+        if ((this.h>=100)||(this.h<0)||(this.h+this.h>100)) {
+        	throw new ArgsInvalidException("d must be (0,100], and b+d<=100.Now b = "+this.y+" ,so that the range of d is (0,"+(100-this.y)+"].\n");
+        }
+        
     }
     public Tailoring(EditCommand wrappee,Integer x,Integer y,Integer w,Integer h) {
         super(wrappee);
@@ -30,20 +43,6 @@ public class Tailoring extends EditDecorator {
         this.h=h;
     }
     
-
-    //public int findError(int x,int y,int w,int h) throws OutOfRangeException, NegtiveInputException, CropOutOfPictureSizeException{
-    //    e = 0;
-    //    if (x>=imgcopy.getWidth()||y>=imgcopy.getWidth())
-    //        throw new OutOfRangeException();
-    //    else if (w<0||h<0)
-    //        throw new NegtiveInputException();
-    //    else if (x+w>=imgcopy.getHeight()||y+h>=imgcopy.getHeight())
-    ///        throw new CropOutOfPictureSizeException();
-    //    else{
-    //        e =1;
-    //    }
-    //    return e;     
-    //}
 
     @Override
     public void execute(){
@@ -55,7 +54,7 @@ public class Tailoring extends EditDecorator {
         yReal = (Integer)y*img.getHeight()/100;
         wReal = (Integer)w*img.getWidth()/100;
         hReal = (Integer)h*img.getHeight()/100;
-        System.out.println("Xreal:"+xReal+"Yreal:"+yReal+"Wreal:"+wReal+"Hreal:"+hReal);
+
         ip.setImg(img.getSubimage(xReal,yReal,wReal,hReal));
 
             

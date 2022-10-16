@@ -25,8 +25,8 @@ import Code.Exception.ImgProcessorSelectedIsNullException;
 import Code.Exception.NoCommandToRedoException;
 import Code.Exception.NoCommandToUndoException;
 import Code.Exception.ArgsTypeNotRightException;
-import Code.Exception.NoCommandToUndoException;
-import Code.Exception.NoCommandToUndoException;
+import Code.Exception.CommandIndexOverLimit;
+import Code.Exception.CommandTypeNotDefinedException;
 
 
 public class Main {
@@ -78,8 +78,8 @@ public class Main {
             main_software.setCommand((Command)c.newInstance(ip,args_object));
             main_software.execute();
         }
-        catch(ArgsTypeNotRightException e){
-        }
+        // catch(ArgsTypeNotRightException e){
+        // }
         catch(Exception e)
         {
             System.out.println("Command failed due to unknow situation ! ");
@@ -104,8 +104,8 @@ public class Main {
 
             }
         }
-        catch(CommandTypeNotDefinedException e){
-        }
+        // catch(CommandTypeNotDefinedException e){
+        // }
         catch(Exception e)
         {
             System.out.println("Unknown command!");
@@ -160,8 +160,7 @@ public class Main {
         }
         catch(NoCommandToUndoException e){
         }
-        catch(Exception e){
-            System.out.println(e);
+
         }
 
     public static void exportCommands(Integer num)

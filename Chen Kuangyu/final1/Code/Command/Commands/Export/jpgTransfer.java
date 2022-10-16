@@ -3,10 +3,13 @@ package Code.Command.Commands.Export;
 import Code.Software.imgProcessor;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import Code.exportException.*;
+
 import java.awt.Color;
 
 public class jpgTransfer extends typeTransfer {
@@ -23,13 +26,17 @@ public class jpgTransfer extends typeTransfer {
   }
 
     @Override
-    public void transfer(){
+    public void transfer() throws nameNotFoundException{
         try {
 
             //读入图片以及路径
             BufferedImage  imag= iProcessor.getImg();
             String localPath=iProcessor.getPath();
             String name=getName(localPath);
+
+            if(name.isEmpty() || name==""){
+              throw new nameNotFoundException();
+            }
       
             // 创建一个空的RGB，与图片拥有相同的高宽，白色底
             BufferedImage newBufferedImage = new BufferedImage(imag.getWidth(),
@@ -41,12 +48,24 @@ public class jpgTransfer extends typeTransfer {
       
             // 写入jepg文件
             ImageIO.write(newBufferedImage, "jpg", new File(path+"\\"+String.valueOf(newName)+name+".jpg"));
-            
         
             System.out.println("Transfer to jpg successfully");
       
-          } catch (IOException e) {
-            System.out.println("Invalid path");
+          } 
+          catch(FileNotFoundException e)
+          {
+            System.out.println("Invalid file path! Please check and input again!");
+          }
+          catch(NullPointerException e)
+          {
+            System.out.println("Input path is null! Please input again!");
+          }
+          catch (IOException e) {
+            System.out.println("Unknown errors happended when write to jpg file!");
+          }
+          catch(IllegalArgumentException e)
+          {
+              System.out.println("Can find imag from the imag processor. Please check!");
           }
       
          }

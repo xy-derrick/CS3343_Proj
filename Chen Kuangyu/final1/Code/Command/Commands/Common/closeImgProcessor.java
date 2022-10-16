@@ -1,7 +1,7 @@
 package Code.Command.Commands.Common;
 import java.util.ArrayList;
 import Code.Command.Base.Command;
-import Code.Exception.OrderImageNotMovedException;
+import Code.Exception.NoValidOperationException;
 import Code.Software.Software;
 import Code.Software.imgProcessor;
 import Code.Software.ipState;
@@ -20,8 +20,7 @@ public class closeImgProcessor extends Command{
     
     @Override
     public void execute() {
-        // ignore receiver
-        try {    
+        // ignore receiver  
             state_last = Software.getInstance().getState();
             if(state_curr  == null)
             {
@@ -35,11 +34,6 @@ public class closeImgProcessor extends Command{
             {
                 Software.getInstance().setState(state_curr);
             }
-        } 
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            System.out.println(e); 
-        }
     }
 
     @Override

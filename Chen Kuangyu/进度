@@ -19,3 +19,12 @@ zip：用户输入zip文件路径，即可创建对应的zip文件，将对应�
 讨之后，考虑到批处理难以处理，所以摒弃多文件存zip，转为多文件可以存不同的zip（实现见1）
 
 问题：云端未实现
+
+
+进度：(2022/10/15)
+1.catch了所有的用的库函数的exception
+2.创建了两个exportException，nameNotFoundException和typeNotFoundException。原图片文件如果是名字为空或者类型为空，则抛出错误。
+
+问题：
+1.云端未实现
+

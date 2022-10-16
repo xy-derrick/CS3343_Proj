@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Code.Command.Base.Command;
+import Code.Exception.ImgProcessorSelectedIsNullException;
 import Code.Software.imgProcessor;
 
 public class displayImg extends Command{
@@ -27,6 +28,7 @@ public class displayImg extends Command{
     public void execute() {
         // example for reading info from img
         try{
+            if(iProcessor == null){throw new NullPointerException();}
             if(frame == null){frame = new MyFrame();}
             frame.setVisible(true);   
             System.out.println("Img display .........................."); 
@@ -34,10 +36,6 @@ public class displayImg extends Command{
         catch(NullPointerException e)
         {
             System.out.println("No image finded in the processor !"); 
-        }
-        catch(Exception e)
-        {
-            System.out.println("Can't show the image !"); 
         }
  
     }

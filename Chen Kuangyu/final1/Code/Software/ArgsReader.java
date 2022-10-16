@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Code.Exception.ArgsTypeNotRightException;
+
 public class ArgsReader {
     static private ArgsReader reader = null;
     
@@ -26,7 +28,7 @@ public class ArgsReader {
         if(h!=null){        System.out.println(h);};
     }
 
-    public ArrayList<Object> read(Class commond_name)
+    public ArrayList<Object> read(Class commond_name) throws ArgsTypeNotRightException
     {
         try
         {
@@ -62,8 +64,7 @@ public class ArgsReader {
         }
         catch(Exception e)
         {
-            System.out.println("args type not right, plz input again");
-            return null;
+            throw new ArgsTypeNotRightException();
         }     
     }
 

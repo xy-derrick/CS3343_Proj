@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Stack;
 import Code.Command.Base.Command;
 import Code.Command.Base.CommandNoncancelabe;
+import Code.Exception.NoCommandToRedoException;
+import Code.Exception.NoCommandToUndoException;
 
 public class Software {
     static private Software software = null;
@@ -46,7 +48,7 @@ public class Software {
         }
     }
 
-    public void undo(){
+    public void undo() throws NoCommandToUndoException{
         if(!undoCommand.empty()){
            Command toUndoCommand = undoCommand.pop();
            if(toUndoCommand instanceof CommandNoncancelabe)
@@ -61,18 +63,18 @@ public class Software {
        }
        else
        {
-        System.out.println("nothing to undo !");
+        throw new NoCommandToUndoException();
        }
     }
 
-    public void redo(){
+    public void redo()throws NoCommandToRedoException{
         if(!redoCommand.empty()){
             Command toRedocommand = redoCommand.pop();
             toRedocommand.execute();
         }
         else
         {
-         System.out.println("nothing to redo !");
+            throw new NoCommandToRedoException();
         }
     }
     
