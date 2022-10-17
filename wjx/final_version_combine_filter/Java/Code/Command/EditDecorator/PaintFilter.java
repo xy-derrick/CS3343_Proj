@@ -24,9 +24,9 @@ public class PaintFilter extends EditDecorator {
 
     
     private BufferedImage filter (BufferedImage img) {
-    	for (int y = 4; y < img.getHeight()-4; y++) {
-            for (int x = 4; x < img.getWidth()-4; x++) {
-            	int range = (int)(Math.random()*4)+1;
+    	for (int y = this.degree; y < img.getHeight()-this.degree; y++) {
+            for (int x = this.degree; x < img.getWidth()-this.degree; x++) {
+            	int range = (int)(Math.random()*this.degree)+1;
             	int sub = (range +1)/2;
             	int a = (int)(Math.random()*range)+1;
             	int b = (int)(Math.random()*range)+1;
