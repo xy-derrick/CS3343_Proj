@@ -33,7 +33,8 @@ public class showOperationHint extends Command implements CommandNoncancelabe{
                             "selected image processor : ["+ipMain+"]\n"+
                             "undo commond list : ["+Software.getInstance().getUndoCommand().size()+"]  redo commond list : ["+Software.getInstance().getRedoCommand().size()+"]\n"+
                             "common: 1.open 2.change 3.undo 4.redo 5.close 6.closeAll 7.display 8.info 9.exist\n"+
-                            "edit:\n"+
+                            "edit: 1.Flip Horizontal 2.Flip Vertical 3.Rotate 90 Degrees Clockwise 4.Rotate 90 Degrees Counterclockwise\n"+
+                            "5.Rotate 180 Degrees 6.Tailoring 7.Zoom\n"+
                             "export:\n"+
                             "filter: 1.Gary 2.ContrastChange 3.Vintage 4.Combine 5.Mosaic 6.Paint\n"+
                             "Command format should be 'title +(space) + number', like 'common 1' \n\n"

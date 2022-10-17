@@ -1,5 +1,0 @@
-package Java.Code.Enum;
-
-public enum ScaleMode {
-    SCALE_AREA_AVERAGING,SCALE_DEFAULT,SCALE_FAST,SCALE_REPLICATE,SCALE_SMOOTH
-}

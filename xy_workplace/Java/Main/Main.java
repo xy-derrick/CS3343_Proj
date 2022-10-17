@@ -14,12 +14,20 @@ import Java.Code.Command.Commands.Common.readImgFromLocal;
 import Java.Code.Command.Commands.Common.showImgInfo;
 import Java.Code.Command.EditDecorator.CombineFilter;
 import Java.Code.Command.EditDecorator.EditDecorator;
+import Java.Code.Command.EditDecorator.FlipHorizontal;
+import Java.Code.Command.EditDecorator.FlipVertical;
 import Java.Code.Command.EditDecorator.GrayFilter;
 import Java.Code.Command.EditDecorator.HighContrastFilter;
 import Java.Code.Command.EditDecorator.MosaicFilter;
 import Java.Code.Command.EditDecorator.PaintFilter;
+import Java.Code.Command.EditDecorator.Rotate180Degrees;
+import Java.Code.Command.EditDecorator.Rotate90DegreesClockwise;
+import Java.Code.Command.EditDecorator.Rotate90DegreesCounterclockwise;
+import Java.Code.Command.EditDecorator.Tailoring;
 import Java.Code.Command.EditDecorator.VintageFilter;
-import Java.Code.Exception.ArgsInvalidException;
+import Java.Code.Command.EditDecorator.Zoom;
+import Java.Code.Exception.ArgsTypeNotRightException;
+import Java.Code.Exception.CommandTypeNotDefinedException;
 import Java.Code.Software.ArgsReader;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
@@ -28,37 +36,34 @@ public class Main {
     public static Software main_software = null;
 
     public static void main(String[] args) {
-
-        try
+    	try
         {
             main_software = Software.getInstance();
-            try (Scanner scanner = new Scanner(System.in)) {
-				String type = null;
-				Integer num = null;
-				System.out.println("\nWelcome to Img Process Software !\n"+ 
-				"please select operation from the following list :\n");
+            Scanner scanner = new Scanner(System.in);
+            String type = null;
+            Integer num = null;
+            System.out.println("\nWelcome to Img Process Software !\n"+ 
+            "please select operation from the following list :\n");
 
-				while(true)
-				{
-				    main_software.setCommand(new showOperationHint(null));
-				    main_software.execute();
-				    try
-				    {
-				        type = scanner.next();
-				        num = scanner.nextInt();
-				        switchCommand(type,num);
-				    }
-				    catch(Exception e)
-				    {
-				        System.out.println("Your input command doesnot follow the 'Type Num' format!");
-				    }
-				}
-			}
+            while(true)
+            {
+                main_software.setCommand(new showOperationHint(null));
+                main_software.execute();
+                try
+                {
+                    type = scanner.next();
+                    num = scanner.nextInt();
+                    switchCommand(type,num);
+                }
+                catch(Exception e)
+                {
+                    System.out.println("Your input command does not follow the 'Type Num' format!");
+                }
+            }
         }
         catch(Exception e)
         {
             System.out.println("software initialization failed !");
-            System.out.println(e);
         }       
     }
 
@@ -76,14 +81,47 @@ public class Main {
                  case "filter":
                 	filterCommands(num);
                 	 break;
+                 case "edit":
+                 	editCommands(num);
+                 	 break;
+                 default:
+                     throw new CommandTypeNotDefinedException(type.toLowerCase());
             }
         }
         catch(Exception e)
         {
-            System.out.println("Unknown command!");
+            System.out.println("e");
             e.printStackTrace(System.out);
         }
     }
+    
+    private static void editCommands(Integer num) {
+		// TODO Auto-generated method stub
+		switch (num) {
+			case 1:
+				decoratorCommand("no input now", FlipHorizontal.class,Software.getInstance().getMain_ip());
+				break;
+			case 2:
+                decoratorCommand("no input now", FlipVertical.class,Software.getInstance().getMain_ip());	
+                break;			
+			case 3:
+				decoratorCommand("no input now", Rotate90DegreesClockwise.class,Software.getInstance().getMain_ip());
+				break;
+            case 4:
+				decoratorCommand("no input now", Rotate90DegreesCounterclockwise.class,Software.getInstance().getMain_ip());
+				break;
+            case 5:
+				decoratorCommand("no input now", Rotate180Degrees.class,Software.getInstance().getMain_ip());
+				break;
+            case 6:
+                decoratorCommand("4 integer to represent a=cutting start point(x),b=cutting start point(y),c=length of retention(x),d=length of retention(y)\n"+
+                "a,b: 0-100,  c,d: 1-100  and a+c<=100, b+d<=100", Tailoring.class,Software.getInstance().getMain_ip());
+				break;
+			case 7:
+                decoratorCommand("an integer to represent the scaling", Zoom.class,Software.getInstance().getMain_ip());
+				break;
+		}
+	}
 
     private static void filterCommands(Integer num) {
 		// TODO Auto-generated method stub
@@ -177,11 +215,11 @@ public class Main {
             main_software.setCommand((Command)c.newInstance(ip,args_object));
             main_software.execute();
         }
-        catch(Exception e)
-        {
-            System.out.println("Command failed ! ");
+        catch(Exception e){
+            System.out.println("Command failed due to unknow situation !");
             System.out.println(e);
         }
     }
+
    
 }

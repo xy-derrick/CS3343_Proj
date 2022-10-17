@@ -19,8 +19,8 @@ public class PaintFilter extends EditDecorator {
 	
     public PaintFilter(EditCommand wrappee, Integer degree) throws ArgsInvalidException {
         super(wrappee);
-        if (degree >100) {
-        	throw new ArgsInvalidException("degree can not bigger than 100!");
+        if (degree >100 || degree < 0) {
+        	throw new ArgsInvalidException("degree must be [1,100]!");
         }
         this.degree=degree; 
     }
@@ -42,7 +42,7 @@ public class PaintFilter extends EditDecorator {
             	int sub = (range +1)/2;
             	int a = (int)(Math.random()*range)+1;
             	int b = (int)(Math.random()*range)+1;
-                img.setRGB(x,y,img.getRGB(x+a-sub, y+a-sub));
+                img.setRGB(x,y,img.getRGB(x+a-sub, y+b-sub));
             }
         }
     	BufferedImage top= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_t.jpg");

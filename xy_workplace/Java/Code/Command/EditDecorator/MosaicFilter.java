@@ -18,8 +18,8 @@ public class MosaicFilter extends EditDecorator {
     public MosaicFilter(EditCommand wrappee,Integer size ) throws ArgsInvalidException {
         super(wrappee);
         BufferedImage temp=super.wrappee.getIP().getImg();
-        if (size > Math.min(temp.getHeight(),temp.getWidth())) {
-        	throw new ArgsInvalidException("Mosaic size can not bigger than the img!");
+        if (size > Math.min(temp.getHeight(),temp.getWidth())||size<0) {
+        	throw new ArgsInvalidException("Mosaic size can not bigger than the img or less than 0!");
         }
         this.mosaicSize=size; 
     }
