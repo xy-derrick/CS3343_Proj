@@ -45,33 +45,49 @@ public class PaintFilter extends EditDecorator {
                 img.setRGB(x,y,img.getRGB(x+a-sub, y+b-sub));
             }
         }
-    	BufferedImage top= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_t.jpg");
-    	top=CombineFilter.resizeImage(top,img.getWidth(),this.degree);
-    	BufferedImage bot= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_b.jpg");
-    	bot=CombineFilter.resizeImage(bot,img.getWidth(),this.degree);
-    	BufferedImage left= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_l.jpg");
-    	left=CombineFilter.resizeImage(left,this.degree,img.getHeight());
-    	BufferedImage right= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_r.jpg");
-    	right=CombineFilter.resizeImage(right,this.degree,img.getHeight());
-  
-    	for (int i=0;i<img.getWidth();i++) {
-    		for (int j=0;j<this.degree;j++) {
-    			img.setRGB(i,j,top.getRGB(i, j));
+    	BufferedImage source= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_source.jpg");
+    	source=CombineFilter.resizeImage(source,img.getWidth(),this.degree);
+//    	BufferedImage top= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_t.jpg");
+//    	top=CombineFilter.resizeImage(top,img.getWidth(),this.degree);
+//    	BufferedImage bot= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_b.jpg");
+//    	bot=CombineFilter.resizeImage(bot,img.getWidth(),this.degree);
+//    	BufferedImage left= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_l.jpg");
+//    	left=CombineFilter.resizeImage(left,this.degree,img.getHeight());
+//    	BufferedImage right= getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_r.jpg");
+//    	right=CombineFilter.resizeImage(right,this.degree,img.getHeight());
+//  
+//    	for (int i=0;i<img.getWidth();i++) {
+//    		for (int j=0;j<this.degree;j++) {
+//    			img.setRGB(i,j,top.getRGB(i, j));
+//    		}
+//    	}
+//    	for (int i=0;i<img.getWidth();i++) {
+//    		for (int j=img.getHeight()-this.degree;j<this.degree;j++) {
+//    			img.setRGB(i,j,bot.getRGB(i, j-img.getHeight()+this.degree));
+//    		}
+//    	}
+//    	for (int i=0;i<this.degree;i++) {
+//    		for (int j=this.degree;j<img.getHeight()-this.degree;j++) {
+//    			img.setRGB(i,j,left.getRGB(i, j-this.degree));
+//    		}
+//    	}
+//    	for (int i=img.getWidth()-this.degree;i<img.getWidth();i++) {
+//    		for (int j=this.degree;j<img.getHeight()-this.degree;j++) {
+//    			img.setRGB(i,j,right.getRGB(i-img.getWidth()+this.degree, j-this.degree));
+//    		}
+//    	}
+    	
+    	for (int j=0;j<this.degree;j++) {
+    		for (int i=j;i<img.getWidth()-j;i++){
+    			img.setRGB(i,j,source.getRGB(i,j));
+    			img.setRGB(i,img.getHeight()-j-1,source.getRGB(i,j));
     		}
     	}
-    	for (int i=0;i<img.getWidth();i++) {
-    		for (int j=img.getHeight()-this.degree;j<this.degree;j++) {
-    			img.setRGB(i,j,bot.getRGB(i, j-img.getHeight()+this.degree));
-    		}
-    	}
-    	for (int i=0;i<this.degree;i++) {
-    		for (int j=this.degree;j<img.getHeight()-this.degree;j++) {
-    			img.setRGB(i,j,left.getRGB(i, j-this.degree));
-    		}
-    	}
-    	for (int i=img.getWidth()-this.degree;i<img.getWidth();i++) {
-    		for (int j=this.degree;j<img.getHeight()-this.degree;j++) {
-    			img.setRGB(i,j,right.getRGB(i-img.getWidth()+this.degree, j-this.degree));
+    	source=CombineFilter.resizeImage(source,img.getHeight(),this.degree);
+    	for (int j=0;j<this.degree;j++) {
+    		for (int i=j;i<img.getHeight()-j;i++){
+    			img.setRGB(img.getWidth()-j-1,i,source.getRGB(i,j));
+    			img.setRGB(j,img.getHeight()-i-1,source.getRGB(i,j));
     		}
     	}
     	return img;

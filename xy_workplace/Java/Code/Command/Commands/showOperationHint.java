@@ -36,7 +36,7 @@ public class showOperationHint extends Command implements CommandNoncancelabe{
                             "edit: 1.Flip Horizontal 2.Flip Vertical 3.Rotate 90 Degrees Clockwise 4.Rotate 90 Degrees Counterclockwise\n"+
                             "5.Rotate 180 Degrees 6.Tailoring 7.Zoom\n"+
                             "export:\n"+
-                            "filter: 1.Gary 2.ContrastChange 3.Vintage 4.Combine 5.Mosaic 6.Paint\n"+
+                            "filter: 1.Gary 2.ContrastChange 3.Vintage 4.Combine 5.Mosaic 6.Paint 7.border\n"+
                             "Command format should be 'title +(space) + number', like 'common 1' \n\n"
                             );
     }

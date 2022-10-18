@@ -13,6 +13,7 @@ import Java.Code.Command.Commands.Common.existSoftware;
 import Java.Code.Command.Commands.Common.readImgFromLocal;
 import Java.Code.Command.Commands.Common.showImgInfo;
 import Java.Code.Command.EditDecorator.CombineFilter;
+import Java.Code.Command.EditDecorator.CreateBorder;
 import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Command.EditDecorator.FlipHorizontal;
 import Java.Code.Command.EditDecorator.FlipVertical;
@@ -144,6 +145,10 @@ public class Main {
 			case 6:
 				decoratorCommand("Please provide the degree", PaintFilter.class,Software.getInstance().getMain_ip());
 				break;
+			case 7:
+				decoratorCommand("border size and ip num (invalid ipnum will use defult)", CreateBorder.class,Software.getInstance().getMain_ip());
+				break;
+
 		} 
 	}
 
