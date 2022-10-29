@@ -12,6 +12,7 @@ import Code.Command.Commands.Common.existSoftware;
 import Code.Command.Commands.Common.readImgFromLocal;
 import Code.Command.Commands.Common.showImgInfo;
 import Code.Command.Commands.Export.bmpTransfer;
+import Code.Command.Commands.Export.cloudSave;
 import Code.Command.Commands.Export.gifTransfer;
 import Code.Command.Commands.Export.imagCompress;
 import Code.Command.Commands.Export.jpgTransfer;
@@ -21,12 +22,9 @@ import Code.Command.Commands.Export.tiffTransfer;
 import Code.Software.ArgsReader;
 import Code.Software.Software;
 import Code.Software.imgProcessor;
-import Code.Exception.ImgProcessorSelectedIsNullException;
 import Code.Exception.NoCommandToRedoException;
 import Code.Exception.NoCommandToUndoException;
-import Code.Exception.ArgsTypeNotRightException;
 import Code.Exception.CommandIndexOverLimit;
-import Code.Exception.CommandTypeNotDefinedException;
 
 
 public class Main {
@@ -188,11 +186,9 @@ public class Main {
             case 7:
                 quickCommand("pleaze input the local path: ", localSave.class,Software.getInstance().getMain_ip());
                 break;
-            //cloud
-            // case 8:
-            //     // pass 
-            //     quickCommand(null, displayImg.class,Software.getInstance().getMain_ip());
-            //     break;
+            case 8:
+                quickCommand("Please input the imag path: ", cloudSave.class,Software.getInstance().getMain_ip());
+                break;
             
         };
     }
