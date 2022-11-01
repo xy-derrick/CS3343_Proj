@@ -15,23 +15,9 @@ public class LodingPanel extends JPanel {
   public static final int CLOCKWISE = 0;
   public static final int ANTICLOCKWISE = 1;
 
-  public static void loadingFrame() {
-    JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400, 300);
-    frame.setLocationRelativeTo(null);
-    frame.setResizable(false);
-    LodingPanel lodingPanel = new LodingPanel();
-    lodingPanel.add(new JLabel("Loading...", JLabel.CENTER), BorderLayout.CENTER);
-    lodingPanel.setBackground(Color.WHITE);
-    lodingPanel.show();
-    frame.add(lodingPanel);
-    frame.setVisible(true);
-  }
-
   public LodingPanel() {
     this.delay = 50;
-    this.setLayout(new BorderLayout());
+    // this.setLayout(new BorderLayout());
     this.orientation = CLOCKWISE;
     init();
   }
@@ -134,6 +120,22 @@ public class LodingPanel extends JPanel {
   }
 
   public static void main(String[] args) {
-    LodingPanel.loadingFrame();
+    JFrame JF = new JFrame();
+    JF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JF.setSize(800, 800);
+    JF.setLocationRelativeTo(null);
+    JF.setResizable(false);
+    JF.setVisible(true);
+    JDialog JD = new JDialog();
+    LodingPanel LP = new LodingPanel();
+    JD.add(LP);
+    LP.setBackground(Color.WHITE);
+    LP.show();
+    JD.setModal(true);// !!! 设置为模态窗口,父窗口不能被点击
+    JD.setSize(400, 400);
+    JD.setLocationRelativeTo(null);
+    JD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    JD.setVisible(true);
+    // LodingPanel.loadingFrame();
   }
 }
