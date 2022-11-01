@@ -1,113 +1,17 @@
 package Java.Gui;
-//
-//import java.awt.*;
-//import javax.swing.*;
-//
-//public class guiMain extends JFrame {
-//    public static void main(String args[]) {
-//        guiMain demo = new guiMain();
-//    }
-//
-//    public guiMain() {
-//        init();
-//        this.setSize(1000, 600);
-//        this.setVisible(true);
-//    }
-//    JButton j1;
-//    JButton j2;
-//    JButton j3;
-//    JPanel j4;
-//    JComboBox j5;
-//    JTextField j6;
-//    JButton j7;
-//    JList j8;
-//    JTextArea j9;
-//    public void init() {
-//        j1 = new JButton("打开");
-//        j2 = new JButton("保存");
-//        j3 = new JButton("另存为");
-//        j4 = new JPanel();
-//        String[] str = { "java笔记", "C#笔记", "HTML5笔记" };
-//        j5 = new JComboBox(str);
-//        j6 = new JTextField();
-//        j7 = new JButton("清空");
-//        j8 = new JList(str);
-//        j9 = new JTextArea();
-//        j9.setBackground(Color.PINK);// 为了看出效果，设置了颜色
-//        GridBagLayout layout = new GridBagLayout();
-//        this.setLayout(layout);
-//        this.add(j1);// 把组件添加进jframe
-//        this.add(j2);
-//        this.add(j3);
-//        this.add(j4);
-//        this.add(j5);
-//        this.add(j6);
-//        this.add(j7);
-//        this.add(j8);
-//        this.add(j9);
-//        GridBagConstraints s = new GridBagConstraints();// 定义一个GridBagConstraints，
-//        // 是用来控制添加进的组件的显示位置
-//        s.fill = GridBagConstraints.BOTH;
-//        // 该方法是为了设置如果组件所在的区域比组件本身要大时的显示情况
-//        // NONE：不调整组件大小。
-//        // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
-//        // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
-//        // BOTH：使组件完全填满其显示区域。
-//        s.gridwidth = 1;// 该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
-//        s.weightx = 0;// 该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
-//        s.weighty = 0;// 该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
-//        layout.setConstraints(j1, s);// 设置组件
-//        s.gridwidth = 1;
-//        s.weightx = 0;
-//        s.weighty = 0;
-//        layout.setConstraints(j2, s);
-//        s.gridwidth = 1;
-//        s.weightx = 0;
-//        s.weighty = 0;
-//        layout.setConstraints(j3, s);
-//        s.gridwidth = 0;// 该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
-//        s.weightx = 0;// 不能为1，j4是占了4个格，并且可以横向拉伸，
-//        // 但是如果为1，后面行的列的格也会跟着拉伸,导致j7所在的列也可以拉伸
-//        // 所以应该是跟着j6进行拉伸
-//        s.weighty = 0;
-//        layout.setConstraints(j4, s);
-//        s.gridwidth = 2;
-//        s.weightx = 0;
-//        s.weighty = 0;
-//        layout.setConstraints(j5, s);
-//        ;
-//        s.gridwidth = 4;
-//        s.weightx = 1;
-//        s.weighty = 0;
-//        layout.setConstraints(j6, s);
-//        ;
-//        s.gridwidth = 0;
-//        s.weightx = 0;
-//        s.weighty = 0;
-//        layout.setConstraints(j7, s);
-//        ;
-//        s.gridwidth = 2;
-//        s.weightx = 0;
-//        s.weighty = 1;
-//        layout.setConstraints(j8, s);
-//        ;
-//        s.gridwidth = 5;
-//        s.weightx = 0;
-//        s.weighty = 1;
-//        layout.setConstraints(j9, s);
-//    }
-//
-//}
-
-
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
+
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Command.Commands.showOperationHint;
 import Java.Code.Command.Commands.Common.changeImgProcessor;
 import Java.Code.Command.Commands.Common.closeAllImgProcessors;
 import Java.Code.Command.Commands.Common.closeImgProcessor;
 import Java.Code.Command.Commands.Common.createCopy;
+import Java.Code.Command.Commands.Common.displayImg;
 import Java.Code.Command.Commands.Common.existSoftware;
 import Java.Code.Command.Commands.Common.readImgFromLocal;
 import Java.Code.Command.EditDecorator.Anticolor;
@@ -118,21 +22,27 @@ import Java.Code.Command.EditDecorator.HighContrastFilter;
 import Java.Code.Command.EditDecorator.MosaicFilter;
 import Java.Code.Command.EditDecorator.PaintFilter;
 import Java.Code.Command.EditDecorator.VintageFilter;
+import Java.Code.Command.Export.*;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.Software;
+import Java.Code.Software.imgProcessor;
+import Java.Gui.Loading.InfiniteProgressPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatLightLaf;
   
 public class guiMain extends JFrame{
 	static private guiMain guiMain = null;
-	static public guiMain getInstance(){
+	static public guiMain getInstance() throws InterruptedException{
         if(guiMain==null)
         {
         	guiMain = new guiMain();
@@ -144,17 +54,24 @@ public class guiMain extends JFrame{
         }
     }
 
-    public guiMain(){
+    public guiMain() throws InterruptedException{
     	FlatLightLaf.setup();
-        init();
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/extlib/ps.jpg"));
+	    InfiniteProgressPanel glasspane = new InfiniteProgressPanel();
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    glasspane.setBounds(100, 100, (dimension.width) / 2, (dimension.height) / 2);
+	    this.setGlassPane(glasspane);
+	    ImageIcon imageIcon = new ImageIcon(getClass().getResource("/extlib/ps.jpg"));
         this.setIconImage(imageIcon.getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT));
         this.setTitle("Photo Store");
         this.setResizable(true);
         this.setSize(1600, 900);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
+	    glasspane.start();
+	    this.setVisible(true);
+	    Thread.sleep(1000);
+        init();
+        glasspane.stop();
     }
     
     SpringLayout springLayout = new SpringLayout();
@@ -173,15 +90,21 @@ public class guiMain extends JFrame{
     JMenu viewMenu = new JMenu("View");
     JMenu aboutMenu = new JMenu("About...");
     JMenuItem newMenuItem = new JMenuItem("Open");
+    JMenuItem saveMenuItem = new JMenuItem("Save as...");
     JMenuItem closeMenuItem = new JMenuItem("Close");
     JMenuItem closeAllMenuItem = new JMenuItem("Close All");
     JMenuItem exitMenuItem = new JMenuItem("Exit");
     JMenuItem aboutMenuItem=new JMenuItem("See Source Code");
     public static Software main_software = null;
+    ArrayList<JComponent> JComFilterList = new ArrayList<>();
     
     private void init(){
+    	
+    	
     	this.setLayout(springLayout);
     	Info.setBounds(0,400 ,100 ,400);
+    	Info.setVerticalTextPosition(JLabel.TOP);
+    	Info.setHorizontalTextPosition(JLabel.LEFT);
     	this.add(Info);
     	try
         {
@@ -195,95 +118,116 @@ public class guiMain extends JFrame{
             System.out.println("software initialization failed !");
         } 
         this.setLayout(null);
-        btnCombine.setBounds(0, 0, 100, 50);
+        btnCombine.setPreferredSize(new Dimension(100,50));
+        btnGray.setPreferredSize(new Dimension(100,50));
+        btnVintage.setPreferredSize(new Dimension(100,50));
+        btnCB.setPreferredSize(new Dimension(100,50));
+        btnHC.setPreferredSize(new Dimension(100,50));
+        btnPaint.setPreferredSize(new Dimension(100,50));
+        btnAnti.setPreferredSize(new Dimension(100,50));
         btnCombine.addActionListener(evt -> {
-            try {
-            	Integer degree= getMoveCount(0,100,"Paint Degree");
-            	String ipnum = JOptionPane.showInputDialog("Another ImgProcessor index:"); 
-				main_software.setCommand(new CombineFilter(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(ipnum),degree.floatValue()));
-			} catch (ArgsInvalidException e1) {
-				e1.printStackTrace();
-			}
-            main_software.execute();
-            updatePane();
+        	Integer degree= getMoveCount(0,100,"Paint Degree");
+        	if (degree!=null) {
+            	String[] res=imgProcessorChooser(true,"Another ImgProcessor index:");
+            	if (res!=null) {
+            		try {
+                    	System.out.println(res[0].toString());
+        				main_software.setCommand(new CombineFilter(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(res[0].split(" ")[0]),degree.floatValue()));
+        			} catch (ArgsInvalidException e1) {
+        				e1.printStackTrace();
+        			}
+                    main_software.execute();
+                    updatePane();
+            	}
+        	}
           });
-        btnGray.setBounds(0, 50, 100, 50);
         btnGray.addActionListener(evt -> {
 			main_software.setCommand(new GrayFilter(new EditCommand(Software.getInstance().getMain_ip())));
             main_software.execute();
             updatePane();
           });
-        btnVintage.setBounds(0, 100, 100, 50);
         btnVintage.addActionListener(evt -> {
-            try {
-            	Integer noise= getMoveCount(0,100,"Vintage Degree");
-            	main_software.setCommand(new VintageFilter(new EditCommand(Software.getInstance().getMain_ip()),noise.floatValue()));
-			} catch (ArgsInvalidException e1) {
-				e1.printStackTrace();
-			}
-            main_software.execute();
-            updatePane();
+        	Integer noise= getMoveCount(0,100,"Vintage Degree");
+        	if (noise!=null) {
+        		try {
+                	
+                	main_software.setCommand(new VintageFilter(new EditCommand(Software.getInstance().getMain_ip()),noise.floatValue()));
+    			} catch (ArgsInvalidException e1) {
+    				e1.printStackTrace();
+    			}
+                main_software.execute();
+                updatePane();
+        	}
           });
-        btnCB.setBounds(0, 150, 100, 50);
         btnCB.addActionListener(evt -> {
-            try {
-            	String width = JOptionPane.showInputDialog("Border width(unit: pixel):");  
-            	String choice = JOptionPane.showInputDialog("Another ImgProcessor index:"); 
-				main_software.setCommand(new CreateBorder(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(width),Integer.parseInt(choice)));
-			} catch (ArgsInvalidException e1) {
-				e1.printStackTrace();
-			}
-            main_software.execute();
-            updatePane();
+        	String width = JOptionPane.showInputDialog("Border width(unit: pixel):");  
+        	if (width!=null) {
+        		String[] choice=imgProcessorChooser(true,"Another ImgProcessor index:");
+        		if (choice !=null) {
+        			try {
+          				main_software.setCommand(new CreateBorder(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(width),Integer.parseInt(choice[0].split(" ")[0])));
+          			} catch (ArgsInvalidException e1) {
+          				e1.printStackTrace();
+          			}
+                    main_software.execute();
+                    updatePane();
+        		}
+        	}
           });
-        btnHC.setBounds(0, 200, 100, 50); 
         btnHC.addActionListener(evt -> {
-            try {
-            	String contrast = JOptionPane.showInputDialog("Degree(from 1 to inf):");  
-				main_software.setCommand(new HighContrastFilter(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(contrast)));
-			} catch (ArgsInvalidException e1) {
-				e1.printStackTrace();
-			}
-            main_software.execute();
-            updatePane();
+        	String contrast = JOptionPane.showInputDialog("Degree(from 1 to inf):");  
+        	if (contrast!=null) {
+        		try {
+      				main_software.setCommand(new HighContrastFilter(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(contrast)));
+      			} catch (ArgsInvalidException e1) {
+      				e1.printStackTrace();
+      			}
+                main_software.execute();
+                updatePane();
+        	}
           });
-        btnPaint.setBounds(0, 250, 100, 50);
         btnPaint.addActionListener(evt -> {
-            try {
-            	Integer degree= getMoveCount(0,100,"Paint Degree");
-				main_software.setCommand(new PaintFilter(new EditCommand(Software.getInstance().getMain_ip()),degree));
-			} catch (ArgsInvalidException e1) {
-				e1.printStackTrace();
-			}
-            main_software.execute();
-            updatePane();
+        	Integer degree= getMoveCount(0,100,"Paint Degree");
+        	if (degree!=null) {
+        		try {	
+        			main_software.setCommand(new PaintFilter(new EditCommand(Software.getInstance().getMain_ip()),degree));
+    			} catch (ArgsInvalidException e1) {
+    				e1.printStackTrace();
+    			}
+                main_software.execute();
+                updatePane();
+        	}
           });
-        btnMosaic.setBounds(0, 300, 100, 50);
+        btnMosaic.setPreferredSize(new Dimension(100,50));
         btnMosaic.addActionListener(evt -> {
-            try {
-            	String size = JOptionPane.showInputDialog("Mosaic size (unit: pixel):");  
-				main_software.setCommand(new MosaicFilter(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(size)));
-			} catch (ArgsInvalidException e1) {
-				e1.printStackTrace();
-			}
-            main_software.execute();
-            updatePane();
+        	String size = JOptionPane.showInputDialog("Mosaic size (unit: pixel):");  
+        	if (size!=null) {
+        		try {
+        			main_software.setCommand(new MosaicFilter(new EditCommand(Software.getInstance().getMain_ip()),Integer.parseInt(size)));
+    			} catch (ArgsInvalidException e1) {
+    				e1.printStackTrace();
+    			}
+                main_software.execute();
+                updatePane();
+        	}
           });
-        btnAnti.setBounds(0, 350, 100, 50);
         btnAnti.addActionListener(evt -> {
             main_software.setCommand(new Anticolor(new EditCommand(Software.getInstance().getMain_ip())));
             main_software.execute();
             updatePane();
           });
-        this.add(btnCombine);
-        this.add(btnGray);
-        this.add(btnVintage);
-        this.add(btnCB);
-        this.add(btnHC);
-        this.add(btnPaint);
-        this.add(btnMosaic);
-        this.add(btnAnti);
-        tabbedPane.setBounds(100, 0, 1500,900);
+        JComFilterList.add(btnCombine);
+        JComFilterList.add(btnGray);
+        JComFilterList.add(btnVintage);
+        JComFilterList.add(btnCB);
+        JComFilterList.add(btnHC);
+        JComFilterList.add(btnPaint);
+        JComFilterList.add(btnMosaic);
+        JComFilterList.add(btnAnti);
+      	JExpandablePanel panels = new JExpandablePanel(Color.black, "Filter", 20, JComFilterList);
+      	panels.setBounds(0, 0, 100, 420);
+      	this.add(panels);
+        tabbedPane.setBounds(100, 0, 1450,800);
         tabbedPane.addChangeListener(evt -> {
             JTabbedPane pane = (JTabbedPane) evt.getSource();
             int selectedIndex = pane.getSelectedIndex();
@@ -304,19 +248,25 @@ public class guiMain extends JFrame{
         		if (Software.getInstance().getImgProcessorList().size()==0) {
         			initflag=true;
                 }
-        		JFileChooser chooser = new JFileChooser();          
+        		JFileChooser chooser = new JFileChooser();  
+        		ImgFileFilter imgFilter = new ImgFileFilter(); //excel过滤器  
+        		chooser.addChoosableFileFilter(imgFilter);
+        		chooser.setFileFilter(imgFilter);
+        		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         		chooser.showOpenDialog(newMenuItem);
         		String filepath = chooser.getSelectedFile().getAbsolutePath();
-        		String filename=chooser.getSelectedFile().getName();
-        		main_software.setCommand(new readImgFromLocal(null,filepath,filename));
-                main_software.execute();
-                main_software.setCommand(new showOperationHint(null));
-                main_software.execute();
-                BufferedImage img=Software.getInstance().getMain_ip().getImg();
-                createTabbedPane(img,chooser.getSelectedFile().getName());
-                if (initflag==true) {
-                	enableOperation();
-                }
+        		if (filepath!=null) {
+        			String filename=chooser.getSelectedFile().getName();
+            		main_software.setCommand(new readImgFromLocal(null,filepath,filename));
+                    main_software.execute();
+                    main_software.setCommand(new showOperationHint(null));
+                    main_software.execute();
+                    BufferedImage img=Software.getInstance().getMain_ip().getImg();
+                    createTabbedPane(img,chooser.getSelectedFile().getName());
+                    if (initflag==true) {
+                    	enableOperation();
+                    }
+        		}
         	}
         });
         aboutMenuItem.addActionListener(new ActionListener()
@@ -327,6 +277,46 @@ public class guiMain extends JFrame{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+        	}
+        });
+        saveMenuItem.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e) {
+        		JList<String> typeList= new JList<String>();
+        		typeList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+        		String[] typeNameList={".bmp",".gif",".jpg","png","tiff"};
+        		typeList.setListData(typeNameList);
+        		JScrollPane chooserPanel = new JScrollPane(typeList);
+        		int dialogResponse=JOptionPane.showOptionDialog(saveMenuItem, chooserPanel,"Select a type...", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        		if (JOptionPane.OK_OPTION==dialogResponse) {
+        			Object chooserValue=typeList.getSelectedValue();
+        			String type=chooserValue.toString();
+        			switch (type) {
+	        			case ".bmp":
+	        				String path= pathChooser();
+	        				if (path!=null) {
+	        					imgProcessor ip=Software.getInstance().getMain_ip();
+	        					System.out.println(path);
+//	        					main_software.setCommand(new displayImg(ip));
+//	        					main_software.execute();
+	        					main_software.setCommand(new bmpTransfer(ip,path));
+	        				}
+	        				break;
+	        			case ".gif":
+	        				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
+	        				break;
+	        			case ".jpg":
+	        				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
+	        				break;
+	        			case ".png":
+	        				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
+	        				break;
+	        			case ".tiff":
+	        				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
+	        				break;
+        			}
+        			main_software.execute();
+        		} 
         	}
         });
         closeMenuItem.addActionListener(new ActionListener()
@@ -360,6 +350,7 @@ public class guiMain extends JFrame{
         });
 	       
         fileMenu.add(newMenuItem);
+        fileMenu.add(saveMenuItem);
         fileMenu.add(closeMenuItem);
         fileMenu.add(closeAllMenuItem);
         fileMenu.addSeparator();      
@@ -397,7 +388,7 @@ public class guiMain extends JFrame{
     private int getMoveCount(int low, int high,String title) {
     	int moveCount=0;
     	JSlider slider = createSlider(low,high);
-    	JPanel sliderPanel= createSliderPanel(slider);
+    	JPanel sliderPanel= createInputPanel(slider);
     	int dialogResponse=JOptionPane.showOptionDialog(this, sliderPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
     	if (JOptionPane.OK_OPTION==dialogResponse) {
     		moveCount=slider.getValue();
@@ -408,9 +399,9 @@ public class guiMain extends JFrame{
     	return moveCount;
     }
     
-    private JPanel createSliderPanel(JSlider slider) {
+    private JPanel createInputPanel(Component com) {
     	JPanel panel=new JPanel();
-    	panel.add(slider);
+    	panel.add(com);
 		return panel;
 	}
     
@@ -424,39 +415,99 @@ public class guiMain extends JFrame{
     	return slider;
     }
 	
+	private JList<String> createList(Boolean singleChoice) {
+		JList<String> list= new JList<String>();
+		if (singleChoice==false) {
+			list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		} else {
+			list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+		}
+		List<String> nameList=new ArrayList<String>();
+		ArrayList<imgProcessor> iplist=Software.getInstance().getImgProcessorList();
+		for (imgProcessor ip: iplist) {
+			nameList.add(iplist.indexOf(ip)+" "+ip.getName());
+		}
+		String[] namelist=nameList.toArray(new String[nameList.size()]);
+		list.setListData(namelist);
+		return list;
+	}
+	
+
+	private String[] imgProcessorChooser(Boolean singleChoice, String title){
+		JList<String> chooser=createList(singleChoice);
+		JScrollPane chooserPanel = new JScrollPane(chooser);
+    	int dialogResponse=JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+    	if (JOptionPane.OK_OPTION==dialogResponse) {
+    		if (singleChoice==true) {
+    			Object chooserValue=chooser.getSelectedValue();
+    			String[] res=new String[1];
+    			res[0]=chooserValue.toString();
+    			return res;
+    		} else {
+    			Object[] chooserValue=chooser.getSelectedValues();
+        		String[] res=new String[chooserValue.length+1];
+        		for (int i = 0; i < chooserValue.length; i++) {
+        			res[i]=chooserValue[i].toString();
+        		}
+        		return res;
+    		}
+    		
+    	} else {
+    		return null;
+    	}
+	} 
+	
 	private void updatePane() {
 		Component panel=tabbedPane.getSelectedComponent();
-	    ((JPanel) panel).removeAll();
+	    JPanel jp=(JPanel) ((JScrollPane) panel).getViewport().getComponent(0);
 	    JLabel label = new JLabel();
 	    label.setIcon(new ImageIcon(Software.getInstance().getMain_ip().getImg()));
-	    ((JPanel)panel).add(label);
-	    ((JPanel)panel).repaint();
-		((JPanel)panel).updateUI();
+	    jp.removeAll();
+	    jp.add(label);
+	    jp.updateUI();
+	    jp.repaint();
 	}
 
 	private void unableOperation() {
-		for(Component co:this.getRootPane().getContentPane().getComponents()) {
-			if (co.getClass().getName()== "javax.swing.JButton" ) {
-				co.setEnabled(false);
-			}
+		for(JComponent JB :JComFilterList) {
+			JB.setEnabled(false);
 		}
+		saveMenuItem.setEnabled(false);
 		closeMenuItem.setEnabled(false);
 		closeAllMenuItem.setEnabled(false);
 	}
 	
 	private void enableOperation() {
-		for(Component co:this.getRootPane().getContentPane().getComponents()) {
-			if (co.getClass().getName()== "javax.swing.JButton" ) {
-				co.setEnabled(true);
-			}
+		for(JComponent JB :JComFilterList) {
+			JB.setEnabled(true);
 		}
+		saveMenuItem.setEnabled(true);
 		closeMenuItem.setEnabled(true);
 		closeAllMenuItem.setEnabled(true);
+	}
+	
+	private String pathChooser() {
+		JFileChooser chooser = new JFileChooser();  
+		ImgFileFilter imgFilter = new ImgFileFilter(); //excel过滤器  
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.showOpenDialog(saveMenuItem);
+		return chooser.getSelectedFile().getAbsolutePath();
 	}
 	
 	private void createTabbedPane(BufferedImage img,String tabName) {
 		JPopupMenu popup=new JPopupMenu();
         JMenuItem popupCopyItem=new JMenuItem("Create a copy");
+        JMenuItem popupCloseItem=new JMenuItem("Close this img");
+        popupCloseItem.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
+                main_software.execute();
+                if (Software.getInstance().getImgProcessorList().size()==0) {
+                	unableOperation();
+                }
+                tabbedPane.remove(tabbedPane.getSelectedIndex());
+        	}
+        });
         popupCopyItem.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		BufferedImage img=Software.getInstance().getImgProcessorList().get(tabbedPane.getSelectedIndex()).getImg();
@@ -469,12 +520,14 @@ public class guiMain extends JFrame{
         	}
         });
         popup.add(popupCopyItem);
+        popup.add(popupCloseItem);
 		JPanel P=new JPanel();            
 		P.add(popup);
 		JLabel label = new JLabel();
 		label.setIcon(new ImageIcon(img));
 		P.add(label);
-		tabbedPane.addTab(tabName,P);
+		JScrollPane scrollPane = new JScrollPane(P);
+		tabbedPane.addTab(tabName,scrollPane);
 		tabbedPane.setSelectedIndex(Software.getInstance().getImgProcessorList().size()-1);
 		P.addMouseListener(new MouseAdapter() {	 
 			@Override

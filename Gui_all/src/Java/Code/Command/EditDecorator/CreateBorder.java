@@ -31,7 +31,7 @@ public class CreateBorder extends EditDecorator {
         ArrayList<imgProcessor> mainIpLst=Software.getInstance().getImgProcessorList();
         if (this.choice> mainIpLst.size()-1||this.choice<0) {
         	System.out.println("Will use defult border!");
-        	this._img_=getImageFromFile("C:\\Users\\Administrator\\Desktop\\border_source.jpg");
+        	this._img_=getImageFromFile("/extlib/border_source.jpg");
         } else {
         	this._img_=mainIpLst.get(this.choice).getImg();
         }

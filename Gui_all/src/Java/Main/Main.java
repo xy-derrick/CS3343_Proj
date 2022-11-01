@@ -37,7 +37,7 @@ import Java.Gui.guiMain;
 public class Main {
     public static Software main_software = null;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
     	guiMain.getInstance();
     };
 }
