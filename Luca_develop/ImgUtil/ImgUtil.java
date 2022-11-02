@@ -158,7 +158,6 @@ public class ImgUtil {
 				 */
 
 				/// System.out.print(buffer);
-
 			}
 
 		} catch (SQLException e) {
