@@ -22,11 +22,11 @@
 
 #### 总体上5个命令： 
 
-1. batchAdd: 添加图片或命令 
+1. batchAdd: 添加图片或命令, batchDelete: 删除图片或命令 
 
    input 为String, 样式为：img>> index1, index2, index 3 or cmd>>cmdType(index为software存储buffer中imgProcessor的index)
 
-   batchDelete: 删除图片或命令 
+  
 
    
 
