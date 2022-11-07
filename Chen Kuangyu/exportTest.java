@@ -68,6 +68,27 @@ public class exportTest {
         }
         assertEquals(false, result);
 	}
+	
+	@Test
+	public void test_bmp_3() {
+		String imagPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\test\\.png";
+		String savePath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result";
+		String resultPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result\\1test.bmp";
+        imgProcessor iProcessor = read(imagPath);
+        bmpTransfer test=new bmpTransfer(iProcessor,savePath);
+        boolean result=true;
+        try {
+        	test.transfer();
+		} catch (nameNotFoundException e) {
+			result=false;
+		}
+        File file = new File(resultPath);
+        if(!file.exists())
+        {
+        	result=false;
+        }
+        assertEquals(false, result);
+	}
 
 	@Test
 	public void test_gif_1() {
@@ -110,6 +131,27 @@ public class exportTest {
         }
         assertEquals(false, result);
 	}
+	
+	@Test
+	public void test_gif_3() {
+		String imagPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\test\\.png";
+		String savePath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result";
+		String resultPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result\\1test.gif";
+        imgProcessor iProcessor = read(imagPath);
+        bmpTransfer test=new bmpTransfer(iProcessor,savePath);
+        boolean result=true;
+        try {
+        	test.transfer();
+		} catch (nameNotFoundException e) {
+			result=false;
+		}
+        File file = new File(resultPath);
+        if(!file.exists())
+        {
+        	result=false;
+        }
+        assertEquals(false, result);
+	}
 
 	@Test
 	public void test_jpg_1() {
@@ -139,6 +181,27 @@ public class exportTest {
 		String resultPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result\\1test.png";
         imgProcessor iProcessor = read(imagPath);
         jpgTransfer test=new jpgTransfer(iProcessor,savePath);
+        boolean result=true;
+        try {
+        	test.transfer();
+		} catch (nameNotFoundException e) {
+			result=false;
+		}
+        File file = new File(resultPath);
+        if(!file.exists())
+        {
+        	result=false;
+        }
+        assertEquals(false, result);
+	}
+	
+	@Test
+	public void test_jpg_3() {
+		String imagPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\test\\.png";
+		String savePath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result";
+		String resultPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result\\1test.jpg";
+        imgProcessor iProcessor = read(imagPath);
+        bmpTransfer test=new bmpTransfer(iProcessor,savePath);
         boolean result=true;
         try {
         	test.transfer();
@@ -196,6 +259,27 @@ public class exportTest {
 	}
 	
 	@Test
+	public void test_png_3() {
+		String imagPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\test\\.png";
+		String savePath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result";
+		String resultPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result\\1test.png";
+        imgProcessor iProcessor = read(imagPath);
+        bmpTransfer test=new bmpTransfer(iProcessor,savePath);
+        boolean result=true;
+        try {
+        	test.transfer();
+		} catch (nameNotFoundException e) {
+			result=false;
+		}
+        File file = new File(resultPath);
+        if(!file.exists())
+        {
+        	result=false;
+        }
+        assertEquals(false, result);
+	}
+	
+	@Test
 	public void test_tiff_1() {
 		String imagPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\test\\test.png";
 		String savePath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result";
@@ -238,8 +322,29 @@ public class exportTest {
 	}
 	
 	@Test
+	public void test_tiff_3() {
+		String imagPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\test\\.png";
+		String savePath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result";
+		String resultPath="C:\\Users\\chenkuangyu\\Desktop\\pro-3343\\testcase\\result\\1test.tiff";
+        imgProcessor iProcessor = read(imagPath);
+        bmpTransfer test=new bmpTransfer(iProcessor,savePath);
+        boolean result=true;
+        try {
+        	test.transfer();
+		} catch (nameNotFoundException e) {
+			result=false;
+		}
+        File file = new File(resultPath);
+        if(!file.exists())
+        {
+        	result=false;
+        }
+        assertEquals(false, result);
+	}
+	
+	@Test
 	public void test_local_1() {
-
+		
 	}
 
 	@Test
