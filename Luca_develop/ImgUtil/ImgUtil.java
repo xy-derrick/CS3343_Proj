@@ -68,12 +68,11 @@ public class ImgUtil {
 		return null;
 	}
 
-	public static boolean GenerateImage(String imgData, String imgFilePath) throws IOException { // 对字节数组字符串进行Base64解码并生成图片
+	public static BufferedImage GenerateImage(String imgData, BufferedImage imag) throws IOException { // 对字节数组字符串进行Base64解码并生成图片
 		if (imgData == null) // 图像数据为空
-			return false;
-		OutputStream out = null;
+			return null;
 		try {
-			out = new FileOutputStream(imgFilePath);
+			// out = new FileOutputStream(imgFilePath);
 			// Base64解码
 			Base64.Decoder utilDecoder = Base64.getDecoder();
 			byte[] b = utilDecoder.decode(imgData);
@@ -82,7 +81,12 @@ public class ImgUtil {
 					b[i] += 256;
 				}
 			}
-			out.write(b);
+			ByteArrayInputStream file = new ByteArrayInputStream(b);
+			//System.out.println(file);
+			imag = ImageIO.read(file);
+			//System.out.println(imag.getHeight());
+			//System.out.println(imag.getWidth());
+			//System.out.println(imag);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,9 +94,7 @@ public class ImgUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			out.flush();
-			out.close();
-			return true;
+			return imag;
 		}
 	}
 
@@ -121,7 +123,8 @@ public class ImgUtil {
 
 			// get the executed sql object
 			stmt = conn.createStatement();
-			String sql = "INSERT into user_operation(user_id,image) value ('" + user_id + "','" + generateBase64(imag, type) + "')";
+			String sql = "INSERT into user_operation(user_id,image) value ('" + user_id + "','"
+					+ generateBase64(imag, type) + "')";
 
 			System.out.println(sql);
 			int count = stmt.executeUpdate(sql);
@@ -135,7 +138,7 @@ public class ImgUtil {
 		return false;
 	}
 
-	public static void getImgfromDb(String user_id, String id) throws SQLException, IOException {
+	public static BufferedImage getImgfromDb(String user_id,BufferedImage imag, String id) throws SQLException, IOException {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -151,7 +154,8 @@ public class ImgUtil {
 				String photo = rs.getString("image");
 				// is = photo.getBinaryStream();
 
-				ImgUtil.GenerateImage(photo, "C:/Users/DELL/Desktop/photo_file/ckynb.jpg");
+				imag=ImgUtil.GenerateImage(photo, imag);
+			
 				/*
 				 * for (int i = 0; i < b.length; ++i) { if (b[i] < 0) {// 调整异常数据 b[i] += 256; }
 				 * } fos.write(b); fos.flush();
@@ -164,6 +168,7 @@ public class ImgUtil {
 			e.printStackTrace();
 		} finally {
 			JDBCUtils.close(rs, stmt, conn);
+			return imag;
 		}
 	}
 
