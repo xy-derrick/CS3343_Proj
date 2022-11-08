@@ -1,5 +1,6 @@
 package Code.Command.Commands.Export;
 
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,15 +30,6 @@ public class cloudSave extends Command implements CommandNoncancelabe {
 
     public void save() throws FileNotFoundException, SQLException {
         ImgUtil.saveImginDb(id, iProcessor.getImg(), getType(iProcessor.getPath()));
-        try {
-			ImgUtil.getImgfromDb("3","66");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
     @Override
