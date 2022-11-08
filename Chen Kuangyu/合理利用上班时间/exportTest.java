@@ -5,7 +5,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.imageio.ImageIO;
 import Code.Software.imgProcessor;
 import Code.exportException.nameNotFoundException;
@@ -438,6 +441,42 @@ public class exportTest {
         {
         	result=false;
         }
+        assertEquals(false, result);
+	}
+	
+	@Test
+	public void test_cloud_1() {
+		String imagPath="C:\\Users\\aenkychen\\Desktop\\testExport\\test\\testlocal.png";
+        imgProcessor iProcessor = read(imagPath);
+        cloudSave test=new cloudSave(iProcessor,"2");
+        boolean result=true;
+        try {
+        	result=test.save();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			result=false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			result=false;
+		}
+        assertEquals(true, result);
+	}
+
+	@Test
+	public void test_cloud_2() {
+		String imagPath="C:\\Users\\aenkychen\\Desktop\\testExport\\test\\testlocal.png";
+        imgProcessor iProcessor = read(imagPath);
+        cloudSave test=new cloudSave(iProcessor,"2");
+        boolean result=true;
+        try {
+        	result=test.save();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			result=false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			result=false;
+		}
         assertEquals(false, result);
 	}
 
