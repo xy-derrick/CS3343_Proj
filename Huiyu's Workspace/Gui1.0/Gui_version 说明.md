@@ -35,7 +35,16 @@
    > input举例：
    >
    > 输入图片： img>>0,1,3,2
-   >
+   >可以提供ip的index: int[]
+   
+   可以提供command-> object[name][args]
+   
+   public class xxxcoamdn {
+   	private name->switch 
+   	private arraylist<>
+   	
+   	
+   }
    > 输入命令： cmd>> edit 4, export 1 ImgResult, edit 2, export 2 ImgResult, filter 6 60
 
    ##### Template:
@@ -58,5 +67,5 @@
 
 ## 问题： 
 
-1. 读取command 命令时 输入是 cmd>> cmdType cmdNum cmdParameter, 这个应该和GUI 版本的要求不符合 (已经没有 filter 6 60这种输入模式），需要协商一个可能的解决方案是可以通过一个类似字典的结构 将现在的处理方式映射到之前的方式？
-2. 现在的Exception的处理方式是throw到Main, 然后通过一个统一的exception处理掉，不确定GUI版本的解决方案。我是通过System.out.println(e.getMessage()),返回错误类型，之后可以协商调整
+*1. 读取command 命令时 输入是 cmd>> cmdType cmdNum cmdParameter, 这个应该和GUI 版本的要求不符合 (已经没有 filter 6 60这种输入模式），需要协商一个可能的解决方案是可以通过一个类似字典的结构 将现在的处理方式映射到之前的方式？
+*2. 现在的Exception的处理方式是throw到Main, 然后通过一个统一的exception处理掉，不确定GUI版本的解决方案。我是通过System.out.println(e.getMessage()),返回错误类型，之后可以协商调整
