@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import Java.Code.Batch.*;
-import Java.Code.Command.Base.Command;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Command.Commands.showOperationHint;
 import Java.Code.Command.Commands.Common.*;
@@ -47,7 +46,7 @@ public class guiMain extends JFrame{
     }
 
     public guiMain() throws InterruptedException, ArgsInvalidException{
-    	FlatLightLaf.setup();
+    	//FlatLightLaf.setup();
     	LoadingPanel glasspane = new LoadingPanel();
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         glasspane.setBounds(100, 100, (dimension.width), (dimension.height));
@@ -63,7 +62,8 @@ public class guiMain extends JFrame{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    this.setVisible(true);
-	    Thread.sleep(1000);
+	    Thread.sleep(800);
+	    logInModule();
         init();
         glasspane.setText("Welcome!");
         Thread.sleep(200);
@@ -111,7 +111,7 @@ public class guiMain extends JFrame{
     	TitledBorder border = new TitledBorder("Console");
         border.setBorder(new LineBorder(Color.black));
         Info.setBorder( border);
-    	Info.setBounds(1550,0,350,800);
+    	Info.setBounds(1550,0,350,790);
     	Info.setLineWrap (true) ;
     	this.add(Info);
     	try
@@ -901,5 +901,28 @@ public class guiMain extends JFrame{
 			}
 		});
 	}
+	private int logInModule() {
+		JButton loginBtn = new JButton("Log in");
+	    JButton signupBtn = new JButton("Sign up");
+	    JButton cancelBtn = new JButton("Cancel");
+	    loginBtn.setBounds(50, 80, 50, 20);
+	    signupBtn.setBounds(80, 80, 50, 20);
+		Object[] options = new Object[3];
+		options[2]=loginBtn;
+		options[1]=signupBtn;
+		options[0]=cancelBtn;
+		int optionSelected = JOptionPane.showOptionDialog(
+                this,
+                "Sign up or log in to download last time record.",
+                "Init...",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.ERROR_MESSAGE,
+                null,
+                options,  
+                options[0]
+        );
+		return 0;
+	}
+		
  
 }

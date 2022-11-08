@@ -5,8 +5,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="Main/" kind="src" path="Java"/>
-	<classpathentry kind="src" path="Java/Main"/>
-	<classpathentry kind="src" path="xy_workplace"/>
+	<classpathentry kind="src" path="gui_temp"/>
+	<classpathentry kind="lib" path="flatlaf-2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
