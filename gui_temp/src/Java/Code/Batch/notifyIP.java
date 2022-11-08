@@ -9,7 +9,7 @@ import Java.Code.Software.imgProcessor;
 public class notifyIP extends imgProcessor implements Observer{
 
     public notifyIP(imgProcessor ip){
-        super(null);
+        super(0);
         setImg(ip.getImg());
         setPath(ip.getPath());
     }

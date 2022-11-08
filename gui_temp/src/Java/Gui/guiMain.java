@@ -400,7 +400,7 @@ public class guiMain extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		JList<String> typeList= new JList<String>();
         		typeList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
-        		String[] typeNameList={"bmp","gif","jpg","png","tiff"};
+        		String[] typeNameList={"bmp","gif","jpg","png","tiff","zip"};
         		typeList.setListData(typeNameList);
         		JScrollPane chooserPanel = new JScrollPane(typeList);
         		int dialogResponse=JOptionPane.showOptionDialog(saveAsMenuItem, chooserPanel,"Select a type...", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -442,6 +442,13 @@ public class guiMain extends JFrame{
 	        				if (path!=null) {
 	        					System.out.println(path);
 	        					main_software.setCommand(new tiffTransfer(ip,path));
+	        				}
+	        				break;
+	        			case "zip":
+	        				path= pathChooser(saveAsMenuItem);
+	        				if (path!=null) {
+	        					System.out.println(path);
+	        					main_software.setCommand(new imagCompress(ip,path));
 	        				}
 	        				break;
         			}
@@ -601,7 +608,7 @@ public class guiMain extends JFrame{
 	private JList createListFromInit() {
 		JList list= new JList();
 		list.setSelectionMode(DefaultListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		String[] commandlist=new String[]{"Combine","Gray","Vintage","Border","Paint","Mosaic","FlipHorizontal","FlipVertical","Zoom","Tailor","Rotate90L","Rotate90R","Rotate180","Rotate90R","AntiColor"};
+		String[] commandlist=new String[]{"Gray","Vintage","Border","Paint","Mosaic","FlipHorizontal","FlipVertical","Zoom","Tailor","Rotate90L","Rotate90R","Rotate180","Rotate90R","AntiColor","jpgTransfer","pngTransfer","gifTransfer","bmpTransfer","tiffTransfer","imagCompress","localSave"};
 		list.setListData(commandlist);
 		return list;
 	}
@@ -622,7 +629,7 @@ public class guiMain extends JFrame{
 	private String[] commandChooser(String title){
 		JList chooser=createListFromInit();
 		JScrollPane chooserPanel = new JScrollPane(chooser);
-		String[] commandlist=new String[]{"Combine","Gray","Vintage","Border","Paint","Mosaic","FlipHorizontal","FlipVertical","Zoom","Tailor","Rotate90L","Rotate90R","Rotate180","Rotate90R","AntiColor"};
+		String[] commandlist=new String[]{"Gray","Vintage","Border","Paint","Mosaic","FlipHorizontal","FlipVertical","Zoom","Tailor","Rotate90L","Rotate90R","Rotate180","Rotate90R","AntiColor","jpgTransfer","pngTransfer","gifTransfer","bmpTransfer","tiffTransfer","imagCompress","localSave"};
     	int dialogResponse=JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
     	if (JOptionPane.OK_OPTION==dialogResponse) {
     		int[] chooserValue=chooser.getSelectedIndices();
@@ -896,6 +903,3 @@ public class guiMain extends JFrame{
 	}
  
 }
-
-
-

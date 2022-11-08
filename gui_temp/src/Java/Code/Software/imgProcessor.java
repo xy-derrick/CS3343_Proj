@@ -17,6 +17,9 @@ public class imgProcessor {
         this.name = name;
         Software.getInstance().addImgProcessor(this);
     }
+    
+    public imgProcessor(int temp) {
+    }
 
     public void setImg(BufferedImage bufImage) {
         img = bufImage;
