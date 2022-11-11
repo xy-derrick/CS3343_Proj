@@ -17,6 +17,7 @@ public class readImgFromLocal extends Command{
         this.text = text;
     }
     
+    
     @Override
     public void execute() {
         // ignore receiver

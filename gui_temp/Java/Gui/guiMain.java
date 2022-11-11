@@ -4,13 +4,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Window;
+
 import Java.Code.Batch.*;
 import Java.Code.Command.Commands.EditCommand;
+import Java.Code.Command.Commands.readFromBuffer;
 import Java.Code.Command.Commands.showOperationHint;
 import Java.Code.Command.Commands.Common.*;
 import Java.Code.Command.EditDecorator.*;
 import Java.Code.Command.EditDecorator.GrayFilter;
 import Java.Code.Command.Export.*;
+import Java.Code.Command.Login.loginController;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
@@ -23,6 +27,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -33,7 +38,7 @@ import com.formdev.flatlaf.FlatLightLaf;
   
 public class guiMain extends JFrame{
 	static private guiMain guiMain = null;
-	static public guiMain getInstance() throws InterruptedException, ArgsInvalidException{
+	static public guiMain getInstance() throws InterruptedException, ArgsInvalidException, SQLException{
         if(guiMain==null)
         {
         	guiMain = new guiMain();
@@ -45,7 +50,7 @@ public class guiMain extends JFrame{
         }
     }
 
-    public guiMain() throws InterruptedException, ArgsInvalidException{
+    public guiMain() throws InterruptedException, ArgsInvalidException, SQLException{
     	//FlatLightLaf.setup();
     	LoadingPanel glasspane = new LoadingPanel();
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -64,13 +69,12 @@ public class guiMain extends JFrame{
 	    this.setVisible(true);
 	    Thread.sleep(800);
 	    logInModule();
+	    //loginGui lg=new loginGui();
         init();
         glasspane.setText("Welcome!");
         Thread.sleep(200);
         glasspane.stop(); //stop loading
     }
-    
-    //SpringLayout springLayout = new SpringLayout();
     
     JTextArea Info =new JTextArea();
 	JTabbedPane tabbedPane=new JTabbedPane();
@@ -283,7 +287,7 @@ public class guiMain extends JFrame{
 			Integer secondX=point.get(point.size()-2);
 			Integer secondY=point.get(point.size()-1);
 			JLabel info=new JLabel("Please confirm that, will keep the rectangle area nuild by latest two points in Consle.");
-			JOptionPane.showOptionDialog(this,info,"Confirmation" , JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			JOptionPane.showOptionDialog(this,info,"Confirmation" , JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 			Info.append("UpperLeft:"+Math.min(startX,secondX)+" "+Math.min(startY,secondY)+"\nWidth:"+Math.abs(startX-secondX)+" Height:"+Math.abs(startY-secondY));
 			main_software.setCommand(new Tailoring(new EditCommand(Software.getInstance().getMain_ip()),startX,startY,secondX,secondY));
             main_software.execute();
@@ -403,7 +407,7 @@ public class guiMain extends JFrame{
         		String[] typeNameList={"bmp","gif","jpg","png","tiff","zip"};
         		typeList.setListData(typeNameList);
         		JScrollPane chooserPanel = new JScrollPane(typeList);
-        		int dialogResponse=JOptionPane.showOptionDialog(saveAsMenuItem, chooserPanel,"Select a type...", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        		int dialogResponse=JOptionPane.showOptionDialog(saveAsMenuItem, chooserPanel,"Select a type...", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         		if (JOptionPane.OK_OPTION==dialogResponse) {
         			Object chooserValue=typeList.getSelectedValue();
         			String type=chooserValue.toString();
@@ -511,7 +515,7 @@ public class guiMain extends JFrame{
             		previewPanel.add(label);
             		JScrollPane scrollPane = new JScrollPane(previewPanel);
             		scrollPane.setPreferredSize(new Dimension(800,600));
-                    int dialogResponse=JOptionPane.showOptionDialog(null, scrollPane, "Preview", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    int dialogResponse=JOptionPane.showOptionDialog(null, scrollPane, "Preview", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
                 	if (JOptionPane.OK_OPTION==dialogResponse) {
 	                    main_software.setCommand(new batchExecute(null));
 	                    main_software.execute();
@@ -520,6 +524,9 @@ public class guiMain extends JFrame{
 	                    	updatePane();
 	            		}
                 	}
+                }else {
+                	main_software.setCommand(new batchExecute(null));
+                    main_software.execute();
                 }
         	}
         });
@@ -562,7 +569,7 @@ public class guiMain extends JFrame{
     	int moveCount=0;
     	JSlider slider = createSlider(low,high);
     	JPanel sliderPanel= createInputPanel(slider);
-    	int dialogResponse=JOptionPane.showOptionDialog(this, sliderPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+    	int dialogResponse=JOptionPane.showOptionDialog(this, sliderPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
     	if (JOptionPane.OK_OPTION==dialogResponse) {
     		moveCount=slider.getValue();
     	}
@@ -617,7 +624,7 @@ public class guiMain extends JFrame{
 	private int[] imgProcessorChooser(Boolean singleChoice, String title){
 		JList chooser=createList(singleChoice);
 		JScrollPane chooserPanel = new JScrollPane(chooser);
-    	int dialogResponse=JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+    	int dialogResponse=JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
     	if (JOptionPane.OK_OPTION==dialogResponse) {
     		int[] chooserValue=chooser.getSelectedIndices();
     		return chooserValue;
@@ -630,7 +637,7 @@ public class guiMain extends JFrame{
 		JList chooser=createListFromInit();
 		JScrollPane chooserPanel = new JScrollPane(chooser);
 		String[] commandlist=new String[]{"Gray","Vintage","Border","Paint","Mosaic","FlipHorizontal","FlipVertical","Zoom","Tailor","Rotate90L","Rotate90R","Rotate180","Rotate90R","AntiColor","jpgTransfer","pngTransfer","gifTransfer","bmpTransfer","tiffTransfer","imagCompress","localSave"};
-    	int dialogResponse=JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+    	int dialogResponse=JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
     	if (JOptionPane.OK_OPTION==dialogResponse) {
     		int[] chooserValue=chooser.getSelectedIndices();
     		String[] res=new String[chooserValue.length];
@@ -901,28 +908,129 @@ public class guiMain extends JFrame{
 			}
 		});
 	}
-	private int logInModule() {
-		JButton loginBtn = new JButton("Log in");
-	    JButton signupBtn = new JButton("Sign up");
-	    JButton cancelBtn = new JButton("Cancel");
-	    loginBtn.setBounds(50, 80, 50, 20);
-	    signupBtn.setBounds(80, 80, 50, 20);
-		Object[] options = new Object[3];
-		options[2]=loginBtn;
-		options[1]=signupBtn;
-		options[0]=cancelBtn;
-		int optionSelected = JOptionPane.showOptionDialog(
-                this,
-                "Sign up or log in to download last time record.",
-                "Init...",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.ERROR_MESSAGE,
-                null,
-                options,  
-                options[0]
-        );
-		return 0;
+//	private JPanel createLoginPanel() {
+//		JLabel password1, label;
+//    	JTextField username;
+//    	JButton button;
+//    	JPasswordField Password;
+//    	JPanel panel = new JPanel();
+//    	panel.setPreferredSize(new Dimension(400,200));
+//    	panel.setLayout(null);
+//    	label = new JLabel("Username");
+//    	label.setBounds(100, 8, 70, 20);
+//    	panel.add(label);
+//    	username = new JTextField();
+//    	username.setBounds(100, 27, 193, 28);
+//    	panel.add(username);
+//    	password1 = new JLabel("Password");
+//    	password1.setBounds(100, 55, 70, 20);
+//    	panel.add(password1);
+//    	Password = new JPasswordField();
+//    	Password.setBounds(100, 75, 193, 28);
+//    	panel.add(Password);
+//    	button = new JButton("Login");
+//    	button.setBounds(100, 110, 90, 25);
+//    	button.setForeground(Color.WHITE);
+//    	button.setBackground(Color.BLACK);
+//    	button.addActionListener(evt -> {
+//    		String Username = username.getText();
+//    		char[] Password1 = Password.getPassword();
+//    	});
+//    	panel.add(button);
+//    	return panel;
+//	}
+//	private int logInModule() {
+//		JButton loginBtn = new JButton("Log in");
+//	    JButton signupBtn = new JButton("Sign up");
+//	    JButton cancelBtn = new JButton("Cancel");
+//	    cancelBtn.addActionListener(evt -> {
+//	    	Window w = SwingUtilities.getWindowAncestor(cancelBtn);
+//	        if (w != null) {
+//	          w.setVisible(false);
+//	        }
+//          });
+//	    loginBtn.addActionListener(evt -> {
+//	    	 createLoginPanel();
+//          });
+//	    signupBtn.addActionListener(evt -> {
+//	    	
+//          });
+//	    loginBtn.setBounds(50, 80, 50, 20);
+//	    signupBtn.setBounds(80, 80, 50, 20);
+//		Object[] options = new Object[3];
+//		options[2]=loginBtn;
+//		options[1]=signupBtn;
+//		options[0]=cancelBtn;
+//		int optionSelected = JOptionPane.showOptionDialog(
+//                this,
+//                "Sign up or log in to download last time record.",
+//                "Init...",
+//                JOptionPane.YES_NO_CANCEL_OPTION,
+//                JOptionPane.ERROR_MESSAGE,
+//                null,
+//                options,  
+//                options[0]
+//        );
+//		return 0;
+//	}
+	
+	private int logInModule() throws SQLException {
+		int optionSelected=JOptionPane.showConfirmDialog(null, "Log in or register to download your record from cloud!", "Weclome", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+		if (optionSelected!=JOptionPane.OK_OPTION) {
+			return 0;
+		}
+		innerlogin();
+        return 1;
 	}
-		
+	
+	private int innerlogin() throws SQLException {
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(250,100));;
+		JLabel userLabel = new JLabel("User Name:");           // 创建UserJLabel
+	    JTextField userText = new JTextField();           // 获取登录名
+	    JLabel passLabel = new JLabel("Password:");       // 创建PassJLabel
+	    JPasswordField passText = new JPasswordField(20); //密码框隐藏
+	    panel.setLayout(null);  //设置布局为 null
+        // 创建 UserJLabel
+        userLabel.setBounds(30, 30, 80, 25);
+        panel.add(userLabel);
+        // 创建文本域用于用户输入
+        userText.setBounds(105, 30, 165, 25);
+        panel.add(userText);
+        // 创建PassJLabel
+        passLabel.setBounds(30, 60, 80, 25);
+        panel.add(passLabel);
+        // 密码输入框 隐藏
+        passText.setBounds(105, 60, 165, 25);
+        panel.add(passText);
+        String [] options = {"Register","Log in"};
+        int choice=JOptionPane.showOptionDialog(this, panel, "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,options[1]);
+        String  userName=userText.getText();
+    	char[] passWord=passText.getPassword(); 
+    	String password=new String(passWord);
+        if (choice == 1) {
+        	//log in get return value
+        	BufferedImage img=null;
+        	if (loginController.login(img, userName, password)==1) {
+        		if (img!=null) {
+        			main_software.setCommand(new readFromBuffer(null,img));
+                    main_software.execute();
+                    img=Software.getInstance().getMain_ip().getImg();
+                    createTabbedPane(img,"cloud data");
+        		}
+        		return 0;
+        	}else{
+        		JOptionPane.showMessageDialog(null,"Log in fail. Check your account name and password","Message",JOptionPane.WARNING_MESSAGE);
+            	innerlogin();
+        	};
+         }else if (choice==0){
+        	 if (loginController.register(userName, password)==1) {
+        		 return 0;
+        	 }
+        	 JOptionPane.showMessageDialog(null,"Register fail. Check your account name and password","Message",JOptionPane.WARNING_MESSAGE);
+        	 innerlogin();
+         }
+        return 1;
+	}
  
 }

@@ -26,7 +26,7 @@ public class cloudSave extends Command implements CommandNoncancelabe {
     }
 
     public void save() throws FileNotFoundException, SQLException {
-        ImgUtil.saveImginDb(id, "command1", iProcessor.getImg(), getType(iProcessor.getPath()));
+        ImgUtil.saveImginDb(id, iProcessor.getImg(), getType(iProcessor.getPath()));
     }
 
     @Override
