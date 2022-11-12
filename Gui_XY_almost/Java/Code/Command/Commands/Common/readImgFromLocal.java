@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.imgProcessor;
 import Java.Code.Software.Software;
 import Java.Code.Software.ipState;
 
-public class readImgFromLocal extends Command {
+public class readImgFromLocal extends Command implements CommandNoncancelable {
 	String text = null;
 	String name = null;
 	ipState state_last = null;

@@ -7,29 +7,36 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import Java.Code.Command.Base.Command;
 import Java.Code.Command.Base.CommandNoncancelable;
-import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Software.imgProcessor;
 import Java.Code.Software.Software;
 import Java.Code.Software.ipState;
 
-public class createCopy extends Command implements CommandNoncancelable {
-	BufferedImage ori = null;
+public class readFromBuffer extends Command implements CommandNoncancelable {
+	String text = null;
+	String name = null;
+	BufferedImage img = null;
 	ipState state_last = null;
 	ipState state_curr = null;
 
-	public createCopy(imgProcessor receiver, BufferedImage ori) {
+	public readFromBuffer(imgProcessor receiver, BufferedImage img, String name) {
 		super(receiver);
-		this.ori = EditDecorator.copyImage(ori);
+		this.img = img;
+		this.name = name;
+	}
+
+	public readFromBuffer(imgProcessor receiver, ArrayList<Object> args) {
+		super(receiver);
+		this.text = (String) args.get(0);
 	}
 
 	@Override
 	public void execute() {
-		// ignore receiver
 		state_last = Software.getInstance().getState();
 		// first
 		if (state_curr == null) {
-			iProcessor = new imgProcessor();
-			iProcessor.setImg(this.ori);
+			iProcessor = new imgProcessor(this.name);
+			iProcessor.setImg(this.img);
+			iProcessor.setPath(text);
 			Software.getInstance().setMain_ip(iProcessor);
 			state_curr = Software.getInstance().getState();
 		} else {

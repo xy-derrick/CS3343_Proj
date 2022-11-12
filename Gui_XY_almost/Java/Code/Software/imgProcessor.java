@@ -23,7 +23,6 @@ public class imgProcessor {
 
 	public void setImg(BufferedImage bufImage) {
 		img = bufImage;
-
 		// init
 		System.out.println("img file init...");
 		imgHeight = bufImage.getHeight();

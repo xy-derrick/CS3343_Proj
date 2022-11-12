@@ -23,28 +23,10 @@ public class ImgUtil {
 	static Base64.Encoder encoder = Base64.getEncoder();
 	static Base64.Decoder decoder = Base64.getDecoder();
 
-	// public static void main(String args[])throws IOException, SQLException
-	// {
-	// String a="C:/Users/DELL/Desktop/photo.jpg";
-	// new ImgUtil();
-	// //String result=ImgUtil.generateBase64(a);
-	// //System.out.print(result);
-	// System.out.print("-------------------------");
-	// //ImgUtil.GenerateImage(result,
-	// "C:/Users/DELL/Desktop/photo_file/photo.jpg");
-	// ImgUtil.saveImginDb("2","command1","C:/Users/DELL/Desktop/photo_file/photo.jpg");
-	// ImgUtil.getImgfromDb("2","command1","28");
-	// //System.out.print(result);
-	// }
-	/**
-	 * 自动将图片生成base64
-	 * 
-	 * @param imageFileName 需要生成字符串的图片路径
-	 */
 	public static String generateBase64(BufferedImage imag, String type) {
 		Base64.Encoder utilEncoder = Base64.getEncoder();
 		byte[] buffer = null;
-		FileInputStream fileInputStream = null; // 文件输入流
+		FileInputStream fileInputStream = null;
 		try {
 			try {
 				ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -68,68 +50,43 @@ public class ImgUtil {
 		return null;
 	}
 
-	public static BufferedImage GenerateImage(String imgData, BufferedImage imag) throws IOException { // 对字节数组字符串进行Base64解码并生成图片
-		if (imgData == null) // 图像数据为空
+	public static BufferedImage GenerateImage(String imgData) throws IOException {
+		if (imgData == null)
 			return null;
+		BufferedImage imag = null;
 		try {
-			// out = new FileOutputStream(imgFilePath);
-			// Base64解码
 			Base64.Decoder utilDecoder = Base64.getDecoder();
 			byte[] b = utilDecoder.decode(imgData);
 			for (int i = 0; i < b.length; ++i) {
-				if (b[i] < 0) {// 调整异常数据
+				if (b[i] < 0) {
 					b[i] += 256;
 				}
 			}
 			ByteArrayInputStream file = new ByteArrayInputStream(b);
-			// System.out.println(file);
 			imag = ImageIO.read(file);
-			// System.out.println(imag.getHeight());
-			// System.out.println(imag.getWidth());
-			// System.out.println(imag);
+			return imag;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			return imag;
 		}
+		return imag;
 	}
 
 	public static boolean saveImginDb(String user_id, BufferedImage imag, String type)
 			throws SQLException, FileNotFoundException {
-
-		// byte[] imageBytes = null;
-		// FileInputStream fileInputStream = null; // 文件输入流
-		// fileInputStream = new FileInputStream("C:/Users/aenkychen/Desktop/test.png");
-		// try {
-		// Base64.Encoder utilEncoder = Base64.getEncoder();
-		// imageBytes = new byte[fileInputStream.available()];
-		// fileInputStream.read(imageBytes);
-		// System.out.println(utilEncoder.encodeToString(imageBytes));
-		// } catch (IOException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
 
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			conn = JDBCUtils.getCounection();
-			// define sql
-
-			// get the executed sql object
 			stmt = conn.createStatement();
 			String sql = "INSERT into user_operation(user_id,image) value ('" + user_id + "','"
 					+ generateBase64(imag, type) + "')";
-
 			System.out.println(sql);
 			int count = stmt.executeUpdate(sql);
 			return count != 0;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -138,33 +95,20 @@ public class ImgUtil {
 		return false;
 	}
 
-	public static BufferedImage getImgfromDb(String user_id, BufferedImage imag, String id)
-			throws SQLException, IOException {
+	public static BufferedImage getImgfromDb(String user_id, String id) throws SQLException, IOException {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		BufferedImage imag = null;
 		try {
 			conn = JDBCUtils.getCounection();
-
-			// get the executed sql object
 			stmt = conn.createStatement();
-			// define sql, insert the new member
 			String sql = "select image from user_operation where user_id='" + user_id + "' and id ='" + id + "' ";
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				String photo = rs.getString("image");
-				// is = photo.getBinaryStream();
-
-				imag = ImgUtil.GenerateImage(photo, imag);
-
-				/*
-				 * for (int i = 0; i < b.length; ++i) { if (b[i] < 0) {// 调整异常数据 b[i] += 256; }
-				 * } fos.write(b); fos.flush();
-				 */
-
-				/// System.out.print(buffer);
+				imag = ImgUtil.GenerateImage(photo);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

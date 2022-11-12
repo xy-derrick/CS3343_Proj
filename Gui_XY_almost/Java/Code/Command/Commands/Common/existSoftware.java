@@ -2,10 +2,10 @@ package Java.Code.Command.Commands.Common;
 
 import java.util.ArrayList;
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelabe;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.imgProcessor;
 
-public class existSoftware extends Command implements CommandNoncancelabe {
+public class existSoftware extends Command implements CommandNoncancelable {
 
 	public existSoftware(imgProcessor receiver) {
 		super(receiver);

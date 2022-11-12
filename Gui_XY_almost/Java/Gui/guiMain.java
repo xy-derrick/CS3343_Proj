@@ -8,12 +8,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import Java.Code.Batch.*;
 import Java.Code.Command.Commands.EditCommand;
-import Java.Code.Command.Commands.readFromBuffer;
 import Java.Code.Command.Commands.showOperationHint;
 import Java.Code.Command.Commands.Common.*;
 import Java.Code.Command.EditDecorator.*;
 import Java.Code.Command.EditDecorator.GrayFilter;
 import Java.Code.Command.Export.*;
+import Java.Code.Command.Login.autoSave;
 import Java.Code.Command.Login.loginController;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.Software;
@@ -21,8 +21,6 @@ import Java.Code.Software.imgProcessor;
 import Java.Gui.Loading.LoadingPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,7 +29,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -39,9 +39,10 @@ import javax.swing.border.TitledBorder;
 
 public class guiMain extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private Timer timer = null;
 	static private guiMain guiMain = null;
 
-	static public guiMain getInstance() throws InterruptedException, ArgsInvalidException, SQLException {
+	static public guiMain getInstance() throws InterruptedException, ArgsInvalidException, SQLException, IOException {
 		if (guiMain == null) {
 			guiMain = new guiMain();
 			return guiMain;
@@ -50,8 +51,17 @@ public class guiMain extends JFrame {
 		}
 	}
 
-	public guiMain() throws InterruptedException, ArgsInvalidException, SQLException {
-		// FlatLightLaf.setup();
+	static public void writeLog(String log) {
+		Date d = new Date();
+		Info.append(d.toString() + "\n" + log);
+	}
+
+	public guiMain() throws InterruptedException, ArgsInvalidException, SQLException, IOException {
+		try {
+			main_software = Software.getInstance();
+		} catch (Exception e) {
+			System.out.println("software initialization failed !");
+		}
 		LoadingPanel glasspane = new LoadingPanel();
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		glasspane.setBounds(100, 100, (dimension.width), (dimension.height));
@@ -68,14 +78,14 @@ public class guiMain extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		Thread.sleep(500);
-		logInModule();
-		init();
+		int loginRes = logInModule();
+		init(loginRes);
 		glasspane.setText("Welcome!");
 		Thread.sleep(200);
 		glasspane.stop(); // stop loading
 	}
 
-	JTextArea Info = new JTextArea();
+	static JTextArea Info = new JTextArea();
 	JTabbedPane tabbedPane = new JTabbedPane();
 	JButton btnCombine = new JButton("Combine");
 	JButton btnGray = new JButton("Gray");
@@ -110,7 +120,7 @@ public class guiMain extends JFrame {
 	ArrayList<JComponent> JComEditList = new ArrayList<>();
 	ArrayList<Integer> point = new ArrayList<Integer>();
 
-	private void init() throws ArgsInvalidException {
+	private void init(int loginRes) throws ArgsInvalidException {
 		// this.setLayout(springLayout);
 		TitledBorder border = new TitledBorder("Console");
 		border.setBorder(new LineBorder(Color.black));
@@ -118,16 +128,8 @@ public class guiMain extends JFrame {
 		Info.setBounds(1550, 0, 350, 790);
 		Info.setLineWrap(true);
 		this.add(Info);
-		try {
-			main_software = Software.getInstance();
-			System.out.println("\nWelcome to Img Process Software !\n");
-			main_software.setCommand(new showOperationHint(null));
-			main_software.execute();
-		} catch (Exception e) {
-			System.out.println("software initialization failed !");
-		}
-		this.setLayout(null);
 
+		this.setLayout(null);
 		btnCombine.setPreferredSize(new Dimension(100, 50));
 		btnGray.setPreferredSize(new Dimension(100, 50));
 		btnVintage.setPreferredSize(new Dimension(100, 50));
@@ -143,7 +145,6 @@ public class guiMain extends JFrame {
 		btnRotate90L.setPreferredSize(new Dimension(100, 50));
 		btnTailor.setPreferredSize(new Dimension(100, 50));
 		btnZoom.setPreferredSize(new Dimension(100, 50));
-
 		btnCombine.addActionListener(evt -> {
 			Integer degree = getMoveCount(0, 100, "Paint Degree");
 			if (degree != null) {
@@ -158,7 +159,7 @@ public class guiMain extends JFrame {
 					}
 					main_software.execute();
 					updatePane();
-					Info.append("Combine filter done\n");
+					writeLog("Combine filter done\n");
 				}
 			}
 		});
@@ -166,7 +167,7 @@ public class guiMain extends JFrame {
 			main_software.setCommand(new GrayFilter(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Gray filter done\n");
+			writeLog("Gray filter done\n");
 		});
 		btnVintage.addActionListener(evt -> {
 			Integer noise = getMoveCount(0, 100, "Vintage Degree");
@@ -180,7 +181,7 @@ public class guiMain extends JFrame {
 				}
 				main_software.execute();
 				updatePane();
-				Info.append("Vintage filter done\n");
+				writeLog("Vintage filter done\n");
 			}
 		});
 		btnCB.addActionListener(evt -> {
@@ -196,7 +197,7 @@ public class guiMain extends JFrame {
 					}
 					main_software.execute();
 					updatePane();
-					Info.append("Create Border done\n");
+					writeLog("Create Border done\n");
 				}
 			}
 		});
@@ -208,12 +209,12 @@ public class guiMain extends JFrame {
 							new EditCommand(Software.getInstance().getMain_ip()), Integer.parseInt(contrast)));
 					main_software.execute();
 					updatePane();
-					Info.append("Change Contrast filter done\n");
+					writeLog("Change Contrast filter done\n");
 				} catch (ArgsInvalidException e1) {
-					Info.append("Invalid args\n");
+					writeLog("Invalid args\n");
 				} catch (NumberFormatException e) {
-					Info.append("Too big number for Integer\n");
-					Info.append("Change Contrast filter done\n");
+					writeLog("Too big number for Integer\n");
+					writeLog("Change Contrast filter done\n");
 				}
 			}
 		});
@@ -225,7 +226,7 @@ public class guiMain extends JFrame {
 							.setCommand(new PaintFilter(new EditCommand(Software.getInstance().getMain_ip()), degree));
 					main_software.execute();
 					updatePane();
-					Info.append("Paint filter done\n");
+					writeLog("Paint filter done\n");
 				} catch (ArgsInvalidException e1) {
 					e1.printStackTrace();
 				}
@@ -240,7 +241,7 @@ public class guiMain extends JFrame {
 							Integer.parseInt(size)));
 					main_software.execute();
 					updatePane();
-					Info.append("Mosaic filter done\n");
+					writeLog("Mosaic filter done\n");
 				} catch (ArgsInvalidException e1) {
 					e1.printStackTrace();
 				}
@@ -250,40 +251,40 @@ public class guiMain extends JFrame {
 			main_software.setCommand(new Anticolor(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Anticolor filter done\n");
+			writeLog("Anticolor filter done\n");
 		});
 
 		btnFlipHorizontal.addActionListener(evt -> {
 			main_software.setCommand(new FlipHorizontal(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Filp horizontally done\n");
+			writeLog("Filp horizontally done\n");
 		});
 		btnFlipVertical.addActionListener(evt -> {
 			main_software.setCommand(new FlipVertical(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Filp Vertically done\n");
+			writeLog("Filp Vertically done\n");
 		});
 		btnRotate180.addActionListener(evt -> {
 			main_software.setCommand(new Rotate180Degrees(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Rotate 180 degree done\n");
+			writeLog("Rotate 180 degree done\n");
 		});
 		btnRotate90R.addActionListener(evt -> {
 			main_software
 					.setCommand(new Rotate90DegreesClockwise(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Rotate 90 degree to right done\n");
+			writeLog("Rotate 90 degree to right done\n");
 		});
 		btnRotate90L.addActionListener(evt -> {
 			main_software.setCommand(
 					new Rotate90DegreesCounterclockwise(new EditCommand(Software.getInstance().getMain_ip())));
 			main_software.execute();
 			updatePane();
-			Info.append("Rotate 90 degree to left done\n");
+			writeLog("Rotate 90 degree to left done\n");
 		});
 		btnTailor.addActionListener(evt -> {
 			Integer startX = point.get(point.size() - 4);
@@ -294,13 +295,13 @@ public class guiMain extends JFrame {
 					"Please confirm that, will keep the rectangle area nuild by latest two points in Consle.");
 			JOptionPane.showOptionDialog(this, info, "Confirmation", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
 					null, null, null);
-			Info.append("UpperLeft:" + Math.min(startX, secondX) + " " + Math.min(startY, secondY) + "\nWidth:"
+			writeLog("UpperLeft:" + Math.min(startX, secondX) + " " + Math.min(startY, secondY) + "\nWidth:"
 					+ Math.abs(startX - secondX) + " Height:" + Math.abs(startY - secondY));
 			main_software.setCommand(new Tailoring(new EditCommand(Software.getInstance().getMain_ip()), startX, startY,
 					secondX, secondY));
 			main_software.execute();
 			updatePane();
-			Info.append("Tailor done");
+			writeLog("Tailor done");
 		});
 		btnZoom.addActionListener(evt -> {
 			Integer percent = getMoveCount(0, 100, "Target percent");
@@ -309,9 +310,8 @@ public class guiMain extends JFrame {
 						.setCommand(new Zoom(new EditCommand(Software.getInstance().getMain_ip()), (percent / 10f)));
 				main_software.execute();
 				updatePane();
-				Info.append("Zoom done");
+				writeLog("Zoom done");
 			} catch (ArgsInvalidException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -355,8 +355,8 @@ public class guiMain extends JFrame {
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
 		menuBar.add(batchMenu);
-		menuBar.add(viewMenu);
 		menuBar.add(aboutMenu);
+		newMenuItem.setToolTipText("Open an image");
 		newMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean initflag = false;
@@ -381,10 +381,11 @@ public class guiMain extends JFrame {
 					if (initflag == true) {
 						enableOperation();
 					}
-					Info.append("Open file done\n");
+					writeLog("Open file done\n");
 				}
 			}
 		});
+		aboutMenuItem.setToolTipText("Show information about to this project");
 		aboutMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -395,6 +396,7 @@ public class guiMain extends JFrame {
 				}
 			}
 		});
+		saveMenuItem.setToolTipText("Save to original image file");
 		saveMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				imgProcessor ip = Software.getInstance().getMain_ip();
@@ -402,10 +404,11 @@ public class guiMain extends JFrame {
 				try {
 					ImageIO.write(ip.getImg(), ip.getName().substring(ip.getName().lastIndexOf(".") + 1), outputfile);
 				} catch (IOException e1) {
-					System.out.print("Save fail!");
+					writeLog("Save fail!");
 				}
 			}
 		});
+		saveAsMenuItem.setToolTipText("Save this image as another type");
 		saveAsMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JList<String> typeList = new JList<String>();
@@ -467,6 +470,7 @@ public class guiMain extends JFrame {
 				}
 			}
 		});
+		closeMenuItem.setToolTipText("Close this image");
 		closeMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
@@ -477,6 +481,7 @@ public class guiMain extends JFrame {
 				tabbedPane.remove(tabbedPane.getSelectedIndex());
 			}
 		});
+		closeAllMenuItem.setToolTipText("Close all opened images");
 		closeAllMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main_software.setCommand(new closeAllImgProcessors(Software.getInstance().getMain_ip()));
@@ -485,12 +490,15 @@ public class guiMain extends JFrame {
 				unableOperation();
 			}
 		});
+		exitMenuItem.setToolTipText("Exit the program");
 		exitMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				autoSave.onLogOutSuccessful(timer);
 				main_software.setCommand(new existSoftware(null));
 				main_software.execute();
 			}
 		});
+		batchMenuItem.setToolTipText("Select a list of image and edit them in one time");
 		batchMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ip index choose
@@ -505,7 +513,7 @@ public class guiMain extends JFrame {
 				ArrayList<Object> batchCommands = new ArrayList<>();
 				String[] commandList = commandChooser("Choose a list of ip");
 				for (String command : commandList) {
-					Info.append(command);
+					writeLog(command);
 					batchCommands.add(new transCommand(command, transfer(command)));
 				}
 				main_software.setCommand(new batchAdd(null, batchCommands));
@@ -545,89 +553,32 @@ public class guiMain extends JFrame {
 		undoMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Software.getInstance().undo();
+				writeLog("Undo done\n");
+				updatePane();
 			}
 		});
 		JMenuItem redoMenuItem = new JMenuItem("Redo");
 		redoMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Software.getInstance().redo();
+				writeLog("Redo done\n");
+				updatePane();
 			}
 		});
 		editMenu.add(undoMenuItem);
 		editMenu.add(redoMenuItem);
-		JMenuItem inMenuItem = new JMenuItem("Zoom in");
-		JMenuItem outMenuItem = new JMenuItem("Zoom out");
-		inMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JScrollPane panel = (JScrollPane) tabbedPane.getSelectedComponent();
-				JViewport view = panel.getViewport();
-			    Component[] components = view.getComponents();
-			    JPanel targetP=null;
-			    for (int i = 0; i < components.length; i++) {
-			      if (components[i] instanceof JPanel) {
-			    	  Info.append("find");
-			    	  targetP=(JPanel) components[i];
-			    	  break;
-			      }
-			    }
-			    JLabel label= new JLabel();
-			    components=targetP.getComponents(); 
-			    for (int i = 0; i < components.length; i++) {
-				      if (components[i] instanceof JLabel) {
-				    	  Info.append("find");
-				    	  label=(JLabel) components[i];
-				    	  break;
-				      }
-				 }
-				Info.append(Integer.toString((int) (label.getWidth() * 1.3)));
-				Info.append(Integer.toString((int) (label.getHeight() * 1.3)));
-				Info.append(Integer.toString(label.getHeight()));
-				Info.append(Integer.toString(label.getWidth()));
-				//Info.append(comp.getClass().toString());
-				label.setPreferredSize(new Dimension((int) (label.getWidth() * 1.3), (int) (label.getHeight() * 1.3)));
-				targetP.updateUI();
-				targetP.repaint();
-			}
-		});
-        outMenuItem.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Component panel=tabbedPane.getSelectedComponent();
-	        	Component comp = (JScrollPane)panel.getComponentAt(panel.getWidth()/2, 0);
-			}
-        });
-		viewMenu.add(inMenuItem);
-		viewMenu.add(outMenuItem);
 		aboutMenu.add(aboutMenuItem);
 		batchMenu.add(batchMenuItem);
 		this.setJMenuBar(menuBar);
 		this.setVisible(true);
-		unableOperation();
-		
-		this.addKeyListener(new KeyListener() {
-		    public void keyPressed(KeyEvent e) {
-		        // 获取键值，和 KeyEvent.VK_XXXX 常量比较确定所按下的按键
-		        int keyCode = e.getKeyCode();
-		        System.out.println("按下: " + e.getKeyCode());
-		    }
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		    
-		});
+		if (loginRes == 1) {
+			BufferedImage img = Software.getInstance().getMain_ip().getImg();
+			createTabbedPane(img, "cloud data");
+			writeLog("Load image from cloud data");
+		} else {
+			unableOperation();
+		}
 	}
-
-	
 
 	private int getMoveCount(int low, int high, String title) {
 		int moveCount = 0;
@@ -746,7 +697,7 @@ public class guiMain extends JFrame {
 				main_software.execute();
 				String copyname = "copy_" + tabbedPane.getSelectedIndex();
 				createTabbedPane(img, copyname);
-				Info.append("Create a copy of img" + tabbedPane.getSelectedIndex());
+				writeLog("Create a copy of img" + tabbedPane.getSelectedIndex());
 			}
 		});
 		popup.add(popupCopyItem);
@@ -756,7 +707,7 @@ public class guiMain extends JFrame {
 				if (e.getClickCount() == 2) {
 					point.add(e.getX());
 					point.add(e.getY());
-					Info.append("Point marked:" + e.getX() + " " + e.getY() + "\n");
+					writeLog("Point marked:" + e.getX() + " " + e.getY() + "\n");
 				}
 				if (e.getButton() == MouseEvent.BUTTON3) {
 					popup.show(e.getComponent(), e.getX(), e.getY());
@@ -765,22 +716,22 @@ public class guiMain extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				
+
 			}
 		});
 		label.setIcon(new ImageIcon(Software.getInstance().getMain_ip().getImg()));
@@ -927,7 +878,7 @@ public class guiMain extends JFrame {
 				main_software.execute();
 				String copyname = "copy_" + tabbedPane.getSelectedIndex();
 				createTabbedPane(img, copyname);
-				Info.append("Create a copy of img" + tabbedPane.getSelectedIndex());
+				writeLog("Create a copy of img" + tabbedPane.getSelectedIndex());
 			}
 		});
 		popup.add(popupCopyItem);
@@ -941,7 +892,7 @@ public class guiMain extends JFrame {
 				if (e.getClickCount() == 2) {
 					point.add(e.getX());
 					point.add(e.getY());
-					Info.append("Point marked:" + e.getX() + " " + e.getY() + "\n");
+					writeLog("Point marked:" + e.getX() + " " + e.getY() + "\n");
 				}
 				if (e.getButton() == MouseEvent.BUTTON3) {
 					popup.show(e.getComponent(), e.getX(), e.getY());
@@ -964,7 +915,7 @@ public class guiMain extends JFrame {
 			public void mouseExited(MouseEvent e) {
 			}
 		});
-		P.add(label,BorderLayout.CENTER);
+		P.add(label, BorderLayout.CENTER);
 		JScrollPane scrollPane = new JScrollPane(P);
 		tabbedPane.addTab(tabName, scrollPane);
 		tabbedPane.setSelectedIndex(Software.getInstance().getImgProcessorList().size() - 1);
@@ -978,18 +929,24 @@ public class guiMain extends JFrame {
 			}
 		});
 	}
-	private int logInModule() throws SQLException {
+
+	private int logInModule() throws SQLException, IOException {
 		int optionSelected = JOptionPane.showConfirmDialog(null,
 				"Log in or register to download your record from cloud!", "Weclome", JOptionPane.YES_NO_OPTION,
 				JOptionPane.PLAIN_MESSAGE);
 		if (optionSelected != JOptionPane.OK_OPTION) {
 			return 0;
 		}
-		innerlogin();
-		return 1;
+		int res = innerlogin();
+		if (res == 0) {
+			return 1;
+		} else if (res == 1) {
+			return 2;
+		}
+		return 3;
 	}
 
-	private int innerlogin() throws SQLException {
+	private int innerlogin() throws SQLException, IOException {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(250, 100));
 		JLabel userLabel = new JLabel("User Name:");
@@ -1014,13 +971,11 @@ public class guiMain extends JFrame {
 		if (choice == 1) {
 			// log in get return value
 			BufferedImage img = null;
-			if (loginController.login(img, userName, password) == 1) {
-				if (img != null) {
-					main_software.setCommand(new readFromBuffer(null, img));
-					main_software.execute();
-					img = Software.getInstance().getMain_ip().getImg();
-					createTabbedPane(img, "cloud data");
-				}
+			if (loginController.login(userName, password) == 1) {
+				img = loginController.readLastData();
+				main_software.setCommand(new readFromBuffer(null, img, "cloud_img"));
+				main_software.execute();
+				timer = autoSave.onLoginSuccessful();
 				return 0;
 			} else {
 				JOptionPane.showMessageDialog(null, "Log in fail. Check your account name and password", "Message",
@@ -1029,13 +984,13 @@ public class guiMain extends JFrame {
 			}
 		} else if (choice == 0) {
 			if (loginController.register(userName, password) == 1) {
-				return 0;
+				return 1;
 			}
 			JOptionPane.showMessageDialog(null, "Register fail. Check your account name and password", "Message",
 					JOptionPane.WARNING_MESSAGE);
 			innerlogin();
 		}
-		return 1;
+		return 2;
 	}
 
 }

@@ -2,10 +2,10 @@ package Java.Code.Command.Export;
 
 import Java.Code.exportException.nameNotFoundException;
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelabe;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.imgProcessor;
 
-public abstract class typeTransfer extends Command implements CommandNoncancelabe {
+public abstract class typeTransfer extends Command implements CommandNoncancelable {
 
 	protected static int newName = 1;
 

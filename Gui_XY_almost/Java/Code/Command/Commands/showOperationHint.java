@@ -1,11 +1,11 @@
 package Java.Code.Command.Commands;
 
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelabe;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 
-public class showOperationHint extends Command implements CommandNoncancelabe {
+public class showOperationHint extends Command implements CommandNoncancelable {
 
 	public showOperationHint(imgProcessor receiver) {
 		super(receiver);

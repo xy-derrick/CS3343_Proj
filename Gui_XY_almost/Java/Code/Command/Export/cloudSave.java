@@ -4,11 +4,11 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelabe;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.imgProcessor;
 import ImgUtil.ImgUtil;
 
-public class cloudSave extends Command implements CommandNoncancelabe {
+public class cloudSave extends Command implements CommandNoncancelable {
 	private String id;
 
 	public cloudSave(imgProcessor receiver, String id) {

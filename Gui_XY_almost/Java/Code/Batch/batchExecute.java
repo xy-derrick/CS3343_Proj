@@ -3,10 +3,10 @@ package Java.Code.Batch;
 import java.util.ArrayList;
 
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelabe;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.imgProcessor;
 
-public class batchExecute extends Command implements CommandNoncancelabe {
+public class batchExecute extends Command implements CommandNoncancelable {
 	batchProcessor bp;
 
 	public batchExecute(imgProcessor ip) {

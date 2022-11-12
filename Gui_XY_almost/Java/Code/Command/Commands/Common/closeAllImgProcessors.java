@@ -2,11 +2,12 @@ package Java.Code.Command.Commands.Common;
 
 import java.util.ArrayList;
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 import Java.Code.Software.ipState;
 
-public class closeAllImgProcessors extends Command {
+public class closeAllImgProcessors extends Command implements CommandNoncancelable {
 	ArrayList<imgProcessor> ipList = null;
 	ipState state_last = null;
 	ipState state_curr = null;

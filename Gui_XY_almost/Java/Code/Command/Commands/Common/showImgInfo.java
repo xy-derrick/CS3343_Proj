@@ -3,11 +3,11 @@ package Java.Code.Command.Commands.Common;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelabe;
+import Java.Code.Command.Base.CommandNoncancelable;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 
-public class showImgInfo extends Command implements CommandNoncancelabe {
+public class showImgInfo extends Command implements CommandNoncancelable {
 
 	public showImgInfo(imgProcessor receiver) {
 		super(receiver);
