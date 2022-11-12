@@ -82,11 +82,11 @@ public class ImgUtil {
 				}
 			}
 			ByteArrayInputStream file = new ByteArrayInputStream(b);
-			//System.out.println(file);
+			// System.out.println(file);
 			imag = ImageIO.read(file);
-			//System.out.println(imag.getHeight());
-			//System.out.println(imag.getWidth());
-			//System.out.println(imag);
+			// System.out.println(imag.getHeight());
+			// System.out.println(imag.getWidth());
+			// System.out.println(imag);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,7 +138,8 @@ public class ImgUtil {
 		return false;
 	}
 
-	public static BufferedImage getImgfromDb(String user_id,BufferedImage imag, String id) throws SQLException, IOException {
+	public static BufferedImage getImgfromDb(String user_id, BufferedImage imag, String id)
+			throws SQLException, IOException {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -154,8 +155,8 @@ public class ImgUtil {
 				String photo = rs.getString("image");
 				// is = photo.getBinaryStream();
 
-				imag=ImgUtil.GenerateImage(photo, imag);
-			
+				imag = ImgUtil.GenerateImage(photo, imag);
+
 				/*
 				 * for (int i = 0; i < b.length; ++i) { if (b[i] < 0) {// 调整异常数据 b[i] += 256; }
 				 * } fos.write(b); fos.flush();
