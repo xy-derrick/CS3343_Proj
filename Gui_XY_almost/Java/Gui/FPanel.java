@@ -1,12 +1,12 @@
 package Java.Gui;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.*;
-import javax.swing.*;
 
 public class FPanel extends javax.swing.JPanel {
-	private Dimension preferredSize = new Dimension(400, 400);
+	private Dimension preferredSize = new Dimension();
 	private Rectangle2D[] rects = new Rectangle2D[50];
 
 	public FPanel() {
@@ -14,6 +14,10 @@ public class FPanel extends javax.swing.JPanel {
 			rects[i] = new Rectangle2D.Double(Math.random() * .8, Math.random() * .8, Math.random() * .2,
 					Math.random() * .2);
 		}
+		addMouseWheelListener( new MouseWheelListener() {
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				updatePreferredSize(e.getWheelRotation(), e.getPoint()); 
+			} }); 
 	}
 
 	public void updatePreferredSize(int wheelRotation, Point stablePoint) {
@@ -25,7 +29,7 @@ public class FPanel extends javax.swing.JPanel {
 	}
 
 	private double findScaleFactor(int wheelRotation) {
-		double d = wheelRotation * 1.00;
+		double d = wheelRotation/2.95 ;
 		return (d > 0) ? 1 / d : -d;
 	}
 

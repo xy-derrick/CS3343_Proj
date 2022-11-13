@@ -1,6 +1,5 @@
 package Java.Gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -121,7 +120,6 @@ public class guiMain extends JFrame {
 	ArrayList<Integer> point = new ArrayList<Integer>();
 
 	private void init(int loginRes) throws ArgsInvalidException {
-		// this.setLayout(springLayout);
 		TitledBorder border = new TitledBorder("Console");
 		border.setBorder(new LineBorder(Color.black));
 		Info.setBorder(border);
@@ -369,7 +367,13 @@ public class guiMain extends JFrame {
 				chooser.setFileFilter(imgFilter);
 				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				chooser.showOpenDialog(newMenuItem);
-				String filepath = chooser.getSelectedFile().getAbsolutePath();
+				String filepath =null;
+				try {
+					filepath = chooser.getSelectedFile().getAbsolutePath();
+				}
+				catch (Exception e1) {
+					
+				}
 				if (filepath != null) {
 					String filename = chooser.getSelectedFile().getName();
 					main_software.setCommand(new readImgFromLocal(null, filepath, filename));
@@ -501,7 +505,6 @@ public class guiMain extends JFrame {
 		batchMenuItem.setToolTipText("Select a list of image and edit them in one time");
 		batchMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ip index choose
 				int[] ipList = imgProcessorChooser(false, "Choose a list of ip");
 				ArrayList<Object> batchImgs = new ArrayList<>();
 				for (int ipindex : ipList) {
@@ -509,7 +512,6 @@ public class guiMain extends JFrame {
 				}
 				main_software.setCommand(new batchAdd(null, batchImgs));
 				main_software.execute();
-				// command choose
 				ArrayList<Object> batchCommands = new ArrayList<>();
 				String[] commandList = commandChooser("Choose a list of ip");
 				for (String command : commandList) {
@@ -860,6 +862,7 @@ public class guiMain extends JFrame {
 		JPopupMenu popup = new JPopupMenu();
 		JMenuItem popupCopyItem = new JMenuItem("Create a copy");
 		JMenuItem popupCloseItem = new JMenuItem("Close this img");
+		JMenuItem zoominItem = new JMenuItem("Zoom in");
 		popupCloseItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
@@ -881,9 +884,10 @@ public class guiMain extends JFrame {
 				writeLog("Create a copy of img" + tabbedPane.getSelectedIndex());
 			}
 		});
+		
 		popup.add(popupCopyItem);
 		popup.add(popupCloseItem);
-		FPanel P = new FPanel();
+		JPanel P = new JPanel();
 		P.add(popup);
 		JLabel label = new JLabel();
 		label.setIcon(new ImageIcon(img));
@@ -915,8 +919,10 @@ public class guiMain extends JFrame {
 			public void mouseExited(MouseEvent e) {
 			}
 		});
-		P.add(label, BorderLayout.CENTER);
+		P.add(label);
 		JScrollPane scrollPane = new JScrollPane(P);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		tabbedPane.addTab(tabName, scrollPane);
 		tabbedPane.setSelectedIndex(Software.getInstance().getImgProcessorList().size() - 1);
 		P.addMouseListener(new MouseAdapter() {
@@ -973,10 +979,13 @@ public class guiMain extends JFrame {
 			BufferedImage img = null;
 			if (loginController.login(userName, password) == 1) {
 				img = loginController.readLastData();
-				main_software.setCommand(new readFromBuffer(null, img, "cloud_img"));
-				main_software.execute();
-				timer = autoSave.onLoginSuccessful();
-				return 0;
+				if (img!=null) {
+					main_software.setCommand(new readFromBuffer(null, img, "cloud_img"));
+					main_software.execute();
+					timer = autoSave.onLoginSuccessful();
+					return 0;
+				}
+				return 2;
 			} else {
 				JOptionPane.showMessageDialog(null, "Log in fail. Check your account name and password", "Message",
 						JOptionPane.WARNING_MESSAGE);

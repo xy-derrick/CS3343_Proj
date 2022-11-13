@@ -114,21 +114,17 @@ public class batchProcessor implements Observable {
 	}
 
 	public void reset() {
-
+		batchedImg = new ArrayList<notifyIP>();
 		imgBuffer = new ArrayList<Integer>();
-		;
 		cmdBuffer = new ArrayList<transCommand>();
-		;
 		cmdSize = 0;
 		mainIp = null;
-
 		info();
 	}
 
 	void info() {
 		System.out.printf("imgBuffer has %d elements,\ncmdBuffer has %d elements\n", imgBuffer.size(),
 				cmdBuffer.size());
-
 	}
 
 	public ArrayList<transCommand> getCmdBuffer() {

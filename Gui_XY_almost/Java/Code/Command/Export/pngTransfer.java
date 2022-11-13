@@ -31,7 +31,6 @@ public class pngTransfer extends typeTransfer {
 			BufferedImage imag = iProcessor.getImg();
 			String localPath = iProcessor.getPath();
 			String name = getName(localPath);
-
 			if (name.isEmpty() || name == "") {
 				throw new nameNotFoundException();
 			}

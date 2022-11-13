@@ -6,7 +6,7 @@ public class autoSave {
 	public static Timer onLoginSuccessful() {
 		Timer timer = new Timer();
 		int autosave_timegap = 1000 * 60;
-		timer.schedule(new autoSaveTask(), 0, autosave_timegap);
+		timer.schedule(new autoSaveTask(), 100, autosave_timegap);
 		return timer;
 	}
 

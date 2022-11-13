@@ -36,7 +36,7 @@ public class readFromBuffer extends Command implements CommandNoncancelable {
 		if (state_curr == null) {
 			iProcessor = new imgProcessor(this.name);
 			iProcessor.setImg(this.img);
-			iProcessor.setPath(text);
+			iProcessor.setPath("cloud");
 			Software.getInstance().setMain_ip(iProcessor);
 			state_curr = Software.getInstance().getState();
 		} else {
