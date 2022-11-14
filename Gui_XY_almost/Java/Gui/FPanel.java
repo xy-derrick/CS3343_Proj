@@ -14,10 +14,11 @@ public class FPanel extends javax.swing.JPanel {
 			rects[i] = new Rectangle2D.Double(Math.random() * .8, Math.random() * .8, Math.random() * .2,
 					Math.random() * .2);
 		}
-		addMouseWheelListener( new MouseWheelListener() {
+		addMouseWheelListener(new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				updatePreferredSize(e.getWheelRotation(), e.getPoint()); 
-			} }); 
+				updatePreferredSize(e.getWheelRotation(), e.getPoint());
+			}
+		});
 	}
 
 	public void updatePreferredSize(int wheelRotation, Point stablePoint) {
@@ -29,7 +30,7 @@ public class FPanel extends javax.swing.JPanel {
 	}
 
 	private double findScaleFactor(int wheelRotation) {
-		double d = wheelRotation/2.95 ;
+		double d = wheelRotation / 2.95;
 		return (d > 0) ? 1 / d : -d;
 	}
 

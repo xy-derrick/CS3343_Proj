@@ -29,11 +29,9 @@ public class bmpTransfer extends typeTransfer {
 
 			// 读入图片以及路径
 			BufferedImage imag = iProcessor.getImg();
-			String localPath = iProcessor.getPath();
-			String name = getName(localPath);
-			System.out.println(localPath);
+			String name = iProcessor.getName();
 
-			if (name.isEmpty() || name == "") {
+			if (name.isEmpty()) {
 				throw new nameNotFoundException();
 			}
 
@@ -45,19 +43,13 @@ public class bmpTransfer extends typeTransfer {
 			newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
 
 			// 写入bmp文件
-			System.out.print(path + "\\" + String.valueOf(newName) + name + ".bmp");
-			ImageIO.write(newBufferedImage, "bmp", new File(path + "\\" + String.valueOf(newName) + name + ".bmp"));
+			ImageIO.write(newBufferedImage, "bmp",
+					new File(path + "/" + name + "_" + String.valueOf(newName) + ".bmp"));
 
 			System.out.println("Transfer to bmp successfully");
 
-		} catch (FileNotFoundException e) {
-			System.out.println("Invalid file path! Please check and input again!");
-		} catch (NullPointerException e) {
-			System.out.println("Input path is null! Please input again!");
 		} catch (IOException e) {
 			System.out.println("Unknown errors happended when write to bmp file");
-		} catch (IllegalArgumentException e) {
-			System.out.println("Can find imag from the imag processor. Please check!");
 		}
 
 	}

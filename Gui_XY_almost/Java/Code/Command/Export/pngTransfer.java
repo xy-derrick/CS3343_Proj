@@ -29,9 +29,9 @@ public class pngTransfer extends typeTransfer {
 
 			// 读入图片以及路径
 			BufferedImage imag = iProcessor.getImg();
-			String localPath = iProcessor.getPath();
-			String name = getName(localPath);
-			if (name.isEmpty() || name == "") {
+			String name = iProcessor.getName();
+
+			if (name.isEmpty()) {
 				throw new nameNotFoundException();
 			}
 
@@ -44,18 +44,13 @@ public class pngTransfer extends typeTransfer {
 			newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
 
 			// 写入png文件
-			ImageIO.write(newBufferedImage, "png", new File(path + "\\" + String.valueOf(newName) + name + ".png"));
+			ImageIO.write(newBufferedImage, "png",
+					new File(path + "/" + name + "_" + String.valueOf(newName) + ".png"));
 
 			System.out.println("Transfer to png successfully");
 
-		} catch (FileNotFoundException e) {
-			System.out.println("Invalid file path! Please check and input again!");
-		} catch (NullPointerException e) {
-			System.out.println("Input path is null! Please input again!");
 		} catch (IOException e) {
 			System.out.println("Unknown errors happended when write to png file");
-		} catch (IllegalArgumentException e) {
-			System.out.println("Can find imag from the imag processor. Please check!");
 		}
 
 	}

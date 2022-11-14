@@ -29,10 +29,9 @@ public class tiffTransfer extends typeTransfer {
 
 			// 读入图片以及路径
 			BufferedImage imag = iProcessor.getImg();
-			String localPath = iProcessor.getPath();
-			String name = getName(localPath);
+			String name = iProcessor.getName();
 
-			if (name.isEmpty() || name == "") {
+			if (name.isEmpty()) {
 				throw new nameNotFoundException();
 			}
 
@@ -45,18 +44,13 @@ public class tiffTransfer extends typeTransfer {
 			newBufferedImage.createGraphics().drawImage(imag, 0, 0, Color.WHITE, null);
 
 			// 写入tiff文件
-			ImageIO.write(newBufferedImage, "tiff", new File(path + "\\" + String.valueOf(newName) + name + ".tiff"));
+			ImageIO.write(newBufferedImage, "tiff",
+					new File(path + "/" + name + "_" + String.valueOf(newName) + ".tiff"));
 
 			System.out.println("Transfer to tiff successfully");
 
-		} catch (FileNotFoundException e) {
-			System.out.println("Invalid file path! Please check and input again!");
-		} catch (NullPointerException e) {
-			System.out.println("Input path is null! Please input again!");
 		} catch (IOException e) {
 			System.out.println("Unknown errors happended when write to tiff file");
-		} catch (IllegalArgumentException e) {
-			System.out.println("Can find imag from the imag processor. Please check!");
 		}
 
 	}

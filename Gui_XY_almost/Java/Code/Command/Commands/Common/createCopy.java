@@ -16,8 +16,9 @@ public class createCopy extends Command implements CommandNoncancelable {
 	BufferedImage ori = null;
 	ipState state_last = null;
 	ipState state_curr = null;
+	String name=null;
 
-	public createCopy(imgProcessor receiver, BufferedImage ori) {
+	public createCopy(imgProcessor receiver, BufferedImage ori, String name) {
 		super(receiver);
 		this.ori = EditDecorator.copyImage(ori);
 	}
@@ -28,7 +29,7 @@ public class createCopy extends Command implements CommandNoncancelable {
 		state_last = Software.getInstance().getState();
 		// first
 		if (state_curr == null) {
-			iProcessor = new imgProcessor();
+			iProcessor = new imgProcessor(name);
 			iProcessor.setImg(this.ori);
 			Software.getInstance().setMain_ip(iProcessor);
 			state_curr = Software.getInstance().getState();

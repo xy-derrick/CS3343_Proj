@@ -367,12 +367,11 @@ public class guiMain extends JFrame {
 				chooser.setFileFilter(imgFilter);
 				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				chooser.showOpenDialog(newMenuItem);
-				String filepath =null;
+				String filepath = null;
 				try {
 					filepath = chooser.getSelectedFile().getAbsolutePath();
-				}
-				catch (Exception e1) {
-					
+				} catch (Exception e1) {
+
 				}
 				if (filepath != null) {
 					String filename = chooser.getSelectedFile().getName();
@@ -404,11 +403,15 @@ public class guiMain extends JFrame {
 		saveMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				imgProcessor ip = Software.getInstance().getMain_ip();
-				File outputfile = new File(ip.getPath());
-				try {
-					ImageIO.write(ip.getImg(), ip.getName().substring(ip.getName().lastIndexOf(".") + 1), outputfile);
-				} catch (IOException e1) {
-					writeLog("Save fail!");
+				if (ip.getName()=="cloud_img") {
+					writeLog("Cloud data do not have local space.\n");
+				} else {
+					File outputfile = new File(ip.getPath());
+					try {
+						ImageIO.write(ip.getImg(), ip.getName().substring(ip.getName().lastIndexOf(".") + 1), outputfile);
+					} catch (IOException e1) {
+						writeLog("Save fail!");
+					}
 				}
 			}
 		});
@@ -693,12 +696,11 @@ public class guiMain extends JFrame {
 		});
 		popupCopyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BufferedImage img = Software.getInstance().getImgProcessorList().get(tabbedPane.getSelectedIndex())
-						.getImg();
-				main_software.setCommand(new createCopy(Software.getInstance().getMain_ip(), img));
+				imgProcessor ip = Software.getInstance().getImgProcessorList().get(tabbedPane.getSelectedIndex());
+				main_software.setCommand(new createCopy(ip, ip.getImg(),ip.getName()+"_copy"));
 				main_software.execute();
-				String copyname = "copy_" + tabbedPane.getSelectedIndex();
-				createTabbedPane(img, copyname);
+				String copyname = ip.getName()+"_copy";
+				createTabbedPane(ip.getImg(), copyname);
 				writeLog("Create a copy of img" + tabbedPane.getSelectedIndex());
 			}
 		});
@@ -862,7 +864,6 @@ public class guiMain extends JFrame {
 		JPopupMenu popup = new JPopupMenu();
 		JMenuItem popupCopyItem = new JMenuItem("Create a copy");
 		JMenuItem popupCloseItem = new JMenuItem("Close this img");
-		JMenuItem zoominItem = new JMenuItem("Zoom in");
 		popupCloseItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main_software.setCommand(new closeImgProcessor(Software.getInstance().getMain_ip()));
@@ -875,16 +876,14 @@ public class guiMain extends JFrame {
 		});
 		popupCopyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BufferedImage img = Software.getInstance().getImgProcessorList().get(tabbedPane.getSelectedIndex())
-						.getImg();
-				main_software.setCommand(new createCopy(Software.getInstance().getMain_ip(), img));
+				imgProcessor ip = Software.getInstance().getImgProcessorList().get(tabbedPane.getSelectedIndex());
+				main_software.setCommand(new createCopy(ip, ip.getImg(),ip.getName()+"_copy"));
 				main_software.execute();
-				String copyname = "copy_" + tabbedPane.getSelectedIndex();
-				createTabbedPane(img, copyname);
+				String copyname = ip.getName()+"_copy";
+				createTabbedPane(ip.getImg(), copyname);
 				writeLog("Create a copy of img" + tabbedPane.getSelectedIndex());
 			}
 		});
-		
 		popup.add(popupCopyItem);
 		popup.add(popupCloseItem);
 		JPanel P = new JPanel();
@@ -979,7 +978,7 @@ public class guiMain extends JFrame {
 			BufferedImage img = null;
 			if (loginController.login(userName, password) == 1) {
 				img = loginController.readLastData();
-				if (img!=null) {
+				if (img != null) {
 					main_software.setCommand(new readFromBuffer(null, img, "cloud_img"));
 					main_software.execute();
 					timer = autoSave.onLoginSuccessful();

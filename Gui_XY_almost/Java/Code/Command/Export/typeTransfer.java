@@ -21,13 +21,13 @@ public abstract class typeTransfer extends Command implements CommandNoncancelab
 	public String getName(String localPath) {
 		String fName = localPath.trim();
 		// System.out.println(fName);
-		String name = fName.substring(fName.lastIndexOf("\\") + 1);
+		String name = fName.substring(fName.lastIndexOf("/") + 1);
 		return name.substring(0, name.lastIndexOf("."));
 	}
 
 	@Override
 	public void execute() {
-		// ignore receiver
+		// ignore receiverß
 
 		try {
 			transfer();
