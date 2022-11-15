@@ -46,7 +46,7 @@ public class PaintFilter extends EditDecorator {
 				img.setRGB(x, y, img.getRGB(x + a - sub, y + b - sub));
 			}
 		}
-		BufferedImage source = getImageFromFile("/extlib/border_source.jpg");
+		BufferedImage source = getImageFromFile(".\\extlib\\border_source.jpg");
 		source = CombineFilter.resizeImage(source, img.getWidth(), this.degree);
 		for (int j = 0; j < this.degree; j++) {
 			for (int i = j; i < img.getWidth() - j; i++) {

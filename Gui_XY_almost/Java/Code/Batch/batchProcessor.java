@@ -3,6 +3,8 @@ package Java.Code.Batch;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import Java.Code.Command.Commands.Common.createCopy;
+import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
@@ -67,10 +69,19 @@ public class batchProcessor implements Observable {
 		// get Img copy
 		Integer previewIP = imgBuffer.get(0);
 		imgProcessor ip = Software.getInstance().getImgProcessorList().get(previewIP);
-		notifyIP imgCopy = new notifyIP(ip);
-		imgCopy.previewDisplay(temp);
+		//ip
 
+		
+
+		// return imgCopy.getImg();
+		imgProcessor ipTemp = new imgProcessor(0);
+		ipTemp.setImg(EditDecorator.copyImage(ip.getImg()));
+		ipTemp.setPath(ip.getPath());
+
+		notifyIP imgCopy = new notifyIP(ipTemp);
+		imgCopy.previewDisplay(temp);
 		return imgCopy.getImg();
+		
 
 	}
 
