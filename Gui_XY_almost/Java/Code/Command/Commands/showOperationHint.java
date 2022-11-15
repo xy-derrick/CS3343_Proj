@@ -1,11 +1,11 @@
 package Java.Code.Command.Commands;
 
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelable;
+import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 
-public class showOperationHint extends Command implements CommandNoncancelable {
+public class showOperationHint extends Command implements CommandNoncancelable_gui {
 
 	public showOperationHint(imgProcessor receiver) {
 		super(receiver);
@@ -45,9 +45,4 @@ public class showOperationHint extends Command implements CommandNoncancelable {
 		);
 	}
 
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-		System.out.println("nothing to undo");
-	}
 }

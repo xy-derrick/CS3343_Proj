@@ -11,8 +11,6 @@ abstract public class Command implements CommandInterface {
 
 	public abstract void execute();
 
-	public abstract void undo();
-
 	public imgProcessor getIP() {
 		return this.iProcessor;
 	}

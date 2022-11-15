@@ -3,9 +3,10 @@ package Java.Code.Command.Commands;
 import java.awt.image.BufferedImage;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Software.imgProcessor;
 
-public class showImgInfo extends Command {
+public class showImgInfo extends Command implements CommandCancelable{
 
 	public showImgInfo(imgProcessor receiver) {
 		super(receiver);

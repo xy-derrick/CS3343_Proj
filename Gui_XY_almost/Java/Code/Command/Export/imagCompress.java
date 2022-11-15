@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
 import Java.Code.exportException.*;
 import javax.imageio.ImageIO;
 
-public class imagCompress extends Command implements CommandNoncancelable {
+public class imagCompress extends Command implements CommandCancelable  {
 	private String path;
 
 	public imagCompress(imgProcessor receiver, String path) {

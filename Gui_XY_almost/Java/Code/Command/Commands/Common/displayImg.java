@@ -10,10 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelable;
+import Java.Code.Command.Base.CommandCancelable;
+import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.imgProcessor;
 
-public class displayImg extends Command implements CommandNoncancelable {
+public class displayImg extends Command implements CommandCancelable {
 	MyFrame frame = null;
 
 	public displayImg(imgProcessor receiver) {

@@ -10,9 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Software.imgProcessor;
 
-public class displayImg extends Command {
+public class displayImg extends Command implements CommandCancelable {
 
 	public displayImg(imgProcessor receiver) {
 		super(receiver);

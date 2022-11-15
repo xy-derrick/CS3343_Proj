@@ -5,8 +5,7 @@ import java.awt.image.BufferedImage;
 public class imgProcessor {
 	BufferedImage img = null;
 	String name;
-	int imgHeight = -1;
-	int imgWidth = -1;
+
 	private String localPath;
 
 	public imgProcessor() {
@@ -25,8 +24,6 @@ public class imgProcessor {
 		img = bufImage;
 		// init
 		System.out.println("img file init...");
-		imgHeight = bufImage.getHeight();
-		imgWidth = bufImage.getWidth();
 	}
 
 	public String getName() {
