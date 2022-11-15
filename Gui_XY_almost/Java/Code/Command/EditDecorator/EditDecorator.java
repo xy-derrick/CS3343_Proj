@@ -3,9 +3,10 @@ package Java.Code.Command.EditDecorator;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Software.imgProcessor;
 
-public class EditDecorator extends Command {
+public class EditDecorator extends Command implements CommandCancelable {
 	protected Command wrappee;
 	private BufferedImage imgcopy;
 

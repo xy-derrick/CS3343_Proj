@@ -35,9 +35,4 @@ public class Register extends Command {
 
 	}
 
-	@Override
-	public void undo() {
-
-	}
-
 }

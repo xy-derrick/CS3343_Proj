@@ -3,9 +3,10 @@ package Java.Code.Batch;
 import java.util.ArrayList;
 
 import Java.Code.Command.Base.Command;
+import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Software.imgProcessor;
 
-public class batchDelete extends Command {
+public class batchDelete extends Command implements CommandCancelable {
 	private ArrayList<Integer> imgList = new ArrayList<Integer>();
 	private ArrayList<transCommand> cmdList = new ArrayList<transCommand>();
 	private batchProcessor bp = batchProcessor.getInstance();

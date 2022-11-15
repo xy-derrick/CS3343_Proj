@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelable;
+import Java.Code.Command.Base.CommandCancelable;
+import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Command.EditDecorator.EditDecorator;
 import Java.Code.Software.imgProcessor;
 import Java.Code.Software.Software;
 import Java.Code.Software.ipState;
 
-public class createCopy extends Command implements CommandNoncancelable {
+public class createCopy extends Command implements CommandCancelable  {
 	BufferedImage ori = null;
 	ipState state_last = null;
 	ipState state_curr = null;

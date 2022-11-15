@@ -1,4 +1,4 @@
 package Java.Code.Command.Base;
 
-public interface CommandNoncancelable {
+public interface CommandNoncancelable_gui {
 }

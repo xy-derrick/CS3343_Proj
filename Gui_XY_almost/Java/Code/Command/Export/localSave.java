@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import Java.Code.exportException.*;
 import Java.Gui.guiMain;;
 
-public class localSave extends Command implements CommandNoncancelable {
+public class localSave extends Command implements CommandCancelable  {
 	private String path;
 
 	public localSave(imgProcessor receiver, String path) {

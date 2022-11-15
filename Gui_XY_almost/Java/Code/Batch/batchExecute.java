@@ -3,10 +3,10 @@ package Java.Code.Batch;
 import java.util.ArrayList;
 
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelable;
+import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.imgProcessor;
 
-public class batchExecute extends Command implements CommandNoncancelable {
+public class batchExecute extends Command implements CommandNoncancelable_gui {
 	batchProcessor bp;
 
 	public batchExecute(imgProcessor ip) {
@@ -31,9 +31,5 @@ public class batchExecute extends Command implements CommandNoncancelable {
 		} catch (Exception e) {
 		}
 
-	}
-
-	@Override
-	public void undo() {
 	}
 }

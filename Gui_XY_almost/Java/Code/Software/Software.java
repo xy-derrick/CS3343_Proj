@@ -5,7 +5,8 @@ import java.util.Stack;
 
 import Java.Code.Batch.notifyIP;
 import Java.Code.Command.Base.Command;
-import Java.Code.Command.Base.CommandNoncancelable;
+import Java.Code.Command.Base.CommandCancelable;
+import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.imgProcessor;
 
 public class Software {
@@ -36,7 +37,16 @@ public class Software {
 
 	public void execute() {
 		command.execute();
-		if (!(command instanceof CommandNoncancelable || command.getIP() instanceof notifyIP)) {
+		if (!(command instanceof CommandNoncancelable_gui || command.getIP() instanceof notifyIP)) {
+			undoCommand.add(command);
+			if (!redoCommand.isEmpty()) {
+				redoCommand.clear();
+			}
+		}
+	}
+	public void execute_cmd() {
+		command.execute();
+		if ((command instanceof CommandCancelable && ! (command.getIP() instanceof notifyIP))) {
 			undoCommand.add(command);
 			if (!redoCommand.isEmpty()) {
 				redoCommand.clear();
@@ -47,10 +57,10 @@ public class Software {
 	public void undo() {
 		if (!undoCommand.empty()) {
 			Command toUndoCommand = undoCommand.pop();
-			if (toUndoCommand instanceof CommandNoncancelable) {
+			if (toUndoCommand instanceof  CommandCancelable ) {
 				undo();
 			} else {
-				toUndoCommand.undo();
+				//toUndoCommand.undo();
 				redoCommand.add(toUndoCommand);
 			}
 		} else {
