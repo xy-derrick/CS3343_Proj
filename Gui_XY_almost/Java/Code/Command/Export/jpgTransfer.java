@@ -29,7 +29,7 @@ public class jpgTransfer extends typeTransfer {
 
 			// 读入图片以及路径
 			BufferedImage imag = iProcessor.getImg();
-			String name = iProcessor.getName();
+			String name = getName(iProcessor.getName());
 
 			if (name.isEmpty()) {
 				throw new nameNotFoundException();

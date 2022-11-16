@@ -18,6 +18,9 @@ public class loginController {
 	private static int latest_img_id = 0;
 
 	static public int login(String username, String password) throws SQLException {
+		if (username.isEmpty() || password.isEmpty()) {
+			return 0;
+		}
 		boolean flag = new jdbc_test().login(username, password);
 		uid = new jdbc_test().getId(username);
 		if (flag == false) {

@@ -41,4 +41,8 @@ public class imgProcessor {
 	public String getPath() {
 		return localPath;
 	}
+
+	public void setName(String name){
+		 this.name =name ;
+	}
 }

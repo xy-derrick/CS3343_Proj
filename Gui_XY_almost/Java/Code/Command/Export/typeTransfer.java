@@ -19,11 +19,11 @@ public abstract class typeTransfer extends Command implements CommandCancelable 
 	 */
 	public abstract void transfer() throws nameNotFoundException;
 
-	public String getName(String localPath) {
-		String fName = localPath.trim();
+	public String getName(String fName) {
+		//String fName = localPath.trim();
 		// System.out.println(fName);
 		String name = fName.substring(fName.lastIndexOf("/") + 1);
-		return name.substring(0, name.lastIndexOf("."));
+		return name.substring(0, name.lastIndexOf(".")==-1?name.length():name.lastIndexOf("."));
 	}
 
 	@Override

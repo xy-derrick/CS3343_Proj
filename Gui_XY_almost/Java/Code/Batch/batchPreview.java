@@ -1,7 +1,6 @@
 package Java.Code.Batch;
 
 import java.awt.image.BufferedImage;
-
 import Java.Code.Exception.ArgsInvalidException;
 
 public class batchPreview {

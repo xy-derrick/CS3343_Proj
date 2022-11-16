@@ -11,6 +11,8 @@ public class notifyIP extends imgProcessor implements Observer {
 		super(0);
 		setImg(ip.getImg());
 		setPath(ip.getPath());
+		setName(ip.getName());
+		
 	}
 
 	@Override

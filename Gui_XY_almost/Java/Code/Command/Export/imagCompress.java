@@ -47,13 +47,14 @@ public class imagCompress extends Command implements CommandCancelable  {
 			// 得到原始文件名以及类型
 			String name = null;
 			String type = null;
-			if (localPath.isEmpty()) {
+			
+			if (localPath==null) {
 				name = iProcessor.getName();
-				type = getType(name);
+				type = "png";
+				name = name + ".png";
 			} else {
 				name = getName(localPath);
-				type = "jpg";
-				name = name + ".jpg";
+				type=getType(name);
 			}
 
 			if (name.length() == 4 || name.equals(".tiff")) {
