@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class VintageFilter extends EditDecorator {
 	private Double noise = 0.0;
@@ -33,7 +34,6 @@ public class VintageFilter extends EditDecorator {
 	private Double noise(Double degree) {
 		// noise from 0.5 to 1
 		return ((degree - 1) / 99) * 0.5 + 0.5;
-		// return Math.random()*0.5 + 0.5;
 	}
 
 	private double colorBlend(double scale, double dest, double src) {
@@ -69,5 +69,6 @@ public class VintageFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
+		guiMain.writeLog("Vintage filter removed.");
 	}
 }

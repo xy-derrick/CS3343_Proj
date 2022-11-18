@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class Zoom extends EditDecorator {
 	private float targetWidth;
 
 	public Zoom(EditCommand wrappee, ArrayList<Object> args) throws ArgsInvalidException {
 		super(wrappee);
-		// TODO Auto-generated constructor stub
 		this.targetWidth = (Float) args.get(0);
 		if ((targetWidth > 10) || (targetWidth <= 0)) {
 			throw new ArgsInvalidException("TargetWidth must be (0,10].");
@@ -20,7 +20,6 @@ public class Zoom extends EditDecorator {
 
 	public Zoom(EditCommand wrappee, Float targetWidth) throws ArgsInvalidException {
 		super(wrappee);
-		// TODO Auto-generated constructor stub
 		this.targetWidth = targetWidth;
 		if ((targetWidth > 10) || (targetWidth <= 0)) {
 			throw new ArgsInvalidException("TargetWidth must be (0,10].");
@@ -32,10 +31,6 @@ public class Zoom extends EditDecorator {
 		super.wrappee.execute();
 		imgProcessor ip = super.wrappee.getIP();
 		BufferedImage img = ip.getImg();
-		// double resizeTimes = (double)targetWidth /(double) img.getWidth();
-		/* 调整后的图片的宽度和高度 - 按照压缩比例计算出新的宽度和高度 */
-		// int toWidth = (int) (img.getWidth() * resizeTimes);
-		// int toHeight = (int) (img.getHeight()* resizeTimes);
 		int toWidth = (int) (targetWidth * img.getWidth());
 		int toHeight = (int) (targetWidth * img.getHeight());
 		BufferedImage nimg;
@@ -48,7 +43,7 @@ public class Zoom extends EditDecorator {
 	public void undo() {
 		// TODO Auto-generated method stub
 		super.undo();
-		System.out.println("Zoom has been removed!");
+		guiMain.writeLog("Zoom recovered.");
 	}
 
 }

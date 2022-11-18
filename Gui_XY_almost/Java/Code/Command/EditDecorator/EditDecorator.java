@@ -2,9 +2,14 @@ package Java.Code.Command.EditDecorator;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.sql.SQLException;
+
 import Java.Code.Command.Base.Command;
 import Java.Code.Command.Base.CommandCancelable;
+import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class EditDecorator extends Command implements CommandCancelable {
 	protected Command wrappee;
@@ -23,10 +28,8 @@ public class EditDecorator extends Command implements CommandCancelable {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
 		imgProcessor ip = this.wrappee.getIP();
 		ip.setImg(this.imgcopy);
-		System.out.println("Filter has been removed!");
 	}
 
 	public static BufferedImage copyImage(BufferedImage source) {

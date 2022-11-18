@@ -500,7 +500,9 @@ public class guiMain extends JFrame {
 		exitMenuItem.setToolTipText("Exit the program");
 		exitMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				autoSave.onLogOutSuccessful(timer);
+				if (timer!=null) {
+					autoSave.onLogOutSuccessful(timer);
+				}
 				main_software.setCommand(new existSoftware(null));
 				main_software.execute();
 			}

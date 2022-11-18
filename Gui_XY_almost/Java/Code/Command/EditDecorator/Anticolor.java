@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class Anticolor extends EditDecorator {
 	public Anticolor(EditCommand wrappee) {
@@ -46,7 +47,6 @@ public class Anticolor extends EditDecorator {
 
 	@Override
 	public void execute() {
-		// super.wrappee.execute();
 		imgProcessor ip = super.wrappee.getIP();
 		BufferedImage img = ip.getImg();
 		ip.setImg(filter(img));
@@ -55,9 +55,8 @@ public class Anticolor extends EditDecorator {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
 		super.undo();
-		System.out.println("Anticolor has been removed!");
+		guiMain.writeLog("Anticolor filter removed.");
 	}
 
 }

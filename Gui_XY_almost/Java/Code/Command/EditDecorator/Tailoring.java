@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class Tailoring extends EditDecorator {
 	protected BufferedImage imgcopy;
@@ -52,8 +53,7 @@ public class Tailoring extends EditDecorator {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-
 		super.undo();
+		guiMain.writeLog("Tailoring recoverd.");
 	}
 }

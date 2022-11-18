@@ -9,6 +9,7 @@ import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class CombineFilter extends EditDecorator {
 	private BufferedImage _img_;
@@ -69,5 +70,6 @@ public class CombineFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
+		guiMain.writeLog("Combine filter removed.");
 	}
 }

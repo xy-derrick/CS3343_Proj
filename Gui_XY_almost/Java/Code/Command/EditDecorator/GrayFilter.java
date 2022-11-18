@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class GrayFilter extends EditDecorator {
 	private float[] radios = new float[] { 0.4f, 0.6f, 0.4f, 0.6f, 0.2f, 0.8f };
@@ -21,8 +22,8 @@ public class GrayFilter extends EditDecorator {
 		super.wrappee.execute();
 		imgProcessor ip = super.wrappee.getIP();
 		BufferedImage image = ip.getImg();
-		int width = image.getWidth(); // 获取位图的宽
-		int height = image.getHeight(); // 获取位图的高
+		int width = image.getWidth();
+		int height = image.getHeight();
 		int alpha = 0;
 		int r = 0;
 		int g = 0;
@@ -52,15 +53,15 @@ public class GrayFilter extends EditDecorator {
 					max = b;
 					radioMax = radios[4];
 				}
-				if (r <= g && r <= b) { // g+ b = cyan 青色
+				if (r <= g && r <= b) {
 					min = r;
 					radioMaxMid = radios[3];
 				}
-				if (b <= r && b <= g) {// r+g = yellow 黄色
+				if (b <= r && b <= g) {
 					min = b;
 					radioMaxMid = radios[1];
 				}
-				if (g <= r && g <= b) {// r+b = m 洋红
+				if (g <= r && g <= b) {
 					min = g;
 					radioMaxMid = radios[5];
 				}
@@ -76,5 +77,6 @@ public class GrayFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
+		guiMain.writeLog("Gray filter removed.");
 	}
 }

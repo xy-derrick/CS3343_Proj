@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class FlipVertical extends EditDecorator {
 	protected BufferedImage imgcopy;
@@ -20,7 +21,6 @@ public class FlipVertical extends EditDecorator {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		super.wrappee.execute();
 		imgProcessor ip = this.wrappee.getIP();
 		BufferedImage img = ip.getImg();
@@ -34,10 +34,8 @@ public class FlipVertical extends EditDecorator {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
 		super.undo();
-
-		System.out.println("Vertical flip has been removed!");
+		guiMain.writeLog("Filp vertically has been removed.");
 	}
 
 }

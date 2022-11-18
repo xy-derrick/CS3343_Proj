@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class MosaicFilter extends EditDecorator {
 	private int mosaicSize = 1;
@@ -47,5 +48,6 @@ public class MosaicFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
+		guiMain.writeLog("Mosaic filter removed.");
 	}
 }

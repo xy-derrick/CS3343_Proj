@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class PaintFilter extends EditDecorator {
 	Integer degree = 20;
@@ -46,7 +47,12 @@ public class PaintFilter extends EditDecorator {
 				img.setRGB(x, y, img.getRGB(x + a - sub, y + b - sub));
 			}
 		}
-		BufferedImage source = getImageFromFile("/extlib/border_source.jpg");
+		BufferedImage source=null;
+		try {
+			source = ImageIO.read(PaintFilter.class.getResourceAsStream("/extlib/border_source.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		source = CombineFilter.resizeImage(source, img.getWidth(), this.degree);
 		for (int j = 0; j < this.degree; j++) {
 			for (int i = j; i < img.getWidth() - j; i++) {
@@ -75,5 +81,6 @@ public class PaintFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
+		guiMain.writeLog("Paint filter removed.");
 	}
 }
