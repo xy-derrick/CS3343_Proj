@@ -8,7 +8,7 @@ import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 
-public class showImgInfo extends Command implements CommandCancelable {
+public class showImgInfo extends Command implements CommandCancelable,CommandNoncancelable_gui {
 
 	public showImgInfo(imgProcessor receiver) {
 		super(receiver);

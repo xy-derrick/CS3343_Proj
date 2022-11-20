@@ -8,6 +8,7 @@ import Java.Code.Command.Base.Command;
 import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.imgProcessor;
+import Java.Gui.guiMain;
 
 public class Software {
 	static private Software software = null;
@@ -37,13 +38,18 @@ public class Software {
 
 	public void execute() {
 		command.execute();
+		System.out.println(command.getClass().getName());
+		System.out.println(!(command instanceof CommandNoncancelable_gui)?"yes":"no");
 		if (!(command instanceof CommandNoncancelable_gui || command.getIP() instanceof notifyIP)) {
 			undoCommand.add(command);
+			System.out.println("hello");
+			System.out.println(undoCommand.size());
 			if (!redoCommand.isEmpty()) {
 				redoCommand.clear();
 			}
 		}
 	}
+	
 	public void execute_cmd() {
 		command.execute();
 		if ((command instanceof CommandCancelable && ! (command.getIP() instanceof notifyIP))) {
@@ -55,14 +61,20 @@ public class Software {
 	}
 
 	public void undo() {
-		if (!undoCommand.empty()) {
+//		for (var c:undoCommand) {
+//			System.out.println(c.getClass().getName());
+//			System.out.println(undoCommand.size());
+//		}
+//		System.out.println((!(undoCommand.size()==0)));
+		if (!(undoCommand.size()==0)) {
+//			System.out.println("ckynb");
 			Command toUndoCommand = undoCommand.pop();
-			if (toUndoCommand instanceof  CommandCancelable ) {
-				undo();
-			} else {
-				//toUndoCommand.undo();
+//			if (toUndoCommand instanceof  CommandCancelable ) {
+//				undo();
+//			} else {
+				((CommandCancelable) toUndoCommand).undo();
 				redoCommand.add(toUndoCommand);
-			}
+//			}
 		} else {
 			System.out.println("nothing to undo !");
 		}

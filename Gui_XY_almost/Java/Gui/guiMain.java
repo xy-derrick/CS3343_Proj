@@ -122,11 +122,15 @@ public class guiMain extends JFrame {
 	private void init(int loginRes) throws ArgsInvalidException {
 		TitledBorder border = new TitledBorder("Console");
 		border.setBorder(new LineBorder(Color.black));
-		Info.setBorder(border);
-		Info.setBounds(1550, 0, 350, 790);
-		Info.setLineWrap(true);
-		this.add(Info);
-
+		JScrollPane conText = new JScrollPane(Info);
+//		Info.setBorder(border);
+//		Info.setBounds(1550, 0, 350, 790);
+//		Info.setLineWrap(true);
+		conText.setBorder(border);
+		conText.setBounds(1550, 0, 350, 790);
+		//conText.setLineWrap(true);
+		//this.add(Info);
+		this.add(conText);
 		this.setLayout(null);
 		btnCombine.setPreferredSize(new Dimension(100, 50));
 		btnGray.setPreferredSize(new Dimension(100, 50));
@@ -305,7 +309,7 @@ public class guiMain extends JFrame {
 			Integer percent = getMoveCount(0, 100, "Target percent");
 			try {
 				main_software
-						.setCommand(new Zoom(new EditCommand(Software.getInstance().getMain_ip()), (percent / 10f)));
+						.setCommand(new Zoom(new EditCommand(Software.getInstance().getMain_ip()), (percent / 50f)));
 				main_software.execute();
 				updatePane();
 				writeLog("Zoom done");
@@ -638,7 +642,7 @@ public class guiMain extends JFrame {
 		JList list = new JList();
 		list.setSelectionMode(DefaultListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		String[] commandlist = new String[] { "Gray", "Vintage", "Border", "Paint", "Mosaic", "FlipHorizontal",
-				"FlipVertical", "Zoom", "Tailor", "Rotate90L", "Rotate90R", "Rotate180", "Rotate90R", "AntiColor",
+				"FlipVertical", "Zoom", "Tailor", "Rotate90L", "Rotate90R", "Rotate180",  "AntiColor",
 				"jpgTransfer", "pngTransfer", "gifTransfer", "bmpTransfer", "tiffTransfer", "imagCompress",
 				"localSave" };
 		list.setListData(commandlist);
@@ -662,7 +666,7 @@ public class guiMain extends JFrame {
 		JList chooser = createListFromInit();
 		JScrollPane chooserPanel = new JScrollPane(chooser);
 		String[] commandlist = new String[] { "Gray", "Vintage", "Border", "Paint", "Mosaic", "FlipHorizontal",
-				"FlipVertical", "Zoom", "Tailor", "Rotate90L", "Rotate90R", "Rotate180", "Rotate90R", "AntiColor",
+				"FlipVertical", "Zoom", "Tailor", "Rotate90L", "Rotate90R", "Rotate180", "AntiColor",
 				"jpgTransfer", "pngTransfer", "gifTransfer", "bmpTransfer", "tiffTransfer", "imagCompress",
 				"localSave" };
 		int dialogResponse = JOptionPane.showOptionDialog(this, chooserPanel, title, JOptionPane.OK_CANCEL_OPTION,

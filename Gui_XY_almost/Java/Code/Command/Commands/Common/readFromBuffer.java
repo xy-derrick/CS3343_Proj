@@ -12,7 +12,7 @@ import Java.Code.Software.imgProcessor;
 import Java.Code.Software.Software;
 import Java.Code.Software.ipState;
 
-public class readFromBuffer extends Command implements CommandCancelable {
+public class readFromBuffer extends Command implements CommandCancelable,CommandNoncancelable_gui {
 	String text = null;
 	String name = null;
 	BufferedImage img = null;

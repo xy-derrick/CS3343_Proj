@@ -13,7 +13,7 @@ public class Zoom extends EditDecorator {
 	public Zoom(EditCommand wrappee, ArrayList<Object> args) throws ArgsInvalidException {
 		super(wrappee);
 		this.targetWidth = (Float) args.get(0);
-		if ((targetWidth > 10) || (targetWidth <= 0)) {
+		if ((targetWidth > 2) || (targetWidth <= 0)) {
 			throw new ArgsInvalidException("TargetWidth must be (0,10].");
 		}
 	}
@@ -21,7 +21,7 @@ public class Zoom extends EditDecorator {
 	public Zoom(EditCommand wrappee, Float targetWidth) throws ArgsInvalidException {
 		super(wrappee);
 		this.targetWidth = targetWidth;
-		if ((targetWidth > 10) || (targetWidth <= 0)) {
+		if ((targetWidth > 2) || (targetWidth <= 0)) {
 			throw new ArgsInvalidException("TargetWidth must be (0,10].");
 		}
 	}

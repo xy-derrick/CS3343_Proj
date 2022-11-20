@@ -16,27 +16,25 @@ public class JDBCUtils {
 	static {
 		try {
 			// 1.Create the Properties collection class
-			Properties pro = new Properties();
-			// Get the file ————>ClassLoader in the SRC path
-			ClassLoader classLoader = JDBCUtils.class.getClassLoader();
-			URL res = classLoader.getResource("jdbc.properties");
-			String path = res.getPath();
-			System.out.println(path);
-
-			// 2.Load file
-			pro.load(new FileReader(path));
+//			Properties pro = new Properties();
+//			// Get the file ————>ClassLoader in the SRC path
+//			ClassLoader classLoader = JDBCUtils.class.getClassLoader();
+//			URL res = classLoader.getResource("/extlib/jdbc.properties");
+//			String path = res.getPath();
+//			System.out.println(path);
+//
+//			// 2.Load file
+//			pro.load(new FileReader(path));
 
 			// 3.Get data and assign values
-			url = pro.getProperty("url");
-			user = pro.getProperty("user");
-			psssword = pro.getProperty("password");
-			driver = pro.getProperty("driver");
+			url = "jdbc:mysql://localhost:3306/dm";
+			user = "root";
+			psssword = "crazy123";
+			driver = "com.mysql.cj.jdbc.Driver";
 
 			// 4.Registration drive
 			Class.forName(driver);
 
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}

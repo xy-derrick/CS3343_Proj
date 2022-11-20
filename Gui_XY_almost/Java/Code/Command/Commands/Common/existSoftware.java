@@ -6,7 +6,7 @@ import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.imgProcessor;
 
-public class existSoftware extends Command implements CommandCancelable  {
+public class existSoftware extends Command implements CommandCancelable,CommandNoncancelable_gui  {
 
 	public existSoftware(imgProcessor receiver) {
 		super(receiver);

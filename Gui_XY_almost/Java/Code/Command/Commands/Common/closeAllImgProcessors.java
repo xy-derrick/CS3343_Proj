@@ -8,7 +8,7 @@ import Java.Code.Software.Software;
 import Java.Code.Software.imgProcessor;
 import Java.Code.Software.ipState;
 
-public class closeAllImgProcessors extends Command implements CommandCancelable {
+public class closeAllImgProcessors extends Command implements CommandCancelable,CommandNoncancelable_gui {
 	ArrayList<imgProcessor> ipList = null;
 	ipState state_last = null;
 	ipState state_curr = null;

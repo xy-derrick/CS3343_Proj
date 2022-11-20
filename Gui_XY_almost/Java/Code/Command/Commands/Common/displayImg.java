@@ -14,7 +14,7 @@ import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Command.Base.CommandNoncancelable_gui;
 import Java.Code.Software.imgProcessor;
 
-public class displayImg extends Command implements CommandCancelable {
+public class displayImg extends Command implements CommandCancelable,CommandNoncancelable_gui {
 	MyFrame frame = null;
 
 	public displayImg(imgProcessor receiver) {
