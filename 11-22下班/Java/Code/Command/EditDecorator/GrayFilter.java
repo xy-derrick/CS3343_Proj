@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
-import Java.Gui.guiMain;
+//import Java.Gui.guiMain;
 
 public class GrayFilter extends EditDecorator {
 	private float[] radios = new float[] { 0.4f, 0.6f, 0.4f, 0.6f, 0.2f, 0.8f };
@@ -77,6 +77,6 @@ public class GrayFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
-		guiMain.writeLog("Gray filter removed.");
+//		guiMain.writeLog("Gray filter removed.");
 	}
 }

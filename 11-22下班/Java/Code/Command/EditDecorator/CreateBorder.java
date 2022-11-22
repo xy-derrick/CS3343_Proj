@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
-import Java.Gui.guiMain;
+//import Java.Gui.guiMain;
 import Java.Code.Command.EditDecorator.CombineFilter;
 import Java.Code.Software.Software;
 
@@ -99,6 +99,6 @@ public class CreateBorder extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
-		guiMain.writeLog("Border removed.");
+//		guiMain.writeLog("Border removed.");
 	}
 }

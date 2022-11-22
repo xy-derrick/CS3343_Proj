@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import Java.Code.Exception.nameNotFoundException;
-import Java.Gui.guiMain;;
+//import Java.Gui.guiMain;;
 
 public class localSave extends Command implements CommandCancelable  {
 	private String path;
@@ -39,10 +39,10 @@ public class localSave extends Command implements CommandCancelable  {
 			// 得到原始文件名
 			String localPath = iProcessor.getPath();
 
-			if (localPath.isEmpty()) {
-				guiMain.writeLog("Cloud data does not have local path!\n");
-				return;
-			}
+//			if (localPath.isEmpty()) {
+//				guiMain.writeLog("Cloud data does not have local path!\n");
+//				return;
+//			}
 			String name = getName(localPath);
 			int seq = zipSeq.getInstance().getSeq();
 

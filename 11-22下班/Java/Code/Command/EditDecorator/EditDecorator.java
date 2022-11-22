@@ -9,7 +9,7 @@ import Java.Code.Command.Base.Command;
 import Java.Code.Command.Base.CommandCancelable;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
-import Java.Gui.guiMain;
+//import Java.Gui.guiMain;
 
 public class EditDecorator extends Command implements CommandCancelable {
 	protected Command wrappee;

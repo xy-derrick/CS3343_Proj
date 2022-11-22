@@ -87,6 +87,7 @@ public class Software {
 	}
 
 	public void addImgProcessor(imgProcessor ip) {
+		if(imgProcessorList==null) imgProcessorList=new ArrayList<>();
 		imgProcessorList.add(ip);
 	}
 

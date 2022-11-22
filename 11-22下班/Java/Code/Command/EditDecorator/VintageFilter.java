@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
-import Java.Gui.guiMain;
+//import Java.Gui.guiMain;
 
 public class VintageFilter extends EditDecorator {
 	private Double noise = 0.0;
@@ -69,6 +69,6 @@ public class VintageFilter extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
-		guiMain.writeLog("Vintage filter removed.");
+//		guiMain.writeLog("Vintage filter removed.");
 	}
 }

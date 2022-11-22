@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Software.imgProcessor;
-import Java.Gui.guiMain;
+//import Java.Gui.guiMain;
 
 public class Rotate90DegreesCounterclockwise extends EditDecorator {
 	protected BufferedImage imgcopy;
@@ -35,6 +35,6 @@ public class Rotate90DegreesCounterclockwise extends EditDecorator {
 	@Override
 	public void undo() {
 		super.undo();
-		guiMain.writeLog("90 degree counter clock wise rotation removed.");
+//		guiMain.writeLog("90 degree counter clock wise rotation removed.");
 	}
 }

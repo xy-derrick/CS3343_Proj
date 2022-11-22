@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Java.Code.Command.Commands.EditCommand;
 import Java.Code.Exception.ArgsInvalidException;
 import Java.Code.Software.imgProcessor;
-import Java.Gui.guiMain;
+//import Java.Gui.guiMain;
 
 public class Zoom extends EditDecorator {
 	private float targetWidth;
@@ -43,7 +43,7 @@ public class Zoom extends EditDecorator {
 	public void undo() {
 		// TODO Auto-generated method stub
 		super.undo();
-		guiMain.writeLog("Zoom recovered.");
+//		guiMain.writeLog("Zoom recovered.");
 	}
 
 }
