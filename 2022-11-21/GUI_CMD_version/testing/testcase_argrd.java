@@ -65,9 +65,9 @@ public class testcase_argrd {
 		String input = "1.0";
 	    System.setIn(new ByteArrayInputStream(input.getBytes()));
 	    ArrayList<Object>args_object = ArgsReader.getInstance().read(commond_name, false, 0, null);
-	    System.out.println("-----------------------");
-	    System.out.println(args_object);
-	    assertEquals(args_object.get(0),1.0);
+	    System.out.println("-----------------------1.0");
+	    System.out.println(args_object.get(0));
+	    assertEquals(args_object.get(0),"1.0");
 	}
 	
 	@Test
@@ -102,9 +102,9 @@ public class testcase_argrd {
 	    String input = "true";
 	    System.setIn(new ByteArrayInputStream(input.getBytes()));
 	    ArrayList<Object>args_object = ArgsReader.getInstance().read(commond_name, false, 0, null);
-	    System.out.println("-----------------------");
+	    System.out.println("-----------------------true");
 	    System.out.println(args_object);
-	    assertEquals(args_object.get(0),true);
+	    assertEquals(args_object.get(0),"true");
 	}
 	
 	@Test
