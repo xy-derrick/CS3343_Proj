@@ -1,10 +1,7 @@
-str = "abb"
+str = "bbbcc"
 c = [[0 for i in range(20)] for j in range(20)]
 b = [[0 for i in range(20)] for j in range(20)]
 m = len(str)
-# for i in range(0, m):
-#     c[i][0] = 0
-#     c[0][i] = 0
 for i in range(1, m+1):
     for j in range(1, m+1):
         if str[i-1] == str[m - j]:
@@ -37,12 +34,17 @@ while i > 0 and j > 0:
 print(index)
 print(c[m][m])
 print(m-c[m][m])
+
 mid = index[int(c[m][m]/2)]
-print(mid)
-length = max(mid, m-mid)
-print(length)
-half = str[mid+1:][::-1]
-print(half)
-res = half+str[mid:]
-print("res: "+res)
-print(len(res))
+print(f"mid: {mid}")
+if mid < m/2:
+    half = str[mid+1:][::-1]
+    print(f"half: {half}")
+    res = half+str[mid:]
+    print("res: "+res)
+else:
+    half = str[:mid]
+    print(f"half: {half}")
+    res = str[:mid]+half[::-1]
+    print("res: "+res)
+
