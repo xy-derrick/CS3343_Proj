@@ -1,14 +1,13 @@
-str = "ckyyynbbbbb"
-c = [[0] * 30] * 30
-b = [[0] * 30] * 30
+str = "abb"
+c = [[0 for i in range(20)] for j in range(20)]
+b = [[0 for i in range(20)] for j in range(20)]
 m = len(str)
-for i in range(1, m):
-    c[i][0] = 0
-for j in range(0, m):
-    c[0][j] = 0
-for i in range(0, m):
-    for j in range(0, m):
-        if str[i] == str[m - j - 1]:
+# for i in range(0, m):
+#     c[i][0] = 0
+#     c[0][i] = 0
+for i in range(1, m+1):
+    for j in range(1, m+1):
+        if str[i-1] == str[m - j]:
             c[i][j] = c[i - 1][j - 1] + 1
             b[i][j] = 1
         elif c[i - 1][j] >= c[i][j - 1]:
@@ -18,20 +17,32 @@ for i in range(0, m):
             c[i][j] = c[i][j - 1]
             b[i][j] = 3
 
-i = m - 1
-j = m - 1
-while i > 0 or j > 0:
-    if i == 0:
-        break
+i = m
+j = m
+lcs = ""
+index = []
+rev_index = []
+while i > 0 and j > 0:
     if b[i][j] == 1:
         i = i - 1
         j = j - 1
-        print(str[i])
+        lcs += str[i]
+        index.insert(0, i)
     elif b[i][j] == 2:
         i = i - 1
     elif b[i][j] == 3:
         j = j - 1
 
-# print(c[i][j])
-# print(m - c[i][j])
-# print(str + str[:m - c[i][j]][::-1])
+
+print(index)
+print(c[m][m])
+print(m-c[m][m])
+mid = index[int(c[m][m]/2)]
+print(mid)
+length = max(mid, m-mid)
+print(length)
+half = str[mid+1:][::-1]
+print(half)
+res = half+str[mid:]
+print("res: "+res)
+print(len(res))
