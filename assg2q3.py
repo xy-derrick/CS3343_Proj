@@ -30,10 +30,7 @@ while i > 0 and j > 0:
     elif b[i][j] == 3:
         j = j - 1
 
-
-print(index)
-print(c[m][m])
-print(m-c[m][m])
+print(f"MIN INSERT: {m-c[m][m]}")
 
 mid = index[int(c[m][m]/2)]
 print(f"mid: {mid}")
@@ -41,10 +38,8 @@ if mid < m/2:
     half = str[mid+1:][::-1]
     print(f"half: {half}")
     res = half+str[mid:]
-    print("res: "+res)
 else:
-    half = str[:mid]
+    half = str[:mid][::-1]
     print(f"half: {half}")
-    res = str[:mid]+half[::-1]
-    print("res: "+res)
-
+    res = str[:mid]+half
+print(f"res: {res}")
